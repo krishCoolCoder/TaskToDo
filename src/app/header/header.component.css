@@ -1,4 +1,95 @@
-.header{
-    height : 50px;
+.header {
+    height: 50px;
     /* background-color: red; */
+    display: flex;
+    /* justify-content: space-around; */
+    /* align-items: center; */
+}
+
+.title{
+    height : 100px;
+    display: flex;
+    margin-left: 55px;
+    margin-top: 20px;
+}
+
+.title div svg {
+    margin-right: 10px;
+}
+
+div p{
+    font-size: 15px;
+    margin-left: 20px;
+}
+.hamburger {
+    display: none;
+}
+.links {
+    display: flex;
+    position: absolute;
+    right: 0px;
+    margin-right: 20px;
+}
+
+a {
+    margin-right: 20px;
+    margin-left: 20px;
+    color: black;
+    text-decoration: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .hamburger {
+        display: block;
+        position: absolute;
+        right: 0px;
+        margin-right: 20px;
+        margin-top: -5px;
+    }
+    
+    .a {
+        margin-left: 20px;
+    }
+    
+    .links {
+        display: none;
+        margin-right: 20px;
+        margin-top: 100px;
+    }
+    .hamburger:hover ~ .links {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        background-color: white;
+        border-style: solid;
+        border-color: white;
+        box-shadow: 1px 1px 10px 1px #4fa4ff;
+        height: 150px;
+        width: 150px;
+    margin-top: 40px;
+    border-radius: 20px;
+}
+
+.links:hover {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    width: 150px;
+    background-color: white;
+    border-style: solid;
+    border-color: white;
+     box-shadow: 1px 1px 10px 1px #4fa4ff;
+    margin-top: 40px;
+    border-radius: 20px;
+}
+
+a {
+    color: black;
+    margin: 13px;
+    text-decoration: none;
+}
+    
 }

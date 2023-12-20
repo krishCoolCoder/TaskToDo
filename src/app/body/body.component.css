@@ -5,3 +5,13 @@
     margin-left: 55px;
     margin-top: 80px
 }
+
+a {margin-right: 30px;}
+
+button a{
+    margin-left: 25px;
+}
+
+button:hover ~ a{
+    color : white;
+}

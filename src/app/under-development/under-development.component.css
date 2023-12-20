@@ -1,0 +1,13 @@
+.companyBased p{
+    font-size: 30px;
+    font-weight: 20px;
+    margin-top: 200px;
+}
+
+.freelancingExperience {
+    margin-bottom: 200px;
+}
+
+div {
+    z-index: -1;
+}

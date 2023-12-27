@@ -18,5 +18,10 @@ export class BodyComponent {
   // so that the HeroList component can select that item.
     this.router.navigate(['/signIn'], { relativeTo: this.route });
   }
+  goToTask() {
+    // Pass along the hero id if available
+  // so that the HeroList component can select that item.
+    this.router.navigate(['/taskList'], { relativeTo: this.route });
+  }
   
 }

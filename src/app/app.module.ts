@@ -10,6 +10,9 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { UnderDevelopmentComponent } from './under-development/under-development.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { TaskComponentComponent } from './task-component/task-component.component';
+import { TaskListComponent } from './task-list/task-list.component';
+import { SidebarMenuComponent } from './sidebar-menu/sidebar-menu.component';
+import { TasksComponent } from './tasks/tasks.component';
 
 const routeConfig: Routes = [
   {
@@ -35,6 +38,10 @@ const routeConfig: Routes = [
   {
     path: "tasks",
     component: TaskComponentComponent,
+  },
+  {
+    path: "taskList",
+    component: TasksComponent,
   }
 ];
 
@@ -46,7 +53,10 @@ const routeConfig: Routes = [
     HomePageComponent,
     UnderDevelopmentComponent,
     SignInComponent,
-    TaskComponentComponent
+    TaskComponentComponent,
+    TaskListComponent,
+    SidebarMenuComponent,
+    TasksComponent
   ],
   imports: [
     BrowserModule,

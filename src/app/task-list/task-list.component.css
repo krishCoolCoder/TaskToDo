@@ -1,0 +1,16 @@
+.taskContainer {
+    /* height: 200px; */
+    height: 90vh;
+    /* width: 200px; */
+    background-color: green;
+    /* max-width: 1335px;
+    min-width: 150px; */
+    /* position: relative; */
+    margin-left: 110px;
+    margin-right: 40px;
+    margin-top: 20px;
+    z-index: 1;
+
+    /* margin-right: 500px;    */
+    border-radius: 10px; 
+}

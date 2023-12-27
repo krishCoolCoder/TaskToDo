@@ -1,0 +1,71 @@
+.sidebar {
+    /* height: 700px; */
+    height: 90vh;
+    width : 50px;
+    background-color: red;
+    position: absolute;
+    z-index: 2;
+    margin-left: 45px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    /* margin-left: 1px; */
+    transition: 0.3s;
+}
+.sidebar:hover {
+    width: 180px;
+}
+.sidebar:hover  .logout p{
+    /* display: block; */
+    visibility: visible;
+    opacity: 1;
+    transition: 0.6s;
+}
+.sidebar:hover  .item p{
+    visibility: visible;
+    opacity: 1;
+    transition: 0.6s;
+    /* display: block; */
+}
+.taskContainer {
+    height: 200px;
+    /* width: 200px; */
+    background-color: green;
+    /* max-width: 1335px;
+    min-width: 150px; */
+    /* position: relative; */
+    margin-left: 110px;
+    margin-right: 40px;
+    margin-top: 20px;
+    z-index: 1;
+
+    /* margin-right: 500px;    */
+    border-radius: 10px; 
+}
+.logout{
+    /* margin-bottom: 20px; */
+    position: absolute;
+    bottom: 0px;
+}
+.logout p{
+    /* display: none; */
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.3s, opacity 0.3s;
+}
+.item p{
+    margin-left: 100px;
+    margin-top: 20px;
+    color: black;
+    /* display: none; */
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.3s, opacity 0.3s;
+}
+.item {
+    height: 50px;
+}
+a{
+    text-decoration: none;
+    color: black;
+}

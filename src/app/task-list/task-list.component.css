@@ -2,7 +2,7 @@
     /* height: 200px; */
     height: 90vh;
     /* width: 200px; */
-    background-color: green;
+    background-color: #FFFFFF;
     /* max-width: 1335px;
     min-width: 150px; */
     /* position: relative; */
@@ -13,4 +13,7 @@
 
     /* margin-right: 500px;    */
     border-radius: 10px; 
+    border-color: #A1F7FF;
+    /* border: 10px; */
+    border: 3px solid #E5FDFF;
 }

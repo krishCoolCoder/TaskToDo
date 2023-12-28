@@ -13,6 +13,10 @@ import { TaskComponentComponent } from './task-component/task-component.componen
 import { TaskListComponent } from './task-list/task-list.component';
 import { SidebarMenuComponent } from './sidebar-menu/sidebar-menu.component';
 import { TasksComponent } from './tasks/tasks.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { RequestComponent } from './request/request.component';
+import { QueriesComponent } from './queries/queries.component';
+import { PerformanceComponent } from './performance/performance.component';
 
 const routeConfig: Routes = [
   {
@@ -42,6 +46,22 @@ const routeConfig: Routes = [
   {
     path: "taskList",
     component: TasksComponent,
+  },
+  {
+    path: "dashboard",
+    component: DashboardComponent,
+  },
+  {
+    path: "request",
+    component: RequestComponent,
+  },
+  {
+    path: "queries",
+    component: QueriesComponent,
+  },
+  {
+    path: "performance",
+    component: QueriesComponent,
   }
 ];
 
@@ -56,7 +76,11 @@ const routeConfig: Routes = [
     TaskComponentComponent,
     TaskListComponent,
     SidebarMenuComponent,
-    TasksComponent
+    TasksComponent,
+    DashboardComponent,
+    RequestComponent,
+    QueriesComponent,
+    PerformanceComponent
   ],
   imports: [
     BrowserModule,

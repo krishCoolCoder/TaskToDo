@@ -1,0 +1,41 @@
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Create Task</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Task Title :</label>
+                  <input type="text" class="form-control" id="recipient-name" (input)="formTitle($event)">
+                </div>
+                <label for="recipient-name" class="col-form-label">Task Status :</label>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      {{(status == "" ? "Status" : status)}}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <p class="dropdown-item" (click)="updateStatus($event)" >Created</p>
+                      <p class="dropdown-item" (click)="updateStatus($event)" >Assigned</p>
+                      <p class="dropdown-item" (click)="updateStatus($event)" >In prgress</p>
+                      <p class="dropdown-item" (click)="updateStatus($event)" >Pending</p>
+                      <p class="dropdown-item" (click)="updateStatus($event)" >Completed</p>
+                    </div>
+                  </div>
+                <div class="form-group">
+                  <label for="message-text" class="col-form-label">Task Description :</label>
+                  <textarea class="form-control" id="message-text" (input)="formDescription($event)"></textarea>
+                </div>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="giveInputValue()">Save Task</button>
+        </div>
+      </div>
+    </div>
+  </div>

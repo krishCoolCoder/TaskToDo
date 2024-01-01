@@ -1,0 +1,58 @@
+import { Component, EventEmitter, Output } from '@angular/core';
+
+@Component({
+  selector: 'app-add-task-model',
+  templateUrl: './add-task-model.component.html',
+  styleUrls: ['./add-task-model.component.css']
+})
+export class AddTaskModelComponent {
+  @Output()
+  inputValue : any = new EventEmitter<string>();
+
+  // task : any = {
+  //   taskNo : 0,
+  //   title : "",
+  //   description : ""
+  // }
+
+  taskNo : any = 0;
+  title: string = "";
+  description : string = "";
+  status ?: string | undefined | null = '';
+
+  // ngOnInit() : void {
+  //   this.task = {
+  //     taskNo: 0,
+  //     title: "",
+  //     description: ""
+  //   }
+  // }
+
+  formTitle(event: any) : any {
+    this.title = event?.target.value;
+  }
+  formDescription(event: any) : any {
+    this.description = event?.target.value;
+  }
+
+  updateStatus(value: any): any {
+    console.log("The value is this : ", value.target  as HTMLParagraphElement);
+    let data =  value.target  as HTMLParagraphElement;
+    this.status = data.textContent;
+    console.log("The vlue isss : ", this.status, " and the data is this : ", data)
+  }
+
+  giveInputValue() : any {
+    this.taskNo = Math.floor(Math.random() * 9000) + 1000;
+    this.inputValue.emit({
+      taskNo : this.taskNo,
+      title: this.title,
+      description : this.description,
+      status : this.status
+    });
+    this.description="";
+    this.title="";
+    this.taskNo=0;
+  }
+
+}

@@ -16,13 +16,20 @@
     border-color: #A1F7FF;
     /* border: 10px; */
     border: 3px solid #E5FDFF;
+
+    padding-left: -100px;
+
+    position: relative;
 }
 
 .container {
     height: 500px;
     /* background-color: red; */
-    margin-left: 0;
-    position: relative;
+    /* margin-left: 0;
+    margin-right: 0; */
+    position: absolute;
+    left: 0px;
+    right: 0px;
 }
 
 .list {
@@ -37,7 +44,7 @@
     left: 15px;
     right: 15px;
 
-    overflow-x: scroll;
+    /* overflow-x: scroll; */
 }
 
 .list::-webkit-scrollbar { width: 0 !important }
@@ -48,7 +55,7 @@
 
 .table {
     /* height: 400px; */
-    width: 1215px;
+    /* width: 1215px; */
     /* width: auto; */
     /* background-color: grey; */
 }
@@ -67,4 +74,59 @@
     border-radius: 20px;
     padding: 5px 15px;
 
+}
+
+.filters {
+    /* background-color: green; */
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+button {
+    height: 40px;
+    border-radius: 20px;
+}
+
+.taskItems {
+    position: absolute;
+    left: 0px;
+    right : 0px;
+    height: 200px;
+    /* background-color: red; */
+}
+.taskItem{
+    height: 40px;
+    /* background-color: green; */
+    border-width: 0.2px; 
+    border-color: #000000;
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-right-style: solid;
+    border-left-style: solid;
+}
+.text-start{
+    background-color: yellow;
+}
+.taskItem:first-child {
+    border-width: 0.2px; 
+    border-radius: 10px 10px 0px 0px;
+    border-color: #000000;
+    border-top-style: solid;
+  border-right-style: solid;
+  border-left-style: solid;
+}
+.taskItem:last-child {
+    border-width: 0.2px; 
+    border-radius: 0px 0px 10px 10px;
+    border-color: #000000;
+    border-bottom-style: solid;
+  border-right-style: solid;
+  border-left-style: solid;
+}
+.taskItem:only-child {
+    border-width: 0.2px; 
+    border-radius: 10px;
+    border-color: #000000;
+    border-style: solid;
 }

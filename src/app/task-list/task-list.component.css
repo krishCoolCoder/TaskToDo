@@ -13,7 +13,6 @@
     bottom : 18px;
     overflow-y: scroll;
     box-shadow: 0 0 3px 20px rgba(255, 255, 255, 0.3) inset; 
-    z-index: 6;
 }
 .taskContainer::-webkit-scrollbar { width: 0 !important }
 

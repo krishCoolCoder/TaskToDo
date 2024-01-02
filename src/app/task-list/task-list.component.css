@@ -1,42 +1,48 @@
 .taskContainer {
-    /* height: 200px; */
-    height: 90vh;
-    /* width: 200px; */
+    /* height: 82vh; */
+    height : auto;
     background-color: #FFFFFF;
-    /* max-width: 1335px;
-    min-width: 150px; */
-    /* position: relative; */
     margin-left: 110px;
-    margin-right: 40px;
-    margin-top: 20px;
     z-index: 1;
-
-    /* margin-right: 500px;    */
-    border-radius: 10px; 
     border-color: #A1F7FF;
-    /* border: 10px; */
-    border: 3px solid #E5FDFF;
-
-    padding-left: -100px;
-
-    position: relative;
+    border: 3px solid #E5FDFF; 
+    position: absolute;
+    right : 0px;
+    left: 10px;
+    top : 50px;
+    bottom : 18px;
+    overflow-y: scroll;
+    box-shadow: 0 0 3px 20px rgba(255, 255, 255, 0.3) inset; 
+    z-index: 6;
 }
+.taskContainer::-webkit-scrollbar { width: 0 !important }
 
 .container {
-    height: 500px;
-    /* background-color: red; */
-    /* margin-left: 0;
-    margin-right: 0; */
+    
+    
+    border-radius: 10px; 
+    border-color: #A1F7FF;
+    
+    border: 3px solid #E5FDFF;
+    
+    margin-right: 0; 
     position: absolute;
-    left: 0px;
-    right: 0px;
+    top: 0px;
+    bottom : 0px;
+    right : 0;
+    left : 0px;
+    margin-left: 10px;
+
+    overflow-y: scroll;
 }
 
+.container::-webkit-scrollbar { width: 0 !important }
+
 .list {
-    /* height: 300px; */
-    /* width: 1250px; */
-    /* margin-right: 100px; */
-    /* background-color: green; */
+    
+    
+    
+    
     border-radius: 10px;
 
     position: absolute;
@@ -44,7 +50,7 @@
     left: 15px;
     right: 15px;
 
-    /* overflow-x: scroll; */
+    
 }
 
 .list::-webkit-scrollbar { width: 0 !important }
@@ -54,13 +60,13 @@
 }
 
 .table {
-    /* height: 400px; */
-    /* width: 1215px; */
-    /* width: auto; */
-    /* background-color: grey; */
+    
+    
+    
+    
 }
 
-/* for drop down design */
+
 .btn-secondary:not(:disabled):not(.disabled).active, .btn-secondary:not(:disabled):not(.disabled):active, .show>.btn-secondary.dropdown-toggle {
     color: black;
     background-color: #EDEDED;
@@ -77,13 +83,21 @@
 }
 
 .filters {
-    /* background-color: green; */
-    position: absolute;
-    left: 0;
-    right: 0;
+    background-color: #FFFFFF;
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    box-shadow: 0 0 20px 20px #FFFFFF; 
+    /* left: 0;
+    right: 0; */
+}
+
+.filters button {
+    
 }
 
 button {
+    /* margin-top: 100px; */
     height: 40px;
     border-radius: 20px;
 }
@@ -93,26 +107,26 @@ button {
     left: 0px;
     right : 0px;
     height: 200px;
-    /* background-color: red; */
+    
 }
 .taskItem{
     height: 40px;
-    /* background-color: green; */
+    
     border-width: 0.2px; 
     border-color: #000000;
     border-top-style: solid;
-    border-bottom-style: solid;
     border-right-style: solid;
     border-left-style: solid;
 }
 .text-start{
-    background-color: yellow;
+    
 }
 .taskItem:first-child {
     border-width: 0.2px; 
     border-radius: 10px 10px 0px 0px;
     border-color: #000000;
     border-top-style: solid;
+    border-bottom-style: none;
   border-right-style: solid;
   border-left-style: solid;
 }

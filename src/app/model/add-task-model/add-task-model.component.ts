@@ -48,7 +48,7 @@ export class AddTaskModelComponent {
       taskNo : this.taskNo,
       title: this.title,
       description : this.description,
-      status : this.status
+      status : this.status == '' ? "Created" : this.status 
     });
     this.description="";
     this.title="";

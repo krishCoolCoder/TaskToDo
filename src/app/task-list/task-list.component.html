@@ -2,112 +2,57 @@
 <app-sidebar-menu></app-sidebar-menu> -->
 <app-add-task-model (inputValue)="getInputValue($event)"></app-add-task-model>
 <div class="taskContainer">
-    <div class="container d-flex justify-content-start align-items-start flex-column mt-4">
-        <div class="filters d-flex bd-highlight mb-3">
-            <!-- <div class="createTask p-2 bd-highlight"> -->
-                <button type="button" class="btn btn-dark mr-auto mt-1 ml-2 bd-highlight" data-toggle="modal" data-target="#exampleModalCenter">Add Task</button>
-            <!-- </div> -->
-            <!-- <div class="filterOptions d-flex flex-row-reverse bd-highlight  ml-3 mt-2 mb-2"> -->
-
-                <div class="dropdown show mr-3 p-2 bd-highlight">
-                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="mr-2">
-                            <svg width="18" height="18" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5.64535 11.896L4.33239 12.3333V6.66667L1.34657 3.38133C1.1236 3.13595 1.00004 2.81626 1 2.48467V1H11.6636V2.448C11.6636 2.80159 11.5231 3.14068 11.2731 3.39067L8.33125 6.33333V7.33333M10.6106 8.74C10.7406 8.60999 10.8949 8.50686 11.0647 8.4365C11.2345 8.36614 11.4165 8.32993 11.6003 8.32993C11.7841 8.32993 11.9661 8.36614 12.136 8.4365C12.3058 8.50686 12.4601 8.60999 12.59 8.74C12.72 8.87001 12.8231 9.02435 12.8935 9.19422C12.9638 9.36408 13 9.54614 13 9.73C13 9.91386 12.9638 10.0959 12.8935 10.2658C12.8231 10.4356 12.72 10.59 12.59 10.72L10.3307 13H8.33125V11L10.6106 8.74Z" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>                            
-                        </span>Filter
-                    </a>
-                    
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
+    <div class="filters d-flex bd-highlight ">
+            <button type="button" class="btn btn-dark mr-auto mt-2 ml-2 bd-highlight" data-toggle="modal" data-target="#exampleModalCenter">Add Task</button>
+            <div class="dropdown show mr-3 p-2 bd-highlight">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="mr-2">
+                        <svg width="18" height="18" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5.64535 11.896L4.33239 12.3333V6.66667L1.34657 3.38133C1.1236 3.13595 1.00004 2.81626 1 2.48467V1H11.6636V2.448C11.6636 2.80159 11.5231 3.14068 11.2731 3.39067L8.33125 6.33333V7.33333M10.6106 8.74C10.7406 8.60999 10.8949 8.50686 11.0647 8.4365C11.2345 8.36614 11.4165 8.32993 11.6003 8.32993C11.7841 8.32993 11.9661 8.36614 12.136 8.4365C12.3058 8.50686 12.4601 8.60999 12.59 8.74C12.72 8.87001 12.8231 9.02435 12.8935 9.19422C12.9638 9.36408 13 9.54614 13 9.73C13 9.91386 12.9638 10.0959 12.8935 10.2658C12.8231 10.4356 12.72 10.59 12.59 10.72L10.3307 13H8.33125V11L10.6106 8.74Z" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>                            
+                    </span>Filter
+                </a>
+                
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
                 </div>
-                <div class="dropdown show p-2 bd-highlight">
-                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="mr-2">
-                            <svg width="18" height="18" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M10.5788 13.253C10.2731 13.1812 10.0152 13.0863 9.80505 12.9684C9.59492 12.8511 9.39202 12.6794 9.19635 12.4535L8.76526 12.6346C8.6891 12.6633 8.61461 12.6679 8.54179 12.6484C8.46897 12.6288 8.41032 12.5817 8.36585 12.5069L8.24995 12.3085C8.19436 12.2326 8.1724 12.1501 8.18407 12.061C8.1963 11.9713 8.23716 11.896 8.30665 11.835L8.65686 11.5417C8.55457 11.2473 8.50343 10.9552 8.50343 10.6654C8.50343 10.3762 8.55485 10.0789 8.65769 9.77352L8.30665 9.463C8.23716 9.40205 8.1938 9.32959 8.17657 9.24564C8.15934 9.16169 8.17852 9.08204 8.2341 9.00672L8.36585 8.79108C8.41032 8.71632 8.46897 8.66917 8.54179 8.64962C8.61461 8.63007 8.6891 8.63467 8.76526 8.66342L9.19635 8.84456C9.38146 8.63007 9.58714 8.46101 9.81339 8.33738C10.0391 8.21432 10.2942 8.11657 10.5788 8.04411L10.6372 7.61025C10.6544 7.52055 10.6917 7.44608 10.7489 7.38685C10.8062 7.3282 10.8799 7.29887 10.9699 7.29887H11.2009C11.2904 7.29887 11.3638 7.3282 11.421 7.38685C11.4783 7.44608 11.5155 7.52083 11.5327 7.61111L11.5911 8.04497C11.8757 8.10593 12.1287 8.20081 12.3499 8.32962C12.5706 8.45842 12.7788 8.63007 12.9744 8.84456L13.4055 8.66342C13.4811 8.63467 13.5554 8.63007 13.6282 8.64962C13.701 8.66917 13.7599 8.71632 13.8049 8.79108L13.9359 9.00672C13.9914 9.08204 14.0109 9.16169 13.9942 9.24564C13.977 9.32959 13.9336 9.40205 13.8641 9.463L13.5131 9.77352C13.6265 10.0898 13.6804 10.39 13.6749 10.674C13.6693 10.9581 13.6101 11.2473 13.4973 11.5417L13.8475 11.835C13.8958 11.8735 13.9367 11.9376 13.97 12.0274C14.0034 12.1171 13.9867 12.2105 13.92 12.3077L13.8049 12.5069C13.7599 12.5817 13.701 12.6288 13.6282 12.6484C13.5559 12.6679 13.4817 12.6633 13.4055 12.6346L12.9744 12.4535C12.7788 12.6685 12.5759 12.8376 12.3657 12.9606C12.1556 13.0837 11.8977 13.1814 11.592 13.2539L11.5327 13.6878C11.5155 13.7775 11.4783 13.8519 11.421 13.9112C11.3638 13.9704 11.2904 14 11.2009 14H10.9699C10.8799 14 10.8062 13.9704 10.7489 13.9112C10.6917 13.8519 10.6547 13.7775 10.638 13.6878L10.5788 13.253ZM11.085 12.5069C11.5758 12.5069 11.998 12.3241 12.3516 11.9584C12.7046 11.5932 12.8811 11.1568 12.8811 10.649C12.8811 10.1413 12.7043 9.7048 12.3507 9.33966C11.9978 8.97394 11.5758 8.79108 11.085 8.79108C10.5947 8.79108 10.1728 8.97394 9.81922 9.33966C9.46568 9.7048 9.2889 10.1413 9.2889 10.649C9.2889 11.1568 9.46568 11.5932 9.81922 11.9584C10.1728 12.3241 10.5947 12.5069 11.085 12.5069ZM1.34664 13.8008C0.963077 13.8008 0.642885 13.6679 0.386065 13.4023C0.128688 13.136 0 12.8045 0 12.4077V1.39301C0 0.996241 0.128688 0.665024 0.386065 0.399359C0.642885 0.13312 0.963077 0 1.34664 0H11.9947C12.3783 0 12.6984 0.13312 12.9553 0.399359C13.2126 0.665024 13.3413 0.996241 13.3413 1.39301V6.23363C13.2057 6.14852 13.0709 6.07751 12.9369 6.02058C12.8035 5.96307 12.6604 5.91305 12.5075 5.87049V1.39388C12.5075 1.23862 12.4594 1.11125 12.3632 1.01177C12.2671 0.912287 12.1442 0.862547 11.9947 0.862547H1.34664C1.19711 0.862547 1.07426 0.912287 0.978086 1.01177C0.881918 1.11125 0.833833 1.23833 0.833833 1.39301V9.15594H3.81062C4.01963 9.15594 4.17612 9.19015 4.28007 9.25858C4.38346 9.32643 4.4699 9.43051 4.53939 9.57082C4.70226 9.89054 4.90961 10.1522 5.16143 10.3557C5.4138 10.5593 5.69508 10.7042 6.00527 10.7905C6.05141 11.3563 6.17843 11.896 6.38633 12.4095C6.59423 12.9224 6.8883 13.3862 7.26853 13.8008H1.34664Z" fill="black"/>
-                            </svg>
-                        </span>Customize view
-                    </a>
-                    
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
+            </div>
+            <div class="dropdown show p-2 bd-highlight">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="mr-2">
+                        <svg width="18" height="18" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10.5788 13.253C10.2731 13.1812 10.0152 13.0863 9.80505 12.9684C9.59492 12.8511 9.39202 12.6794 9.19635 12.4535L8.76526 12.6346C8.6891 12.6633 8.61461 12.6679 8.54179 12.6484C8.46897 12.6288 8.41032 12.5817 8.36585 12.5069L8.24995 12.3085C8.19436 12.2326 8.1724 12.1501 8.18407 12.061C8.1963 11.9713 8.23716 11.896 8.30665 11.835L8.65686 11.5417C8.55457 11.2473 8.50343 10.9552 8.50343 10.6654C8.50343 10.3762 8.55485 10.0789 8.65769 9.77352L8.30665 9.463C8.23716 9.40205 8.1938 9.32959 8.17657 9.24564C8.15934 9.16169 8.17852 9.08204 8.2341 9.00672L8.36585 8.79108C8.41032 8.71632 8.46897 8.66917 8.54179 8.64962C8.61461 8.63007 8.6891 8.63467 8.76526 8.66342L9.19635 8.84456C9.38146 8.63007 9.58714 8.46101 9.81339 8.33738C10.0391 8.21432 10.2942 8.11657 10.5788 8.04411L10.6372 7.61025C10.6544 7.52055 10.6917 7.44608 10.7489 7.38685C10.8062 7.3282 10.8799 7.29887 10.9699 7.29887H11.2009C11.2904 7.29887 11.3638 7.3282 11.421 7.38685C11.4783 7.44608 11.5155 7.52083 11.5327 7.61111L11.5911 8.04497C11.8757 8.10593 12.1287 8.20081 12.3499 8.32962C12.5706 8.45842 12.7788 8.63007 12.9744 8.84456L13.4055 8.66342C13.4811 8.63467 13.5554 8.63007 13.6282 8.64962C13.701 8.66917 13.7599 8.71632 13.8049 8.79108L13.9359 9.00672C13.9914 9.08204 14.0109 9.16169 13.9942 9.24564C13.977 9.32959 13.9336 9.40205 13.8641 9.463L13.5131 9.77352C13.6265 10.0898 13.6804 10.39 13.6749 10.674C13.6693 10.9581 13.6101 11.2473 13.4973 11.5417L13.8475 11.835C13.8958 11.8735 13.9367 11.9376 13.97 12.0274C14.0034 12.1171 13.9867 12.2105 13.92 12.3077L13.8049 12.5069C13.7599 12.5817 13.701 12.6288 13.6282 12.6484C13.5559 12.6679 13.4817 12.6633 13.4055 12.6346L12.9744 12.4535C12.7788 12.6685 12.5759 12.8376 12.3657 12.9606C12.1556 13.0837 11.8977 13.1814 11.592 13.2539L11.5327 13.6878C11.5155 13.7775 11.4783 13.8519 11.421 13.9112C11.3638 13.9704 11.2904 14 11.2009 14H10.9699C10.8799 14 10.8062 13.9704 10.7489 13.9112C10.6917 13.8519 10.6547 13.7775 10.638 13.6878L10.5788 13.253ZM11.085 12.5069C11.5758 12.5069 11.998 12.3241 12.3516 11.9584C12.7046 11.5932 12.8811 11.1568 12.8811 10.649C12.8811 10.1413 12.7043 9.7048 12.3507 9.33966C11.9978 8.97394 11.5758 8.79108 11.085 8.79108C10.5947 8.79108 10.1728 8.97394 9.81922 9.33966C9.46568 9.7048 9.2889 10.1413 9.2889 10.649C9.2889 11.1568 9.46568 11.5932 9.81922 11.9584C10.1728 12.3241 10.5947 12.5069 11.085 12.5069ZM1.34664 13.8008C0.963077 13.8008 0.642885 13.6679 0.386065 13.4023C0.128688 13.136 0 12.8045 0 12.4077V1.39301C0 0.996241 0.128688 0.665024 0.386065 0.399359C0.642885 0.13312 0.963077 0 1.34664 0H11.9947C12.3783 0 12.6984 0.13312 12.9553 0.399359C13.2126 0.665024 13.3413 0.996241 13.3413 1.39301V6.23363C13.2057 6.14852 13.0709 6.07751 12.9369 6.02058C12.8035 5.96307 12.6604 5.91305 12.5075 5.87049V1.39388C12.5075 1.23862 12.4594 1.11125 12.3632 1.01177C12.2671 0.912287 12.1442 0.862547 11.9947 0.862547H1.34664C1.19711 0.862547 1.07426 0.912287 0.978086 1.01177C0.881918 1.11125 0.833833 1.23833 0.833833 1.39301V9.15594H3.81062C4.01963 9.15594 4.17612 9.19015 4.28007 9.25858C4.38346 9.32643 4.4699 9.43051 4.53939 9.57082C4.70226 9.89054 4.90961 10.1522 5.16143 10.3557C5.4138 10.5593 5.69508 10.7042 6.00527 10.7905C6.05141 11.3563 6.17843 11.896 6.38633 12.4095C6.59423 12.9224 6.8883 13.3862 7.26853 13.8008H1.34664Z" fill="black"/>
+                        </svg>
+                    </span>Customize view
+                </a>
+                
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
                 </div>
-            <!-- </div> -->
-        </div>
-        <div class="list d-flex flex-column">
-            <!-- <div class="input d-flex">
-                <input type="text" class="form-control m-2" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Task">
-                <button type="submit" class="btn btn-primary m-2">Submit</button>
-            </div> -->
-            <div class="table m-3">
-                <div class="taskItems">
-                    <!-- <div class="taskItem d-flex bd-highlight">
-                        <div class="pt-2 bd-highlight ml-5">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        </div>
-                        <div class="pt-2 bd-highlight ml-2">
-                            <p>82837</p>
-                        </div>
-                        <div class="p-2 flex-grow-1 bd-highlight">Task title and do it...</div>
-                        <div class="p-2 bd-highlight mr-5 text-start ml-1">Assigned</div>
-                        <div class="p-2 bd-highlight">Assigned by</div>
+            </div>
+    </div>
+    <div class="list d-flex flex-column">
+        <div class="table m-3">
+            <div class="taskItems">
+                <div class="taskItem d-flex bd-highlight" *ngFor="let data of taskList;">
+                    <div class="pt-2 bd-highlight ml-5">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                     </div>
-                    <div class="taskItem d-flex bd-highlight">
-                        <div class="pt-2 bd-highlight ml-5">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        </div>
-                        <div class="pt-2 bd-highlight ml-2">
-                            <p>82837</p>
-                        </div>
-                        <div class="p-2 flex-grow-1 bd-highlight">Task title and do it...</div>
-                        <div class="p-2 bd-highlight mr-5 text-start ml-1">Assigned</div>
-                        <div class="p-2 bd-highlight">Assigned by</div>
-                    </div> -->
-                    <div class="taskItem d-flex bd-highlight" *ngFor="let data of taskList;">
-                        <div class="pt-2 bd-highlight ml-5">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        </div>
-                        <div class="pt-2 bd-highlight ml-2">
-                            <p>{{data.taskNo}}</p>
-                        </div>
-                        <div class="p-2 flex-grow-1 bd-highlight">{{data.title}}</div>
-                        <div class="p-2 bd-highlight mr-5 text-start ml-1">{{data.status}}</div>
-                        <div class="p-2 bd-highlight">Assigned by</div>
+                    <div class="pt-2 bd-highlight ml-2">
+                        <p>{{data.taskNo}}</p>
                     </div>
-                    
+                    <div class="p-2 flex-grow-1 bd-highlight">{{data.title}}</div>
+                    <div class="p-2 bd-highlight mr-5 text-start ml-1">{{data.status}}</div>
+                    <div class="p-2 bd-highlight">Assigned by</div>
                 </div>
-                <!-- <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th scope="col">No.</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                      </tr>
-                    </tbody>
-                  </table> -->
+                
             </div>
         </div>
     </div>
+    <!-- <div class="container d-flex justify-content-start align-items-start flex-column">
+    </div> -->
 </div>

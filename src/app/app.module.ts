@@ -18,7 +18,8 @@ import { RequestComponent } from './request/request.component';
 import { QueriesComponent } from './queries/queries.component';
 import { PerformanceComponent } from './performance/performance.component';
 import { AddTaskModelComponent } from './model/add-task-model/add-task-model.component';
-import { AddRequestModelComponent } from './model/add-task-model copy/add-request-model.component';
+import { AddRequestModelComponent } from './model/add-request-model/add-request-model.component';
+import { AddQueryModelComponent } from './model/add-query-model/add-query-model.component';
 
 const routeConfig: Routes = [
   {
@@ -84,7 +85,8 @@ const routeConfig: Routes = [
     QueriesComponent,
     PerformanceComponent,
     AddTaskModelComponent,
-    AddRequestModelComponent
+    AddRequestModelComponent,
+    AddQueryModelComponent
   ],
   imports: [
     BrowserModule,

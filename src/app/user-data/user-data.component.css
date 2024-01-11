@@ -1,0 +1,76 @@
+.taskContainer {
+    /* height: 82vh; */
+    height : auto;
+    background-color: #FFFFFF;
+    margin-left: 110px;
+    z-index: 1;
+    border-color: #A1F7FF;
+    border: 3px solid #E5FDFF; 
+    position: absolute;
+    right : 0px;
+    left: 10px;
+    top : 50px;
+    bottom : 18px;
+    overflow-y: scroll;
+    box-shadow: 0 0 3px 20px rgba(255, 255, 255, 0.3) inset; 
+}
+.taskContainer::-webkit-scrollbar { width: 0 !important }
+
+.topButtons {
+    position: sticky;
+    top: 0;
+    background-color: #FFFFFF;
+}
+
+.request { 
+    background-color : color(srgb 0.92 0.92 0.92); 
+    border-radius: 10px;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+.dropdown-menu {
+    min-width: auto;
+}
+.userCard {
+    width: 300px;
+    /* background-color: red; */
+    border: 3px solid #000000; 
+    border-radius: 10px;
+}
+.userDetails {
+    /* height : 70px; */
+    /* width : 80px; */
+    /* background-color: green; */
+}
+.userData{
+    height : 70px;
+    width: 200px;
+    background-color: yellow;
+}
+.userProfilePic {
+    height: 70px;
+    width : 80px;
+    background-color: #A1F7FF;
+    border-radius: 50%;
+}
+.userTaskDetails {
+    /* height: 70px; */
+    /* background-color: bisque; */
+}
+.tasksDetails {
+    height: 70px;
+    width: 150px;
+    background-color: blueviolet;
+}
+.userProgress {
+    height : 70px;
+    width: 130px;
+    background-color: yellow;
+}
+.col {
+    height: 20px;
+    width : 10px;
+    background-color: red;
+}

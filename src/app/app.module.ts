@@ -20,6 +20,7 @@ import { PerformanceComponent } from './performance/performance.component';
 import { AddTaskModelComponent } from './model/add-task-model/add-task-model.component';
 import { AddRequestModelComponent } from './model/add-request-model/add-request-model.component';
 import { AddQueryModelComponent } from './model/add-query-model/add-query-model.component';
+import { UserDataComponent } from './user-data/user-data.component';
 
 const routeConfig: Routes = [
   {
@@ -65,6 +66,10 @@ const routeConfig: Routes = [
   {
     path: "performance",
     component: QueriesComponent,
+  },
+  {
+    path: "user",
+    component: UserDataComponent,
   }
 ];
 
@@ -86,7 +91,8 @@ const routeConfig: Routes = [
     PerformanceComponent,
     AddTaskModelComponent,
     AddRequestModelComponent,
-    AddQueryModelComponent
+    AddQueryModelComponent,
+    UserDataComponent
   ],
   imports: [
     BrowserModule,

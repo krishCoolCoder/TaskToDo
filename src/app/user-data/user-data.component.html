@@ -1,0 +1,88 @@
+<app-header></app-header>
+<app-sidebar-menu></app-sidebar-menu>
+<app-add-request-model (inputValue)="getInputValue($event)"></app-add-request-model>
+<div class="taskContainer d-flex flex-column">
+    <div class="topButtons">
+        <div class="d-flex bd-highlight mb-3">
+            <!-- <div class="p-2 bd-highlight">Flex item</div> -->
+            <button type="button" class="btn btn-secondary btn-sm p-2 bd-highlight m-3"  data-toggle="modal" data-target="#requestModel">Create request</button>
+            <!-- <button type="button" class="btn btn-secondary btn-sn p-2 bd-highlight m-3">Create request</button> -->
+            <!-- <div class="p-2 bd-highlight">Flex item</div> -->
+            <div class="btn-group ml-auto p-2 bd-highlight">
+                <button class="btn btn-secondary btn-sm dropdown-toggle m-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Filter request
+                </button>
+                <div class="dropdown-menu m-2">
+                  <div class="dropdown-item">
+                    Pending
+                  </div>
+                  <div class="dropdown-item">
+                    Approved
+                  </div>
+                  <div class="dropdown-item">
+                    Rejected
+                  </div>
+                </div>
+              </div>
+            <!-- <div class="ml-auto p-2 bd-highlight">Flex item</div> -->
+          </div>
+    </div>
+    <div class="userCard d-flex flex-column">
+        <div class="userDetails d-flex pt-2 pl-2 pr-2">
+            <div class="userProfilePic mt-2 mb-2 ml-2 d-flex align-items-center justify-content-center">
+                <svg width="36" height="40" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 8C10.2091 8 12 6.20914 12 4C12 1.79086 10.2091 0 8 0C5.79086 0 4 1.79086 4 4C4 6.20914 5.79086 8 8 8Z" fill="black"/>
+                    <path d="M16 15.5C16 17.985 16 20 8 20C0 20 0 17.985 0 15.5C0 13.015 3.582 11 8 11C12.418 11 16 13.015 16 15.5Z" fill="black"/>
+                    </svg> 
+            </div>
+            <div class="userData mt-2 mb-2 ml-2 mr-2">
+
+            </div>
+        </div>
+        <div class="userTaskDetails d-flex pb-2 pl-2 pr-2">
+            <div class="tasksDetails container mt-2 mb-2 ml-2">
+                <!-- <div class="container"> -->
+                    <div class="row">
+                      <div class="col m-2"></div>
+                      <div class="col m-2"></div>
+                      <div class="w-100"></div>
+                      <div class="col m-2"></div>
+                      <div class="col m-2"></div>
+                    </div>
+                  <!-- </div> -->
+            </div>
+            <div class="userProgress mt-2 mb-2 ml-2 mr-2">
+            </div>
+        </div>
+    </div>
+    <div class="requestList">
+        <div class="request mr-3 ml-3 d-flex bd-highlight mb-2" *ngFor="let data of requestList;">
+            <div class="requestNumber p-2 bd-highlight mr-4 ml-4">
+                {{data.requestNumber}}
+            </div>
+            <div class="requestTitle p-2 flex-grow-1 bd-highlight">
+                {{data.requestTitle}}
+            </div>
+            <div class="requestStatus p-2 bd-highlight mr-4">
+                {{data.requestStatus}}
+            </div>
+            <div class="requestStatus p-2 bd-highlight mr-4 dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <svg width="4" height="13" viewBox="0 0 4 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.54764e-05 11.525V11.1694C0.00952416 11.1406 0.025372 11.1145 0.0317111 11.0857C0.171172 10.3378 0.925527 9.74674 1.80982 9.69705C2.79872 9.63952 3.63548 10.105 3.90807 10.8634C3.94293 10.9628 3.96829 11.0674 3.99998 11.1694V11.5251C3.99047 11.5486 3.97463 11.5695 3.97146 11.5956C3.83517 12.2861 3.23295 12.8117 2.40887 12.9608C2.34547 12.9712 2.28208 12.9869 2.21869 13H1.78763C1.75911 12.9922 1.73058 12.9791 1.70205 12.9765C0.877968 12.8666 0.250411 12.3828 0.0602214 11.7107C0.0412041 11.6453 0.0190328 11.5852 1.54764e-05 11.525ZM4 1.47233L3.99998 1.82802C3.99047 1.85679 3.97463 1.88294 3.97146 1.91171C3.82883 2.66488 3.0713 3.2533 2.17749 3.30037C1.19175 3.35267 0.35816 2.88194 0.0887473 2.12092C0.0538821 2.02415 0.028526 1.92478 0 1.82801V1.47235C0.00950868 1.44881 0.0253565 1.42789 0.0316956 1.40435C0.183834 0.724404 0.662438 0.279824 1.46117 0.0679946C1.56576 0.0392277 1.6767 0.0235366 1.78446 0H2.21552C2.24405 0.00784554 2.27257 0.0209214 2.3011 0.0235366C3.12836 0.135989 3.75276 0.617182 3.94293 1.28928C3.96197 1.35205 3.98098 1.4122 4 1.47233ZM3.99998 6.32089V6.67655C3.99047 6.70532 3.97463 6.73147 3.96829 6.76024C3.82566 7.51079 3.03961 8.1149 2.15213 8.14628C1.15372 8.18289 0.307447 7.68601 0.0697302 6.91976C0.0443737 6.83869 0.0221869 6.75762 0 6.67655V6.32089C0.00950868 6.29212 0.0253565 6.26597 0.0316956 6.2372C0.171156 5.48664 0.960376 4.88252 1.84785 4.84854C2.84626 4.80931 3.69254 5.30881 3.93025 6.07506C3.95561 6.15875 3.9778 6.23982 3.99998 6.32089Z" fill="black"/>
+                    </svg>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item">
+                            <svg class="mr-2" width="10" height="13" viewBox="0 0 10 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.714286 11.5556C0.714286 12.35 1.35714 13 2.14286 13H7.85714C8.64286 13 9.28571 12.35 9.28571 11.5556V4.33333C9.28571 3.53889 8.64286 2.88889 7.85714 2.88889H2.14286C1.35714 2.88889 0.714286 3.53889 0.714286 4.33333V11.5556ZM9.28571 0.722222H7.5L6.99286 0.209444C6.86429 0.0794444 6.67857 0 6.49286 0H3.50714C3.32143 0 3.13571 0.0794444 3.00714 0.209444L2.5 0.722222H0.714286C0.321429 0.722222 0 1.04722 0 1.44444C0 1.84167 0.321429 2.16667 0.714286 2.16667H9.28571C9.67857 2.16667 10 1.84167 10 1.44444C10 1.04722 9.67857 0.722222 9.28571 0.722222Z" fill="black"/>
+                                </svg>
+                                Delete</div>
+                        <div class="dropdown-item">
+                            <svg class="mr-2" width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 8.70864V11H2.29136L9.04933 4.24203L6.75797 1.95067L0 8.70864ZM10.8213 2.47005C10.878 2.41352 10.9229 2.34637 10.9536 2.27246C10.9842 2.19854 11 2.1193 11 2.03927C11 1.95925 10.9842 1.88001 10.9536 1.80609C10.9229 1.73217 10.878 1.66503 10.8213 1.6085L9.3915 0.178692C9.33498 0.122047 9.26783 0.0771074 9.19391 0.0464451C9.11999 0.0157828 9.04075 0 8.96073 0C8.8807 0 8.80146 0.0157828 8.72754 0.0464451C8.65363 0.0771074 8.58648 0.122047 8.52995 0.178692L7.41177 1.29687L9.70313 3.58823L10.8213 2.47005Z" fill="black"/>
+                                </svg>                                
+                                Edit</div>
+                      </div>
+            </div>
+        </div>
+    </div>
+</div>

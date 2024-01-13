@@ -33,11 +33,19 @@
 .dropdown-menu {
     min-width: auto;
 }
+.userCardContainer {
+    z-index: -1;
+}
 .userCard {
     width: 300px;
     /* background-color: red; */
     border: 3px solid #000000; 
     border-radius: 10px;
+    position: relative;
+}
+.options {
+    position: absolute;
+    right: 0px;
 }
 .userDetails {
     /* height : 70px; */
@@ -62,15 +70,35 @@
 .tasksDetails {
     height: 70px;
     width: 150px;
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
+    border-radius: 10px;
 }
 .userProgress {
     height : 70px;
     width: 130px;
     background-color: yellow;
+    border-radius: 10px;
 }
 .col {
     height: 20px;
     width : 10px;
-    background-color: red;
+    border-radius: 10px;
+    z-index: -1;
+}
+
+.totalTaskCount{
+    background-color: #2E68FC;
+    opacity: 50%;
+}
+.completedTaskCount{
+    background-color: #0BD437;
+    opacity: 50%;
+}
+.taskInProgressCount{
+    background-color: #E9ED1E;
+    opacity: 50%;
+}
+.taskToDoCount{
+    background-color: #F27731;
+    opacity: 50%;
 }

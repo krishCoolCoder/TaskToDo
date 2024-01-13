@@ -53,23 +53,50 @@
                     <path d="M16 15.5C16 17.985 16 20 8 20C0 20 0 17.985 0 15.5C0 13.015 3.582 11 8 11C12.418 11 16 13.015 16 15.5Z" fill="black"/>
                     </svg> 
             </div>
-            <div class="userData mt-2 mb-2 ml-2 mr-2">
-
+            <div class="userData mt-2 mb-2 ml-2 mr-2 d-flex flex-column justify-content-center align-items-start">
+              <div class="name">
+                <p>Saikrishna P</p>
+              </div>
+              <div class="email d-inline-block text-truncate">
+                <span>saikrishnatechno@gmail.com</span>
+              </div>
             </div>
         </div>
         <div class="userTaskDetails d-flex pb-2 pl-2 pr-2">
             <div class="tasksDetails container mt-2 mb-2 ml-2">
                 <!-- <div class="container"> -->
                     <div class="row">
-                      <div class="col m-2 totalTaskCount"></div>
-                      <div class="col m-2 completedTaskCount"></div>
+                      <div class="col m-2 totalTaskCount">
+                        <p class="count text-center">70</p>
+                      </div>
+                      <div class="col m-2 completedTaskCount">
+                        <p class="count text-center">48</p>
+                      </div>
                       <div class="w-100"></div>
-                      <div class="col m-2 taskInProgressCount"></div>
-                      <div class="col m-2 taskToDoCount"></div>
+                      <div class="col m-2 taskInProgressCount">
+                        <p class="count text-center">10</p>
+                      </div>
+                      <div class="col m-2 taskToDoCount">
+                        <p class="count text-center">20</p>
+                      </div>
                     </div>
                   <!-- </div> -->
             </div>
-            <div class="userProgress mt-2 mb-2 ml-2 mr-2">
+            <div class="userProgress mt-2 mb-2 ml-2 mr-2 d-flex flex-column">
+              <p class="pl-2 pt-1">Performance : </p>
+              <div class="progressBar">
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+              <div class="progressData d-flex">
+                <div class="review mr-auto pl-2 bd-highlight">
+                  <p>Good</p>
+                </div>
+                <div class="percentage pr-2 bd-highlight">
+                  <p>86%</p>
+                </div>
+              </div>
             </div>
         </div>
     </div>

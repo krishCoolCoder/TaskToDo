@@ -8,4 +8,8 @@ import { Component, ViewEncapsulation } from '@angular/core';
 })
 export class SidebarMenuComponent {
   sideBarData : String[] = ["Dashboard","Tasks","Request","Queries","Performance"];
+
+  logout() : any {
+    localStorage.clear() // Use this method to remove all the data from the local storage.
+  }
 }

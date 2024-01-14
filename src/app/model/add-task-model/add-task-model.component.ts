@@ -43,7 +43,17 @@ export class AddTaskModelComponent {
   }
 
   giveInputValue() : any {
+    let userTasks = JSON.parse(<any>localStorage.getItem('userTasks'));
     this.taskNo = Math.floor(Math.random() * 9000) + 1000;
+    userTasks.push(
+      {
+        taskNo : this.taskNo,
+        title: this.title,
+        description : this.description,
+        status : this.status == '' ? "Created" : this.status 
+      }
+    )
+    localStorage.setItem('userTasks',JSON.stringify(userTasks));
     this.inputValue.emit({
       taskNo : this.taskNo,
       title: this.title,

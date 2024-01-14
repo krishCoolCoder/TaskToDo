@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,6 +22,7 @@ import { AddTaskModelComponent } from './model/add-task-model/add-task-model.com
 import { AddRequestModelComponent } from './model/add-request-model/add-request-model.component';
 import { AddQueryModelComponent } from './model/add-query-model/add-query-model.component';
 import { UserDataComponent } from './user-data/user-data.component';
+import { AddUserModelComponent } from './model/add-user-model/add-user-model.component';
 
 const routeConfig: Routes = [
   {
@@ -92,12 +94,15 @@ const routeConfig: Routes = [
     AddTaskModelComponent,
     AddRequestModelComponent,
     AddQueryModelComponent,
-    UserDataComponent
+    UserDataComponent,
+    AddUserModelComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(routeConfig)
+    RouterModule.forRoot(routeConfig),
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

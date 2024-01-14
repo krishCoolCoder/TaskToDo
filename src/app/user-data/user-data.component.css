@@ -42,6 +42,8 @@
     border: 3px solid #000000; 
     border-radius: 10px;
     position: relative;
+
+    /* margin-left: 20px; */
 }
 .options {
     position: absolute;
@@ -129,4 +131,43 @@
 }
 .taskToDoCount{
     background-color: #f9bc9b;
+}
+.noData {
+    width: 100%;
+}
+.totalTaskReferenceColor {
+    height : 15px;
+    width : 15px;
+    background-color: #2E68FC;
+    border-radius : 50%;
+}
+.totalTaskReferenceTitle p {
+    font-size: 15px;
+}
+.completedTaskColor {
+    height : 15px;
+    width : 15px;
+    background-color: #0BD437;
+    border-radius : 50%;
+}
+.completedTaskRefernceTitle{
+    font-size: 15px;
+}
+.taskInProgressColor {
+    height : 15px;
+    width : 15px;
+    background-color: #E9ED1E;
+    border-radius : 50%;
+}
+.taskInProgressReferenceTitle p {
+    font-size: 15px;
+}
+.taskToDoColor {
+    height : 15px;
+    width : 15px;
+    background-color: #F27731;
+    border-radius : 50%;
+}
+.taskToDoReferenceTitle p {
+    font-size: 15px;
 }

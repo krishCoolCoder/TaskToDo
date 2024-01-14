@@ -23,7 +23,9 @@ export class SignInComponent {
 
   validate() {
     if ( (this.emailId == "saikrishnatechno@gmail.com" || this.emailId == "saikingstyle@gmail.com") && this.password == "admin") {
-      this.router.navigate(['/tasks'], { relativeTo: this.route });
+      this.router.navigate(['/taskList'], { relativeTo: this.route });
+      localStorage.setItem('userList',"[]");
+      localStorage.setItem('userTasks',"[]")
     }
   }
 

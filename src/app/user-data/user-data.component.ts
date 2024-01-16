@@ -6,6 +6,27 @@ import { Component,OnInit,OnChanges, SimpleChanges } from '@angular/core';
   styleUrls: ['./user-data.component.css']
 })
 export class UserDataComponent implements OnInit ,OnChanges{
+  // views state : 
+  tableView : boolean = false;
+  listView : boolean = false;
+  cardView : boolean = true;
+
+  showTableView () {
+    this.tableView = true ;
+    this.listView = false;
+    this.cardView = false;
+  }
+  showListView () {
+    this.tableView = false ;
+    this.listView = true;
+    this.cardView = false;
+  }
+  showCardView () {
+    this.tableView = false ;
+    this.listView = false;
+    this.cardView = true;
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     this.userList = localStorage.getItem('userList');
     console.log("The ngOnChanges method has been called and the user Data is this : ", typeof this.userList)

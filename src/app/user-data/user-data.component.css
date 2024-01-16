@@ -20,6 +20,7 @@
     position: sticky;
     top: 0;
     background-color: #FFFFFF;
+    z-index: 5;
 }
 
 .request { 
@@ -170,4 +171,88 @@
 }
 .taskToDoReferenceTitle p {
     font-size: 15px;
+}
+.userItems {
+    position: absolute;
+    left: 0px;
+    right : 0px;
+    height: 200px;
+    
+}
+.taskItem{
+    height: 40px;
+    
+    border-width: 0.2px; 
+    border-color: #000000;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-left-style: solid;
+}
+.text-start{
+    
+}
+.taskItem:first-child {
+    border-width: 0.2px; 
+    border-radius: 10px 10px 0px 0px;
+    border-color: #000000;
+    border-top-style: solid;
+    border-bottom-style: none;
+  border-right-style: solid;
+  border-left-style: solid;
+}
+.taskItem:last-child {
+    border-width: 0.2px; 
+    border-radius: 0px 0px 10px 10px;
+    border-color: #000000;
+    border-bottom-style: solid;
+  border-right-style: solid;
+  border-left-style: solid;
+}
+.taskItem:only-child {
+    border-width: 0.2px; 
+    border-radius: 10px;
+    border-color: #000000;
+    border-style: solid;
+}
+.row p{
+    font-size: 15px;
+    margin-right: 10px;
+    /* padding-right: 100px; */
+}
+.userListContainer{
+    margin-top: 15px;
+}
+.userList{
+    background-color : color(srgb 0.92 0.92 0.92); 
+    border-radius: 10px;
+}
+
+.totalTaskCountTableView{
+    background-color: #99b3ff;
+    width: 100px;
+    text-align: center;
+    padding-bottom: 25px;
+    /* opacity: 50%; */
+    /* opacity: 100%; */
+}
+.completedTaskCountTableView{
+    background-color: #9eeaa0;
+    width: 100px;
+    text-align: center;
+    padding-bottom: 25px;
+}
+.taskInProgressCountTableView{
+    background-color: #f4f59e;
+    width: 100px;
+    text-align: center;
+    padding-bottom: 25px;
+}
+.taskToDoCountTableView{
+    background-color: #f9bc9b;
+    width: 100px;
+    text-align: center;
+    padding-bottom: 25px;
+}
+.tableViewRow{
+    z-index: 1;
 }

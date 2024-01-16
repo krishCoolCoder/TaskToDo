@@ -36,10 +36,20 @@
             </svg>
 
         </div>
-        <div class="testing">
+        <div class="headerRoutes" *ngIf="login">
                 <a href="/features">Features</a>
                 <a href="/contactUs">Contact us</a>
                 <a href="/aboutUs">About us</a>
         </div>
+        <div class="dropdown headerRoutes" *ngIf="!login">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+              Dropdown button
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Link 1</a></li>
+              <li><a class="dropdown-item" href="#">Link 2</a></li>
+              <li><a class="dropdown-item" href="#">Link 3</a></li>
+            </ul>
+          </div>
     </div>
 </div>

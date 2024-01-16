@@ -44,6 +44,16 @@ export class AddRequestModelComponent {
 
   giveInputValue() : any {
     this.requestNumber = Math.floor(Math.random() * 9000) + 1000;
+    let requestList = JSON.parse(<any>localStorage.getItem('requestList'));
+    requestList.push(
+      {
+        requestNumber : this.requestNumber,
+        requestTitle: this.requestTitle,
+        requestDescription : this.requestDescription,
+        requestStatus : this.requestStatus == '' ? "Unknown request raised" : this.requestStatus 
+      }
+    )
+    localStorage.setItem('requestList',JSON.stringify(requestList));
     this.inputValue.emit({
       requestNumber : this.requestNumber,
       requestTitle: this.requestTitle,

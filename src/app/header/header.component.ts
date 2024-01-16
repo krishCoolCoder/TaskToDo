@@ -11,6 +11,7 @@ export class HeaderComponent {
     private route: ActivatedRoute,
     private router: Router  ) {
     }
+    login : boolean = false;
     onClick(){
       this.router.navigate(['/'], { relativeTo: this.route });
     }

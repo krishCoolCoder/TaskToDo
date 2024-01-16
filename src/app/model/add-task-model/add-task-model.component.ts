@@ -44,13 +44,16 @@ export class AddTaskModelComponent {
 
   giveInputValue() : any {
     let userTasks = JSON.parse(<any>localStorage.getItem('userTasks'));
+    let loggedInUserData = JSON.parse(<any>localStorage.getItem('loggedInUser'));
+    console.log("The loggedInUerData is this : ", loggedInUserData)
     this.taskNo = Math.floor(Math.random() * 9000) + 1000;
     userTasks.push(
       {
         taskNo : this.taskNo,
         title: this.title,
         description : this.description,
-        status : this.status == '' ? "Created" : this.status 
+        status : this.status == '' ? "Created" : this.status,
+        assignedBy : loggedInUserData.userName
       }
     )
     localStorage.setItem('userTasks',JSON.stringify(userTasks));

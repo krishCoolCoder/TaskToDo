@@ -24,7 +24,7 @@ div p{
 .hamburger {
     display: none;
 }
-.testing {
+.headerRoutes {
     display: flex;
     position: absolute;
     right: 0px;
@@ -55,12 +55,12 @@ a {
         margin-left: 20px;
     }
     
-    .testing {
+    .headerRoutes {
         display: none;
         margin-right: 20px;
         margin-top: 100px;
     }
-    .hamburger:hover ~ .testing {
+    .hamburger:hover ~ .headerRoutes {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
@@ -75,7 +75,7 @@ a {
     border-radius: 20px;
 }
 
-.testing:hover {
+.headerRoutes:hover {
     display: flex;
     flex-direction: column;
     justify-content: center;

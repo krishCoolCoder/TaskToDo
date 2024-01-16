@@ -44,6 +44,14 @@ export class AddQueryModelComponent {
 
   giveInputValue() : any {
     this.requestNumber = Math.floor(Math.random() * 9000) + 1000;
+    let queryListValues = JSON.parse(<any>localStorage.getItem('queryList'));
+    queryListValues.push({
+      requestNumber : this.requestNumber,
+      requestTitle: this.requestTitle,
+      requestDescription : this.requestDescription,
+      requestStatus : this.requestStatus == '' ? "Unknown request raised" : this.requestStatus 
+    });
+    localStorage.setItem('queryList',JSON.stringify(queryListValues));
     this.inputValue.emit({
       requestNumber : this.requestNumber,
       requestTitle: this.requestTitle,

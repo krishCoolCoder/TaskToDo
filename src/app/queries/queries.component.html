@@ -29,9 +29,70 @@
               </div>
             <!-- <div class="ml-auto p-2 bd-highlight">Flex item</div> -->
           </div>
+          <div class="d-flex bd-highlight">
+            <div class="pl-3 bd-highlight flex-grow-1 d-flex">
+              <div class="cardView mr-3">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="0.75" y="0.75" width="7.5" height="7.5" rx="1.25" stroke="black" stroke-width="1.5"/>
+                  <rect x="11.75" y="0.75" width="7.5" height="7.5" rx="1.25" stroke="black" stroke-width="1.5"/>
+                  <rect x="11.75" y="11.75" width="7.5" height="7.5" rx="1.25" stroke="black" stroke-width="1.5"/>
+                  <rect x="0.75" y="11.75" width="7.5" height="7.5" rx="1.25" stroke="black" stroke-width="1.5"/>
+                  </svg>                  
+              </div>
+              <div class="listView mr-3">
+                <svg width="21" height="19" viewBox="0 0 21 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 6.66699H1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M20 1H1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M20 12.333H1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M20 18H1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>                  
+              </div>
+              <div class="tableView mr-3">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7 1H3C2.46957 1 1.96086 1.21071 1.58579 1.58579C1.21071 1.96086 1 2.46957 1 3V7M7 1H17C17.5304 1 18.0391 1.21071 18.4142 1.58579C18.7893 1.96086 19 2.46957 19 3V7M7 1V19M1 7V17C1 17.5304 1.21071 18.0391 1.58579 18.4142C1.96086 18.7893 2.46957 19 3 19H7M1 7H19M19 7V17C19 17.5304 18.7893 18.0391 18.4142 18.4142C18.0391 18.7893 17.5304 19 17 19H7M1 12.5H19" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>                  
+              </div>
+            </div>
+            <div class="pl-3 pt-2 bd-highlight flex-grow-1">Query List </div>
+          <div class="ml-auto p-2 bd-highlight d-flex">
+            <div class="totalTaskReferenceColor m-1">
+
+            </div>
+            <div class="totalTaskReferenceTitle ml-2">
+              <p>Total Tasks</p>
+            </div>
+          </div>
+          <div class="p-2 bd-highlight d-flex">
+            <div class="completedTaskColor m-1">
+
+            </div>
+            <div class="completedTaskRefernceTitle ml-2">
+              <p>Completed Tasks</p>
+            </div>
+          </div>
+          <div class="p-2 bd-highlight d-flex">
+            <div class="taskInProgressColor m-1">
+
+            </div>
+            <div class="taskInProgressReferenceTitle ml-2">
+              <P>Task In Progress</P>
+            </div>
+          </div>
+          <div class="p-2 bd-highlight d-flex mr-3">
+            <div class="taskToDoColor m-1">
+
+            </div>
+            <div class="taskToDoReferenceTitle ml-2">
+              <p>Task To Do</p>
+            </div>
+          </div>
+        </div>
     </div>
     <div class="requestList">
-        <div class="request mr-3 ml-3 d-flex bd-highlight mb-2" *ngFor="let data of requestList;">
+      <div class="alert alert-info m-2 noData d-flex justify-content-center align-items-center" role="alert" *ngIf="noData">
+        <p>No queries available!.</p>
+      </div>
+        <div class="request mr-3 ml-3 d-flex bd-highlight mb-2" *ngFor="let data of queryList; index as i">
             <div class="requestNumber p-2 bd-highlight mr-4 ml-4">
                 {{data.requestNumber}}
             </div>
@@ -46,7 +107,7 @@
                     <path d="M1.54764e-05 11.525V11.1694C0.00952416 11.1406 0.025372 11.1145 0.0317111 11.0857C0.171172 10.3378 0.925527 9.74674 1.80982 9.69705C2.79872 9.63952 3.63548 10.105 3.90807 10.8634C3.94293 10.9628 3.96829 11.0674 3.99998 11.1694V11.5251C3.99047 11.5486 3.97463 11.5695 3.97146 11.5956C3.83517 12.2861 3.23295 12.8117 2.40887 12.9608C2.34547 12.9712 2.28208 12.9869 2.21869 13H1.78763C1.75911 12.9922 1.73058 12.9791 1.70205 12.9765C0.877968 12.8666 0.250411 12.3828 0.0602214 11.7107C0.0412041 11.6453 0.0190328 11.5852 1.54764e-05 11.525ZM4 1.47233L3.99998 1.82802C3.99047 1.85679 3.97463 1.88294 3.97146 1.91171C3.82883 2.66488 3.0713 3.2533 2.17749 3.30037C1.19175 3.35267 0.35816 2.88194 0.0887473 2.12092C0.0538821 2.02415 0.028526 1.92478 0 1.82801V1.47235C0.00950868 1.44881 0.0253565 1.42789 0.0316956 1.40435C0.183834 0.724404 0.662438 0.279824 1.46117 0.0679946C1.56576 0.0392277 1.6767 0.0235366 1.78446 0H2.21552C2.24405 0.00784554 2.27257 0.0209214 2.3011 0.0235366C3.12836 0.135989 3.75276 0.617182 3.94293 1.28928C3.96197 1.35205 3.98098 1.4122 4 1.47233ZM3.99998 6.32089V6.67655C3.99047 6.70532 3.97463 6.73147 3.96829 6.76024C3.82566 7.51079 3.03961 8.1149 2.15213 8.14628C1.15372 8.18289 0.307447 7.68601 0.0697302 6.91976C0.0443737 6.83869 0.0221869 6.75762 0 6.67655V6.32089C0.00950868 6.29212 0.0253565 6.26597 0.0316956 6.2372C0.171156 5.48664 0.960376 4.88252 1.84785 4.84854C2.84626 4.80931 3.69254 5.30881 3.93025 6.07506C3.95561 6.15875 3.9778 6.23982 3.99998 6.32089Z" fill="black"/>
                     </svg>
                     <div class="dropdown-menu">
-                        <div class="dropdown-item">
+                        <div class="dropdown-item" (click)="deleteUser(i)">
                             <svg class="mr-2" width="10" height="13" viewBox="0 0 10 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0.714286 11.5556C0.714286 12.35 1.35714 13 2.14286 13H7.85714C8.64286 13 9.28571 12.35 9.28571 11.5556V4.33333C9.28571 3.53889 8.64286 2.88889 7.85714 2.88889H2.14286C1.35714 2.88889 0.714286 3.53889 0.714286 4.33333V11.5556ZM9.28571 0.722222H7.5L6.99286 0.209444C6.86429 0.0794444 6.67857 0 6.49286 0H3.50714C3.32143 0 3.13571 0.0794444 3.00714 0.209444L2.5 0.722222H0.714286C0.321429 0.722222 0 1.04722 0 1.44444C0 1.84167 0.321429 2.16667 0.714286 2.16667H9.28571C9.67857 2.16667 10 1.84167 10 1.44444C10 1.04722 9.67857 0.722222 9.28571 0.722222Z" fill="black"/>
                                 </svg>

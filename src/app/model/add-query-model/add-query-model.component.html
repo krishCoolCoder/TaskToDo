@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Create Request</h5>
+          <h5 class="modal-title" id="exampleModalLongTitle">Create Query</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -13,7 +13,7 @@
                   <label for="recipient-name" class="col-form-label">Query title :</label>
                   <input type="text" class="form-control" id="recipient-name" (input)="formTitle($event)">
                 </div>
-                <label for="recipient-name" class="col-form-label">Request type :</label>
+                <label for="recipient-name" class="col-form-label">Query type :</label>
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       {{(requestStatus == "" ? "Status" : requestStatus)}}

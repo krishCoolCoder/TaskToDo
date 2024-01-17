@@ -16,7 +16,7 @@
                 <label for="recipient-name" class="col-form-label">Query type :</label>
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      {{(requestStatus == "" ? "Status" : requestStatus)}}
+                      {{(queryStatus == "" ? "Status" : queryStatus)}}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       <p class="dropdown-item" (click)="updateStatus($event)" >Doubt</p>

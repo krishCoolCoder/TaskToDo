@@ -15,10 +15,10 @@ export class AddQueryModelComponent {
   //   description : ""
   // }
 
-  requestNumber : any = 0;
-  requestTitle: string = "";
-  requestDescription : string = "";
-  requestStatus ?: string | undefined | null = '';
+  queryNumber : any = 0;
+  queryTitle: string = "";
+  queryDescription : string = "";
+  queryStatus ?: string | undefined | null = '';
 
   // ngOnInit() : void {
   //   this.task = {
@@ -29,37 +29,39 @@ export class AddQueryModelComponent {
   // }
 
   formTitle(event: any) : any {
-    this.requestTitle = event?.target.value;
+    this.queryTitle = event?.target.value;
   }
   formDescription(event: any) : any {
-    this.requestDescription = event?.target.value;
+    this.queryDescription = event?.target.value;
   }
 
   updateStatus(value: any): any {
     console.log("The value is this : ", value.target  as HTMLParagraphElement);
     let data =  value.target  as HTMLParagraphElement;
-    this.requestStatus = data.textContent;
-    console.log("The vlue isss : ", this.requestStatus, " and the data is this : ", data)
+    this.queryStatus = data.textContent;
+    console.log("The vlue isss : ", this.queryStatus, " and the data is this : ", data)
   }
 
   giveInputValue() : any {
-    this.requestNumber = Math.floor(Math.random() * 9000) + 1000;
+    this.queryNumber = Math.floor(Math.random() * 9000) + 1000;
     let queryListValues = JSON.parse(<any>localStorage.getItem('queryList'));
+    let loggedInUserData = JSON.parse(<any>localStorage.getItem('loggedInUser'))
     queryListValues.push({
-      requestNumber : this.requestNumber,
-      requestTitle: this.requestTitle,
-      requestDescription : this.requestDescription,
-      requestStatus : this.requestStatus == '' ? "Unknown request raised" : this.requestStatus 
+      queryNumber : this.queryNumber,
+      queryTitle: this.queryTitle,
+      queryDescription : this.queryDescription,
+      queryStatus : this.queryStatus == '' ? "Unknown query raised" : this.queryStatus,
+      queryCreatedBy : loggedInUserData.userName
     });
     localStorage.setItem('queryList',JSON.stringify(queryListValues));
     this.inputValue.emit({
-      requestNumber : this.requestNumber,
-      requestTitle: this.requestTitle,
-      requestDescription : this.requestDescription,
-      requestStatus : this.requestStatus == '' ? "Unknown request raised" : this.requestStatus 
+      queryNumber : this.queryNumber,
+      queryTitle: this.queryTitle,
+      queryDescription : this.queryDescription,
+      queryStatus : this.queryStatus == '' ? "Unknown query raised" : this.queryStatus 
     });
-    this.requestDescription="";
-    this.requestTitle="";
-    this.requestNumber=0;
+    this.queryDescription="";
+    this.queryTitle="";
+    this.queryNumber=0;
   }
 }

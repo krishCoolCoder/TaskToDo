@@ -70,3 +70,59 @@
     background-color: #F27731;
     border-radius : 50%;
 }
+
+.taskItems {
+    position: absolute;
+    left: 0px;
+    right : 0px;
+    height: 200px;
+    
+}
+.taskItem{
+    height: 40px;
+    
+    border-width: 0.2px; 
+    border-color: #000000;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-left-style: solid;
+}
+.text-start{
+    
+}
+.taskItem:first-child {
+    border-width: 0.2px; 
+    border-radius: 10px 10px 0px 0px;
+    border-color: #000000;
+    border-top-style: solid;
+    border-bottom-style: none;
+  border-right-style: solid;
+  border-left-style: solid;
+}
+.taskItem:last-child {
+    border-width: 0.2px; 
+    border-radius: 0px 0px 10px 10px;
+    border-color: #000000;
+    border-bottom-style: solid;
+  border-right-style: solid;
+  border-left-style: solid;
+}
+.taskItem:only-child {
+    border-width: 0.2px; 
+    border-radius: 10px;
+    border-color: #000000;
+    border-style: solid;
+}
+.taskCard {
+    width: 300px;
+    /* background-color: red; */
+    border: 3px solid #000000; 
+    border-radius: 10px;
+    position: relative;
+
+    /* margin-left: 20px; */
+}
+.options {
+    position: absolute;
+    right: 0px;
+}

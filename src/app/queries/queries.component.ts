@@ -6,6 +6,27 @@ import { Component,OnInit,OnChanges, SimpleChanges } from '@angular/core';
   styleUrls: ['./queries.component.css']
 })
 export class QueriesComponent implements OnInit, OnChanges {
+  // views state : 
+  tableView : boolean = false;
+  listView : boolean = false;
+  cardView : boolean = true;
+
+  showTableView () {
+    this.tableView = true ;
+    this.listView = false;
+    this.cardView = false;
+  }
+  showListView () {
+    this.tableView = false ;
+    this.listView = true;
+    this.cardView = false;
+  }
+  showCardView () {
+    this.tableView = false ;
+    this.listView = false;
+    this.cardView = true;
+  }
+
   queryList : any = [
   ];
   noData : boolean = false;
@@ -23,7 +44,7 @@ export class QueriesComponent implements OnInit, OnChanges {
     console.log("The queryList is this : ", this.queryList)
     this.noData = this.queryList.length === 0 ? true : false; 
   } 
-  deleteUser(data: any) {
+  deleteQuery(data: any) {
     let queryListData = JSON.parse(<any>localStorage.getItem('queryList'));
     queryListData.splice(data,1);
     this.queryList = queryListData;

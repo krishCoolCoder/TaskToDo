@@ -6,6 +6,26 @@ import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
   styleUrls: ['./request.component.css']
 })
 export class RequestComponent implements OnInit, OnChanges {
+  // views state : 
+  tableView : boolean = false;
+  listView : boolean = false;
+  cardView : boolean = true;
+
+  showTableView () {
+    this.tableView = true ;
+    this.listView = false;
+    this.cardView = false;
+  }
+  showListView () {
+    this.tableView = false ;
+    this.listView = true;
+    this.cardView = false;
+  }
+  showCardView () {
+    this.tableView = false ;
+    this.listView = false;
+    this.cardView = true;
+  }
   requestList : any = [
   ];
   noData : boolean = false;
@@ -29,7 +49,7 @@ export class RequestComponent implements OnInit, OnChanges {
     console.log("And the array value is this : ", this.requestList)
     this.noData = this.requestList.length === 0 ? true : false; 
   } 
-  deleteUser(data: any) {
+  deleteRequest(data: any) {
     let requestListData = JSON.parse(<any>localStorage.getItem('requestList'));
     requestListData.splice(data,1);
     this.requestList = requestListData;

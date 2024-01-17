@@ -112,7 +112,7 @@
                     </div>
                     <div class="p-2 flex-grow-1 bd-highlight">{{data.title}}</div>
                     <div class="p-2 bd-highlight mr-5 text-start ml-1">{{data.status}}</div>
-                    <div class="p-2 bd-highlight">Assigned by</div>
+                    <div class="p-2 bd-highlight mr-5">Assigned by {{data.assignedBy}}</div>
                     <div class="p-2 bd-highlight">
                         <div class="options mr-1 bd-highlight dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <svg width="15" height="6" viewBox="0 0 15 6" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -152,7 +152,7 @@
                 {{data.status}}
             </div>
             <div class="requestStatus p-2 bd-highlight mr-4">
-                Assigned by
+                Assigned by : {{data.assignedBy}}
             </div>
             <div class="requestStatus p-2 bd-highlight mr-4 dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <svg width="4" height="13" viewBox="0 0 4 13" fill="none" xmlns="http://www.w3.org/2000/svg">

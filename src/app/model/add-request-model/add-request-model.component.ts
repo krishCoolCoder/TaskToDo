@@ -18,6 +18,7 @@ export class AddRequestModelComponent {
   requestNumber : any = 0;
   requestTitle: string = "";
   requestDescription : string = "";
+  requestType : string | undefined | null = '';
   requestStatus ?: string | undefined | null = '';
 
   // ngOnInit() : void {
@@ -41,16 +42,25 @@ export class AddRequestModelComponent {
     this.requestStatus = data.textContent;
     console.log("The vlue isss : ", this.requestStatus, " and the data is this : ", data)
   }
+  updateType(value: any): any {
+    console.log("The value is this : ", value.target  as HTMLParagraphElement);
+    let data =  value.target  as HTMLParagraphElement;
+    this.requestType = data.textContent;
+    console.log("The vlue isss : ", this.requestStatus, " and the data is this : ", data)
+  }
 
   giveInputValue() : any {
     this.requestNumber = Math.floor(Math.random() * 9000) + 1000;
     let requestList = JSON.parse(<any>localStorage.getItem('requestList'));
+    let loggedInUserData = JSON.parse(<any>localStorage.getItem('loggedInUser'))
     requestList.push(
       {
         requestNumber : this.requestNumber,
         requestTitle: this.requestTitle,
         requestDescription : this.requestDescription,
-        requestStatus : this.requestStatus == '' ? "Unknown request raised" : this.requestStatus 
+        requestStatus : this.requestStatus == '' ? "Unknown request raised" : this.requestStatus ,
+        requestType : this.requestType == '' ? "Request Raised" : this.requestType ,
+        requestCreatedBy : loggedInUserData.userName
       }
     )
     localStorage.setItem('requestList',JSON.stringify(requestList));

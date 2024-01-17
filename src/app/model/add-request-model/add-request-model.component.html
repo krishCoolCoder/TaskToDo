@@ -13,10 +13,21 @@
                   <label for="recipient-name" class="col-form-label">Request Title :</label>
                   <input type="text" class="form-control" id="recipient-name" (input)="formTitle($event)">
                 </div>
-                <label for="recipient-name" class="col-form-label">Query type :</label>
+                <label for="recipient-name" class="col-form-label">Request type :</label>
+                <div class="dropdown mb-2">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{(requestStatus == "" ? "Request Type" : requestStatus)}}
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <p class="dropdown-item" (click)="updateType($event)" >Request Raised</p>
+                    <p class="dropdown-item" (click)="updateType($event)" >Request Accepted</p>
+                    <p class="dropdown-item" (click)="updateType($event)" >Request Rejected</p>
+                  </div>
+                </div>
+                <label for="recipient-name" class="col-form-label">Request status :</label>
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      {{(requestStatus == "" ? "Status" : requestStatus)}}
+                      {{(requestStatus == "" ? "Request Status" : requestStatus)}}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       <p class="dropdown-item" (click)="updateStatus($event)" >Access control</p>

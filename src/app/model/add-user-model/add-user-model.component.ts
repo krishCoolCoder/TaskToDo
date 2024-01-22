@@ -27,7 +27,7 @@ export class AddUserModelComponent {
   requestNumber : any = 0;
   requestTitle: string = "";
   requestDescription : string = "";
-  requestStatus ?: string | undefined | null = '';
+  userRole ?: string | undefined | null = '';
 
   userData : any = {
     userName : "Saikrishna P",
@@ -59,8 +59,8 @@ export class AddUserModelComponent {
   updateStatus(value: any): any {
     console.log("The value is this : ", value.target  as HTMLParagraphElement);
     let data =  value.target  as HTMLParagraphElement;
-    this.requestStatus = data.textContent;
-    console.log("The vlue isss : ", this.requestStatus, " and the data is this : ", data)
+    this.userData.userRole = data.textContent;
+    console.log("The vlue isss : ", this.userRole, " and the data is this : ", data)
   }
 
   giveInputValue() : any {

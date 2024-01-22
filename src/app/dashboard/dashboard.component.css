@@ -18,7 +18,18 @@
 .dashboardContainer {
     width: 200vh;
     /* background-color: red; */
-    /* display: flex; */
+    display: flex;
+    flex-direction: column;
+}
+.taskAndRequestContainer {
+    width: 200vh;
+    /* background-color: red; */
+    display: flex;
+}
+.queryAndUserContainer {
+    width: 200vh;
+    /* background-color: red; */
+    display: flex;
 }
 .taskData {
     /* height : 500px; */
@@ -28,9 +39,14 @@
 }
 .requestData {
     max-width: 600px;
+    margin-left: 100px;
     /* background-color: rgb(255, 202, 202); */
 }
-
-/* #doughNutChart{
-    margin-top: 10px;
-} */
+.userData {
+    max-width: 600px;
+    margin-left: 100px;
+    /* background-color: rgb(255, 202, 202); */
+}
+canvas {
+    width: 500px;
+}

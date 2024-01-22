@@ -1,5 +1,33 @@
 <app-header></app-header>
 <app-sidebar-menu></app-sidebar-menu>
 <div class="taskContainer">
-    
+    <div class="dashboardContainer m-3">
+        <div class="taskData">
+            <div class="taskDataTitle">
+                <p>
+                    Task's data : 
+                </p>
+            </div>
+            <div>
+                <!-- <canvas id="doughNutChart" class="mt-3">{{chart}}</canvas> -->
+                <canvas id="canvas">{{chart}}</canvas>
+                <!-- <canvas id="lineCharts">{{chart}}</canvas> -->
+              </div>
+        </div>
+        <div class="requestData mt-3">
+            <div class="taskDataTitle">
+                <p>
+                    Request's data : 
+                </p>
+            </div>
+            <div>
+                <!-- <canvas id="doughNutChart" class="mt-3">{{chart}}</canvas> -->
+                <canvas id="requestBar">{{chart}}</canvas>
+                <!-- <canvas id="lineCharts">{{chart}}</canvas> -->
+              </div>
+        </div>
+        <div class="requestData"></div>
+        <div class="queryData"></div>
+        <div class="userData"></div>
+    </div>
 </div>

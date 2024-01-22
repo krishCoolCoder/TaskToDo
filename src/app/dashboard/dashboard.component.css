@@ -15,3 +15,22 @@
     box-shadow: 0 0 3px 20px rgba(255, 255, 255, 0.3) inset; 
 }
 .taskContainer::-webkit-scrollbar { width: 0 !important }
+.dashboardContainer {
+    width: 200vh;
+    /* background-color: red; */
+    /* display: flex; */
+}
+.taskData {
+    /* height : 500px; */
+    max-width : 600px;
+    /* background-color: gainsboro; */
+    z-index: -1;
+}
+.requestData {
+    max-width: 600px;
+    /* background-color: rgb(255, 202, 202); */
+}
+
+/* #doughNutChart{
+    margin-top: 10px;
+} */

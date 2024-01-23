@@ -67,7 +67,7 @@ const routeConfig: Routes = [
   },
   {
     path: "performance",
-    component: QueriesComponent,
+    component: PerformanceComponent,
   },
   {
     path: "user",

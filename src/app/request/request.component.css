@@ -76,7 +76,7 @@
     left: 0px;
     right : 0px;
     height: 200px;
-    
+    z-index: -1;
 }
 .taskItem{
     height: 40px;
@@ -120,6 +120,7 @@
     border: 3px solid #000000; 
     border-radius: 10px;
     position: relative;
+    z-index: -1;
 
     /* margin-left: 20px; */
 }

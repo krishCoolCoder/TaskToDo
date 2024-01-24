@@ -11,9 +11,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { UnderDevelopmentComponent } from './under-development/under-development.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { TaskComponentComponent } from './task-component/task-component.component';
-import { TaskListComponent } from './task-list/task-list.component';
 import { SidebarMenuComponent } from './sidebar-menu/sidebar-menu.component';
-import { TasksComponent } from './tasks/tasks.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RequestComponent } from './request/request.component';
 import { QueriesComponent } from './queries/queries.component';
@@ -23,6 +21,8 @@ import { AddRequestModelComponent } from './model/add-request-model/add-request-
 import { AddQueryModelComponent } from './model/add-query-model/add-query-model.component';
 import { UserDataComponent } from './user-data/user-data.component';
 import { AddUserModelComponent } from './model/add-user-model/add-user-model.component';
+import { TaskToDoComponent } from './task-to-do/task-to-do.component';
+import { TodoComponent } from './todo/todo.component';
 
 const routeConfig: Routes = [
   {
@@ -51,7 +51,7 @@ const routeConfig: Routes = [
   },
   {
     path: "taskList",
-    component: TasksComponent,
+    component: TaskToDoComponent,
   },
   {
     path: "dashboard",
@@ -66,8 +66,8 @@ const routeConfig: Routes = [
     component: QueriesComponent,
   },
   {
-    path: "performance",
-    component: PerformanceComponent,
+    path: "todoList",
+    component: TodoComponent,
   },
   {
     path: "user",
@@ -84,9 +84,7 @@ const routeConfig: Routes = [
     UnderDevelopmentComponent,
     SignInComponent,
     TaskComponentComponent,
-    TaskListComponent,
     SidebarMenuComponent,
-    TasksComponent,
     DashboardComponent,
     RequestComponent,
     QueriesComponent,
@@ -95,7 +93,9 @@ const routeConfig: Routes = [
     AddRequestModelComponent,
     AddQueryModelComponent,
     UserDataComponent,
-    AddUserModelComponent
+    AddUserModelComponent,
+    TaskToDoComponent,
+    TodoComponent
   ],
   imports: [
     BrowserModule,

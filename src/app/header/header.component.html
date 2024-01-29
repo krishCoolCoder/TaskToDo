@@ -36,20 +36,41 @@
             </svg>
 
         </div>
-        <div class="headerRoutes" *ngIf="login">
+        <div class="headerRoutes" *ngIf="!login">
                 <a href="/features">Features</a>
                 <a href="/contactUs">Contact us</a>
                 <a href="/aboutUs">About us</a>
         </div>
-        <div class="dropdown headerRoutes" *ngIf="!login">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-              Dropdown button
-            </button>
+        <!-- <div class="companies headerRoutes"> -->
+            <!-- <p>Select company</p> -->
+        <!-- </div> -->
+        <div class="accountAndTeamContainer headerRoutes">
+            <div class="dropdown mr-3">
+                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Select Team
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li class="d-inline-block text-truncate"><a href="#">Front end team</a></li>
+                  <li class="d-inline-block text-truncate"><a href="#">Back end team</a></li>
+                  <li class="d-inline-block text-truncate"><a href="#">Dev OPS team</a></li>
+                  <div class="dropdown-divider"></div>
+                  <li class="d-inline-block text-truncate" ><a href="#" >Creat team</a></li>
+                  <div class="dropdown-divider"></div>
+                  <li class="d-inline-block text-truncate"><a href="#">My team</a></li>
+                </ul>
+              </div>
+        <div class="dropdown">
+            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Select account
+            <span class="caret"></span></button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Link 1</a></li>
-              <li><a class="dropdown-item" href="#">Link 2</a></li>
-              <li><a class="dropdown-item" href="#">Link 3</a></li>
+              <li class="d-inline-block text-truncate"><a href="#">Revolite infotech private limited</a></li>
+              <li class="d-inline-block text-truncate"><a href="#">Iorta technology solution private limiated</a></li>
+              <li class="d-inline-block text-truncate"><a href="#">ZOHO technology solution private limited</a></li>
+              <div class="dropdown-divider"></div>
+              <li class="d-inline-block text-truncate" ><a href="#" >Register organisation</a></li>
+              <div class="dropdown-divider"></div>
+              <li class="d-inline-block text-truncate"><a href="#">Personal account</a></li>
             </ul>
           </div>
+        </div>
     </div>
 </div>

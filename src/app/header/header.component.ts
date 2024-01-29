@@ -12,6 +12,13 @@ export class HeaderComponent {
     private router: Router  ) {
     }
     login : boolean = false;
+    loggedInUserData : any = JSON.parse(<any>localStorage.getItem('loggedInUser'));
+    ngOnInit() {
+      this.loggedInUserData = JSON.parse(<any>localStorage.getItem('loggedInUser'));
+      if (this.loggedInUserData !== undefined || this.loggedInUserData !== null) {
+        this.login = true;
+      }
+    }
     onClick(){
       this.router.navigate(['/'], { relativeTo: this.route });
     }

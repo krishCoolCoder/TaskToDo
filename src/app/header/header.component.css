@@ -38,6 +38,23 @@ a {
     text-decoration: none;
 }
 
+.companies {
+    height: 20px;
+    /* width : 200px; */
+    background-color: red;
+    padding-right: 15px;
+    padding-bottom: 25px;
+    border-radius: 10px;
+}
+
+li {
+    max-width: 200px;
+}
+.dropdown-menu{
+    margin-right: 60px;
+    padding-right: 10px;
+}
+
 @media only screen and (max-width: 600px) {
     .hamburger {
         display: block;

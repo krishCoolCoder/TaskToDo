@@ -23,6 +23,8 @@ import { UserDataComponent } from './user-data/user-data.component';
 import { AddUserModelComponent } from './model/add-user-model/add-user-model.component';
 import { TaskToDoComponent } from './task-to-do/task-to-do.component';
 import { TodoComponent } from './todo/todo.component';
+import { AddOrganisationModelComponent } from './model/add-organisation-model/add-organisation-model.component';
+import { AddTeamModelComponent } from './model/add-team-model/add-team-model.component';
 
 const routeConfig: Routes = [
   {
@@ -95,7 +97,9 @@ const routeConfig: Routes = [
     UserDataComponent,
     AddUserModelComponent,
     TaskToDoComponent,
-    TodoComponent
+    TodoComponent,
+    AddOrganisationModelComponent,
+    AddTeamModelComponent
   ],
   imports: [
     BrowserModule,

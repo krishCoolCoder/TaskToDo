@@ -1,3 +1,5 @@
+<app-add-organisation-model (inputValue)="getInputValue($event)"></app-add-organisation-model>
+<app-add-team-model (inputValue)="getInputValue($event)"></app-add-team-model>
 <div class="header">
     <div class="title">
         <div (click)="onClick()"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,14 +48,15 @@
         <!-- </div> -->
         <div class="accountAndTeamContainer headerRoutes">
             <div class="dropdown mr-3">
-                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Select Team
+                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" >Select Team
                 <span class="caret"></span></button>
                 <ul class="dropdown-menu">
+                  <li class="d-inline-block text-truncate" *ngFor="let data of teamListData; index as i"><a href="#">{{data.teamTitle}}</a></li>
                   <li class="d-inline-block text-truncate"><a href="#">Front end team</a></li>
                   <li class="d-inline-block text-truncate"><a href="#">Back end team</a></li>
                   <li class="d-inline-block text-truncate"><a href="#">Dev OPS team</a></li>
                   <div class="dropdown-divider"></div>
-                  <li class="d-inline-block text-truncate" ><a href="#" >Creat team</a></li>
+                  <li class="d-inline-block text-truncate" ><a href="#" data-toggle="modal" data-target="#addTeamModel" >Creat team</a></li>
                   <div class="dropdown-divider"></div>
                   <li class="d-inline-block text-truncate"><a href="#">My team</a></li>
                 </ul>
@@ -62,11 +65,12 @@
             <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Select account
             <span class="caret"></span></button>
             <ul class="dropdown-menu">
+              <li class="d-inline-block text-truncate" *ngFor="let data of organisationListData; index as i"><a href="#">{{data.organisationTitle}}</a></li>
               <li class="d-inline-block text-truncate"><a href="#">Revolite infotech private limited</a></li>
               <li class="d-inline-block text-truncate"><a href="#">Iorta technology solution private limiated</a></li>
               <li class="d-inline-block text-truncate"><a href="#">ZOHO technology solution private limited</a></li>
               <div class="dropdown-divider"></div>
-              <li class="d-inline-block text-truncate" ><a href="#" >Register organisation</a></li>
+              <li class="d-inline-block text-truncate" ><a href="#" data-toggle="modal" data-target="#addOrganizationModel" >Register organisation</a></li>
               <div class="dropdown-divider"></div>
               <li class="d-inline-block text-truncate"><a href="#">Personal account</a></li>
             </ul>

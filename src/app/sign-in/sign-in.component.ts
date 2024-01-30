@@ -27,6 +27,8 @@ export class SignInComponent {
       localStorage.setItem('userTasks',"[]");
       localStorage.setItem('requestList',"[]");
       localStorage.setItem('queryList', "[]");
+      localStorage.setItem('organisationList', "[]");
+      localStorage.setItem('teamList', "[]");
       localStorage.setItem('loggedInUser', "null");
       
       let userData = JSON.parse(<any>localStorage.getItem('userList'));

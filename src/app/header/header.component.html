@@ -51,10 +51,8 @@
                 <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" >Select Team
                 <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                  <li class="d-inline-block text-truncate" *ngFor="let data of teamListData; index as i"><a href="#">{{data.teamTitle}}</a></li>
-                  <li class="d-inline-block text-truncate"><a href="#">Front end team</a></li>
-                  <li class="d-inline-block text-truncate"><a href="#">Back end team</a></li>
-                  <li class="d-inline-block text-truncate"><a href="#">Dev OPS team</a></li>
+                  <li class="d-inline-block text-truncate mb-0" *ngFor="let data of teamListData; index as i"><p>{{data.teamTitle}}</p></li>
+                  <li class="d-inline-block text-truncate" *ngIf="teamListData.length === 0"><p>No data</p></li>
                   <div class="dropdown-divider"></div>
                   <li class="d-inline-block text-truncate" ><a href="#" data-toggle="modal" data-target="#addTeamModel" >Creat team</a></li>
                   <div class="dropdown-divider"></div>

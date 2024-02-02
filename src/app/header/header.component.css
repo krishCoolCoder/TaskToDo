@@ -54,7 +54,9 @@ li {
     margin-right: 60px;
     padding-right: 10px;
 }
-
+li,p {
+    margin-bottom: 0px;
+}
 @media only screen and (max-width: 600px) {
     .hamburger {
         display: block;

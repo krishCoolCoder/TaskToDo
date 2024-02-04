@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,OnChanges, SimpleChanges } from '@angular/core';
 import Chart from 'chart.js/auto';
 
 @Component({
@@ -6,34 +6,58 @@ import Chart from 'chart.js/auto';
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.css']
 })
-export class TodoComponent {
+export class TodoComponent implements OnChanges {
   performanceLineChart : any = [];
+  inputData : any;
+  todoList: any = JSON.parse(<any>localStorage.getItem('todoList'));
+  
+  // views state : 
+tableView : boolean = false;
+listView : boolean = false;
+cardView : boolean = true;
+
+noData : any = this.todoList.length === 0 ? true : false;
+
+showTableView () {
+  this.tableView = true ;
+  this.listView = false;
+  this.cardView = false;
+}
+showListView () {
+  this.tableView = false ;
+  this.listView = true;
+  this.cardView = false;
+}
+showCardView () {
+  this.tableView = false ;
+  this.listView = false;
+  this.cardView = true;
+}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.todoList = JSON.parse(<any>localStorage.getItem('todoList'));
+    this.noData = this.todoList.length === 0 ? true : false
+  }
 
   ngOnInit() {
-  this.performanceLineChart = new Chart("performanceLineChart", {
-      type: 'line', //this denotes tha type of chart
+    this.todoList = JSON.parse(<any>localStorage.getItem('todoList'));
+    this.noData = this.todoList.length === 0 ? true : false;
+  }
 
-      data: {// values on X-Axis
-        labels: ['2022-05-10', '2022-05-11', '2022-05-12','2022-05-13',
-								 '2022-05-14', '2022-05-15', '2022-05-16','2022-05-17', ], 
-	       datasets: [
-          {
-            label: "Sales",
-            data: ['467','576', '572', '79', '92',
-								 '574', '573', '576'],
-            backgroundColor: 'blue'
-          },
-          {
-            label: "Profit",
-            data: ['542', '542', '536', '327', '17',
-									 '0.00', '538', '541'],
-            backgroundColor: 'limegreen'
-          }  
-        ]
-      },
-      options: {
-        aspectRatio:2.5
-      }
-    });
+  getTodoData(event: any) {
+  this.inputData = event.target.value;
+  }
+  submitTodoData() {
+  this.todoList.push(this.inputData);
+  console.log("The list is : ", this.todoList);
+  localStorage.setItem('todoList',JSON.stringify(this.todoList));
+  this.noData = this.todoList.length === 0 ? true : false;
+  }
+  deleteToDo(index: any) {
+    let todoList = JSON.parse(<any>localStorage.getItem('todoList'));
+    todoList.splice(index,1);
+    this.todoList = todoList;
+    localStorage.setItem('todoList',JSON.stringify(todoList));
+    this.noData = this.todoList.length === 0 ? true : false;
   }
 }

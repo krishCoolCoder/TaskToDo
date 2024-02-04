@@ -17,3 +17,121 @@
     border-radius: 10px;
 }
 .test::-webkit-scrollbar { width: 0 !important }
+
+.taskItems {
+    position: absolute;
+    left: 0px;
+    right : 0px;
+    height: 200px;
+    
+}
+
+.taskItem{
+    height: 40px;
+    
+    border-width: 0.2px; 
+    border-color: #000000;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-left-style: solid;
+}
+.text-start{
+    
+}
+.taskItem:first-child {
+    border-width: 0.2px; 
+    border-radius: 10px 10px 0px 0px;
+    border-color: #000000;
+    border-top-style: solid;
+    border-bottom-style: none;
+  border-right-style: solid;
+  border-left-style: solid;
+}
+.taskItem:last-child {
+    border-width: 0.2px; 
+    border-radius: 0px 0px 10px 10px;
+    border-color: #000000;
+    border-bottom-style: solid;
+  border-right-style: solid;
+  border-left-style: solid;
+}
+.taskItem:only-child {
+    border-width: 0.2px; 
+    border-radius: 10px;
+    border-color: #000000;
+    border-style: solid;
+}
+
+.totalTaskReferenceColor {
+    height : 15px;
+    width : 15px;
+    background-color: #2E68FC;
+    border-radius : 50%;
+}
+.totalTaskReferenceTitle p {
+    font-size: 15px;
+}
+.completedTaskRefernceTitle{
+    font-size: 15px;
+}
+.completedTaskColor {
+    height : 15px;
+    width : 15px;
+    background-color: #0BD437;
+    border-radius : 50%;
+}
+.taskInProgressReferenceTitle p {
+    font-size: 15px;
+}
+.taskInProgressColor {
+    height : 15px;
+    width : 15px;
+    background-color: #E9ED1E;
+    border-radius : 50%;
+}
+.taskToDoReferenceTitle p {
+    font-size: 15px;
+}
+.taskToDoColor {
+    height : 15px;
+    width : 15px;
+    background-color: #F27731;
+    border-radius : 50%;
+}
+.taskList{
+    background-color : color(srgb 0.92 0.92 0.92); 
+    border-radius: 10px;
+}
+.taskListContainer {
+    margin-top: 15px;
+}
+
+.taskCard {
+    width: 300px;
+    /* background-color: red; */
+    border: 3px solid #000000; 
+    border-radius: 10px;
+    position: relative;
+
+    /* margin-left: 20px; */
+}
+.options {
+    position: absolute;
+    right: 0px;
+}
+
+.dropdown-toggle-split::after, .dropright .dropdown-toggle-split::after, .dropup .dropdown-toggle-split::after {
+    margin-left: 0;
+    display: none;
+}
+
+.dropdown-toggle::after {
+    display: none;
+    margin-left: .255em;
+    vertical-align: .255em;
+    content: "";
+    border-top: .3em solid;
+    border-right: .3em solid transparent;
+    border-bottom: 0;
+    border-left: .3em solid transparent;
+}

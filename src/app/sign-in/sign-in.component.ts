@@ -30,6 +30,7 @@ export class SignInComponent {
       localStorage.setItem('organisationList', "[]");
       localStorage.setItem('teamList', "[]");
       localStorage.setItem('loggedInUser', "null");
+      localStorage.setItem('todoList', "[]");
       
       let userData = JSON.parse(<any>localStorage.getItem('userList'));
       userData.push(

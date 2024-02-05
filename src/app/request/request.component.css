@@ -3,7 +3,7 @@
     height : auto;
     background-color: #FFFFFF;
     margin-left: 110px;
-    z-index: 1;
+    z-index: -1;
     border-color: #A1F7FF;
     border: 3px solid #E5FDFF; 
     position: absolute;
@@ -20,6 +20,7 @@
     position: sticky;
     top: 0;
     background-color: #FFFFFF;
+    z-index: 5;
 }
 
 .request { 
@@ -120,11 +121,11 @@
     border: 3px solid #000000; 
     border-radius: 10px;
     position: relative;
-    z-index: -1;
 
     /* margin-left: 20px; */
 }
 .options {
     position: absolute;
     right: 0px;
+    z-index: 1;
 }

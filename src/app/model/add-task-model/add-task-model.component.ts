@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-add-task-model',
@@ -6,6 +7,13 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./add-task-model.component.css']
 })
 export class AddTaskModelComponent {
+  @ViewChild('myForm')
+  myForm!: NgForm;
+  @ViewChild('taskTitle')
+  taskTitle!: ElementRef;
+  @ViewChild('taskDescription')
+  taskDescription!: ElementRef;
+  
   @Output()
   inputValue : any = new EventEmitter<string>();
 
@@ -66,6 +74,14 @@ export class AddTaskModelComponent {
     this.description="";
     this.title="";
     this.taskNo=0;
+    this.taskTitle.nativeElement.value = "";
+    this.taskDescription.nativeElement.value = "";
+  }
+  
+  onSubmit() {
+    this.taskTitle.nativeElement.value = "";
+    this.taskDescription.nativeElement.value = "";
+    this.myForm.resetForm();
   }
 
 }

@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-add-team-model',
@@ -6,6 +7,12 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./add-team-model.component.css']
 })
 export class AddTeamModelComponent {
+  @ViewChild('myForm')
+  myForm!: NgForm;
+  @ViewChild('teamNameField')
+  teamNameField!: ElementRef;
+  @ViewChild('teamDescriptionField')
+  teamDescriptionField!: ElementRef;
   @Output()
   inputValue : any = new EventEmitter<string>();
 
@@ -54,5 +61,14 @@ export class AddTeamModelComponent {
     this.teamDescription="";
     this.teamTitle="";
     this.teamId=0;
+    this.teamNameField.nativeElement.value = "";
+    this.teamDescriptionField.nativeElement.value = "";
+    this.myForm.resetForm();
+  }
+
+  onSubmit() {
+    this.teamNameField.nativeElement.value = "";
+    this.teamDescriptionField.nativeElement.value = "";
+    this.myForm.resetForm();
   }
 }

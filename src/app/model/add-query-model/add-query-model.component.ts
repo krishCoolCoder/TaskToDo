@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-add-query-model',
@@ -6,6 +7,13 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./add-query-model.component.css']
 })
 export class AddQueryModelComponent {
+  @ViewChild('myForm')
+  myForm!: NgForm;
+  @ViewChild('queryTitleField')
+  queryTitleField!: ElementRef;
+  @ViewChild('queryDescriptionField')
+  queryDescriptionField!: ElementRef;
+  
   @Output()
   inputValue : any = new EventEmitter<string>();
 
@@ -63,5 +71,14 @@ export class AddQueryModelComponent {
     this.queryDescription="";
     this.queryTitle="";
     this.queryNumber=0;
+    this.queryTitleField.nativeElement.value = '';
+    this.queryDescriptionField.nativeElement.value = '';
+    this.myForm.resetForm();
+  }
+  
+  onSubmit() {
+    this.queryTitleField.nativeElement.value = '';
+    this.queryDescriptionField.nativeElement.value = '';
+    this.myForm.resetForm();
   }
 }

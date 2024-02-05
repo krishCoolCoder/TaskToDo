@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-add-request-model',
@@ -6,6 +7,12 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./add-request-model.component.css']
 })
 export class AddRequestModelComponent {
+  @ViewChild('myForm')
+  myForm!: NgForm;
+  @ViewChild('requestTitleField')
+  requestTitleField!: ElementRef;
+  @ViewChild('requestDescriptionField')
+  requestDescriptionField!: ElementRef;
   @Output()
   inputValue : any = new EventEmitter<string>();
 
@@ -73,6 +80,14 @@ export class AddRequestModelComponent {
     this.requestDescription="";
     this.requestTitle="";
     this.requestNumber=0;
+    this.requestTitleField.nativeElement.value = "";
+    this.requestDescriptionField.nativeElement.value = "";
+  }
+  
+  onSubmit() {
+    this.requestTitleField.nativeElement.value = "";
+    this.requestDescriptionField.nativeElement.value = "";
+    this.myForm.resetForm();
   }
 
 }

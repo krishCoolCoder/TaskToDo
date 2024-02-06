@@ -256,3 +256,13 @@
 .tableViewRow{
     z-index: 1;
 }
+.options {
+    position: absolute;
+    right: 10px;
+}
+.dropdown:hover {
+    cursor: pointer;
+}
+.options:hover {
+    cursor: pointer;
+}

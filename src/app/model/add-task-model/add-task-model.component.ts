@@ -28,6 +28,8 @@ export class AddTaskModelComponent {
   description : string = "";
   status ?: string | undefined | null = '';
 
+  model: boolean =false ;
+
   // ngOnInit() : void {
   //   this.task = {
   //     taskNo: 0,

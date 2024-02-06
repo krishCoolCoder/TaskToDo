@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
 
 @Component({
   selector: 'app-task-to-do',
@@ -6,6 +6,8 @@ import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
   styleUrls: ['./task-to-do.component.css']
 })
 export class TaskToDoComponent implements OnInit, OnChanges {
+
+  taskData: any;
 // views state : 
 tableView : boolean = false;
 listView : boolean = false;
@@ -50,5 +52,9 @@ deleteTask(index: any) {
   this.taskList = tasks;
   localStorage.setItem('userTasks',JSON.stringify(tasks))
   this.noData = this.taskList.length === 0 ? true : false
+}
+editTask(data: any){
+  console.log("The data in the parent component is this : ", data);
+  this.taskData = data;
 }
 }

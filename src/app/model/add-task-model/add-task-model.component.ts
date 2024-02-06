@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -6,7 +6,7 @@ import { NgForm } from '@angular/forms';
   templateUrl: './add-task-model.component.html',
   styleUrls: ['./add-task-model.component.css']
 })
-export class AddTaskModelComponent {
+export class AddTaskModelComponent implements OnInit, OnChanges {
   @ViewChild('myForm')
   myForm!: NgForm;
   @ViewChild('taskTitle')
@@ -15,7 +15,27 @@ export class AddTaskModelComponent {
   taskDescription!: ElementRef;
   
   @Output()
-  inputValue : any = new EventEmitter<string>();
+  outputValue : any = new EventEmitter<string>();
+  
+  @Input()
+  inputValue: any;
+  
+  ngOnInit(): void {
+    console.log("The value of inputValue in child component is this : ",this.inputValue)
+  }
+  
+  ngOnChanges(changes: SimpleChanges): void {
+    try {
+
+      console.log("The value of inputValue in child component is this : ",this.inputValue);
+      // this.taskTitle = this.inputValue.title;
+      // this.taskDescription = this.inputValue.description;
+      this.taskTitle.nativeElement.value = this.inputValue.title || "";
+      this.taskDescription.nativeElement.value = this.inputValue.description || "";
+    } catch ( error : any) {
+      console.log("The error is this : ", error.name)
+    }
+  }
 
   // task : any = {
   //   taskNo : 0,
@@ -67,7 +87,7 @@ export class AddTaskModelComponent {
       }
     )
     localStorage.setItem('userTasks',JSON.stringify(userTasks));
-    this.inputValue.emit({
+    this.outputValue.emit({
       taskNo : this.taskNo,
       title: this.title,
       description : this.description,

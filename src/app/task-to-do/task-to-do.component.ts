@@ -30,6 +30,7 @@ showCardView () {
 }
 
 ngOnChanges(changes: SimpleChanges): void {
+  console.log("Into the on change on the parent compoenent : ", changes)
   this.taskList = localStorage.getItem('userTasks')
   this.noData = this.taskList.length === 0 ? true : false
 }

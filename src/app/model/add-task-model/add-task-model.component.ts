@@ -22,6 +22,10 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
   
   ngOnInit(): void {
     console.log("The value of inputValue in child component is this : ",this.inputValue)
+    this.taskNo = this.inputValue.taskNo;
+        this.title = this.inputValue.title;
+        this.description = this.inputValue.description;
+        this.status = this.inputValue.status;
   }
   
   ngOnChanges(changes: SimpleChanges): void {
@@ -32,6 +36,13 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
       // this.taskDescription = this.inputValue.description;
       this.taskTitle.nativeElement.value = this.inputValue.title || "";
       this.taskDescription.nativeElement.value = this.inputValue.description || "";
+      if (this.inputValue.taskNo) {
+      this.taskNo = this.inputValue.taskNo;
+        this.title = this.inputValue.title;
+        this.description = this.inputValue.description;
+        this.status = this.inputValue.status;
+      }
+
     } catch ( error : any) {
       console.log("The error is this : ", error.name)
     }
@@ -47,8 +58,6 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
   title: string = "";
   description : string = "";
   status ?: string | undefined | null = '';
-
-  model: boolean =false ;
 
   // ngOnInit() : void {
   //   this.task = {
@@ -69,13 +78,31 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
     console.log("The value is this : ", value.target  as HTMLParagraphElement);
     let data =  value.target  as HTMLParagraphElement;
     this.status = data.textContent;
-    console.log("The vlue isss : ", this.status, " and the data is this : ", data)
   }
 
   giveInputValue() : any {
     let userTasks = JSON.parse(<any>localStorage.getItem('userTasks'));
     let loggedInUserData = JSON.parse(<any>localStorage.getItem('loggedInUser'));
-    console.log("The loggedInUerData is this : ", loggedInUserData)
+    if (this.inputValue.taskNo) {
+      let filteredData = userTasks.forEach((data: any, index: number)=> {
+        if (data.taskNo === this.inputValue.taskNo) {
+          userTasks[index] = {
+            taskNo : this.inputValue.taskNo,
+            title: this.title,
+            description : this.description,
+            status : this.status == '' ? "Created" : this.status
+          };
+          localStorage.setItem('userTasks',JSON.stringify(userTasks));
+          this.outputValue.emit({
+            taskNo : this.taskNo,
+            title: this.title,
+            description : this.description,
+            status : this.status == '' ? "Created" : this.status 
+          });
+        }
+      });
+      return ;
+    }
     this.taskNo = Math.floor(Math.random() * 9000) + 1000;
     userTasks.push(
       {

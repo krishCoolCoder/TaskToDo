@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -6,7 +6,7 @@ import { NgForm } from '@angular/forms';
   templateUrl: './add-request-model.component.html',
   styleUrls: ['./add-request-model.component.css']
 })
-export class AddRequestModelComponent {
+export class AddRequestModelComponent implements OnInit, OnChanges {
   @ViewChild('myForm')
   myForm!: NgForm;
   @ViewChild('requestTitleField')
@@ -14,7 +14,9 @@ export class AddRequestModelComponent {
   @ViewChild('requestDescriptionField')
   requestDescriptionField!: ElementRef;
   @Output()
-  inputValue : any = new EventEmitter<string>();
+  outputValue : any = new EventEmitter<string>();
+  @Input()
+  inputValue: any;
 
   // task : any = {
   //   taskNo : 0,
@@ -28,13 +30,29 @@ export class AddRequestModelComponent {
   requestType : string | undefined | null = '';
   requestStatus ?: string | undefined | null = '';
 
-  // ngOnInit() : void {
-  //   this.task = {
-  //     taskNo: 0,
-  //     title: "",
-  //     description: ""
-  //   }
-  // }
+  ngOnInit() : void {
+    this.requestNumber = this.inputValue.requestNumber;
+    this.requestTitle = this.inputValue.requestTitle;
+    this.requestDescription = this.inputValue.requestDescription;
+    this.requestType = this.inputValue.requestType;
+    this.requestStatus = this.inputValue.requestStatus;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    try {
+      this.requestTitleField.nativeElement.value = this.inputValue.requestTitle || "";
+      this.requestDescriptionField.nativeElement.value = this.inputValue.requestDescription || "";
+      if (this.inputValue.requestNumber) {
+        this.requestNumber = this.inputValue.requestNumber;
+        this.requestTitle = this.inputValue.requestTitle;
+        this.requestDescription = this.inputValue.requestDescription;
+        this.requestType = this.inputValue.requestType;
+        this.requestStatus = this.inputValue.requestStatus;
+      }
+    } catch (error) {
+      console.log("The error is in ngOnChange() in model : ", error)
+    }
+  }
 
   formTitle(event: any) : any {
     this.requestTitle = event?.target.value;
@@ -60,6 +78,38 @@ export class AddRequestModelComponent {
     this.requestNumber = Math.floor(Math.random() * 9000) + 1000;
     let requestList = JSON.parse(<any>localStorage.getItem('requestList'));
     let loggedInUserData = JSON.parse(<any>localStorage.getItem('loggedInUser'))
+    let requestNumber = this.inputValue.requestNumber;
+    console.log("whatttt")
+    console.log("Actual value of inputvlaue ", this.inputValue)
+    console.log("whatttt")
+    if (this.inputValue.requestNumber) {
+      let filteredData = requestList.forEach((data: any, index: number)=> {
+        if (data.requestNumber === requestNumber) {
+          requestList[index] = {
+            requestNumber : requestNumber,
+            requestTitle: this.requestTitle,
+            requestDescription : this.requestDescription,
+            requestStatus : this.inputValue.requestStatus == '' ? "Unknown request raised" : this.inputValue.requestStatus ,
+            requestType : this.inputValue.requestType == '' ? "Request Raised" : this.inputValue.requestType ,
+            requestCreatedBy : loggedInUserData.userName
+          };
+          localStorage.setItem('requestList',JSON.stringify(requestList));
+          this.outputValue.emit({
+            requestNumber : this.inputValue.requestNumber,
+            requestTitle: this.inputValue.requestTitle,
+            requestDescription : this.inputValue.requestDescription,
+            requestStatus : this.inputValue.requestStatus == '' ? "Unknown request raised" : this.inputValue.requestStatus ,
+            requestType : this.inputValue.requestType == '' ? "Request Raised" : this.inputValue.requestType ,
+            requestCreatedBy : loggedInUserData.userName
+          });
+        } 
+        this.inputValue.requestNumber = null;
+        this.requestTitleField.nativeElement.value = "";
+        this.requestDescriptionField.nativeElement.value = "";
+        this.myForm.resetForm();
+        return;
+      });
+    }
     requestList.push(
       {
         requestNumber : this.requestNumber,
@@ -71,7 +121,7 @@ export class AddRequestModelComponent {
       }
     )
     localStorage.setItem('requestList',JSON.stringify(requestList));
-    this.inputValue.emit({
+    this.outputValue.emit({
       requestNumber : this.requestNumber,
       requestTitle: this.requestTitle,
       requestDescription : this.requestDescription,

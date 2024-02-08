@@ -28,10 +28,11 @@ export class RequestComponent implements OnInit, OnChanges {
   }
   requestList : any = [
   ];
+  requestData : any;
   noData : boolean = false;
   ngOnChanges(changes: SimpleChanges): void {
     this.requestList = localStorage.getItem('requestList');
-    console.log("The ngOnChanges method has been called and the user Data is this : ", typeof this.requestList)
+    console.log("The ngOnChanges method has been called and the user Data is this : ", this.requestData)
     this.noData = this.requestList.length === 0 ? true : false; 
   }
   ngOnInit(): void {
@@ -56,4 +57,7 @@ export class RequestComponent implements OnInit, OnChanges {
     localStorage.setItem('requestList',JSON.stringify(requestListData))
     this.noData = this.requestList.length === 0 ? true : false; 
     }
+  editRequest(data: any) {
+    this.requestData = data;
+  }
 }

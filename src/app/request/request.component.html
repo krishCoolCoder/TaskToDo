@@ -1,6 +1,6 @@
 <app-header></app-header>
 <app-sidebar-menu></app-sidebar-menu>
-<app-add-request-model (inputValue)="getInputValue($event)"></app-add-request-model>
+<app-add-request-model (outputValue)="getInputValue($event)" [inputValue]="requestData"></app-add-request-model>
 <div class="taskContainer d-flex flex-column">
     <div class="topButtons">
         <div class="d-flex bd-highlight mb-3">
@@ -121,7 +121,7 @@
                       </svg>
                           Delete
                   </div>
-                  <div class="dropdown-item" data-toggle="modal" data-target="#requestModel">
+                  <div class="dropdown-item" data-toggle="modal" data-target="#requestModel" (click)="editRequest(data)">
                       <svg class="mr-2" width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M0 8.70864V11H2.29136L9.04933 4.24203L6.75797 1.95067L0 8.70864ZM10.8213 2.47005C10.878 2.41352 10.9229 2.34637 10.9536 2.27246C10.9842 2.19854 11 2.1193 11 2.03927C11 1.95925 10.9842 1.88001 10.9536 1.80609C10.9229 1.73217 10.878 1.66503 10.8213 1.6085L9.3915 0.178692C9.33498 0.122047 9.26783 0.0771074 9.19391 0.0464451C9.11999 0.0157828 9.04075 0 8.96073 0C8.8807 0 8.80146 0.0157828 8.72754 0.0464451C8.65363 0.0771074 8.58648 0.122047 8.52995 0.178692L7.41177 1.29687L9.70313 3.58823L10.8213 2.47005Z" fill="black"/>
                       </svg>                                
@@ -160,7 +160,7 @@
                             </svg>
                                 Delete
                         </div>
-                        <div class="dropdown-item" data-toggle="modal" data-target="#requestModel">
+                        <div class="dropdown-item" data-toggle="modal" data-target="#requestModel" (click)="editRequest(data)">
                             <svg class="mr-2" width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0 8.70864V11H2.29136L9.04933 4.24203L6.75797 1.95067L0 8.70864ZM10.8213 2.47005C10.878 2.41352 10.9229 2.34637 10.9536 2.27246C10.9842 2.19854 11 2.1193 11 2.03927C11 1.95925 10.9842 1.88001 10.9536 1.80609C10.9229 1.73217 10.878 1.66503 10.8213 1.6085L9.3915 0.178692C9.33498 0.122047 9.26783 0.0771074 9.19391 0.0464451C9.11999 0.0157828 9.04075 0 8.96073 0C8.8807 0 8.80146 0.0157828 8.72754 0.0464451C8.65363 0.0771074 8.58648 0.122047 8.52995 0.178692L7.41177 1.29687L9.70313 3.58823L10.8213 2.47005Z" fill="black"/>
                             </svg>                                
@@ -190,7 +190,7 @@
                   </svg>
                       Delete
               </div>
-              <div class="dropdown-item" data-toggle="modal" data-target="#requestModel">
+              <div class="dropdown-item" data-toggle="modal" data-target="#requestModel" (click)="editRequest(data)">
                   <svg class="mr-2" width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M0 8.70864V11H2.29136L9.04933 4.24203L6.75797 1.95067L0 8.70864ZM10.8213 2.47005C10.878 2.41352 10.9229 2.34637 10.9536 2.27246C10.9842 2.19854 11 2.1193 11 2.03927C11 1.95925 10.9842 1.88001 10.9536 1.80609C10.9229 1.73217 10.878 1.66503 10.8213 1.6085L9.3915 0.178692C9.33498 0.122047 9.26783 0.0771074 9.19391 0.0464451C9.11999 0.0157828 9.04075 0 8.96073 0C8.8807 0 8.80146 0.0157828 8.72754 0.0464451C8.65363 0.0771074 8.58648 0.122047 8.52995 0.178692L7.41177 1.29687L9.70313 3.58823L10.8213 2.47005Z" fill="black"/>
                   </svg>                                

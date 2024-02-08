@@ -84,23 +84,37 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
     let userTasks = JSON.parse(<any>localStorage.getItem('userTasks'));
     let loggedInUserData = JSON.parse(<any>localStorage.getItem('loggedInUser'));
     if (this.inputValue.taskNo) {
+      console.log("Into the if : ")
       let filteredData = userTasks.forEach((data: any, index: number)=> {
         if (data.taskNo === this.inputValue.taskNo) {
           userTasks[index] = {
             taskNo : this.inputValue.taskNo,
             title: this.title,
             description : this.description,
-            status : this.status == '' ? "Created" : this.status
+            status : this.status == '' ? "Created" : this.status,
+            assignedBy : loggedInUserData.userName
           };
           localStorage.setItem('userTasks',JSON.stringify(userTasks));
           this.outputValue.emit({
             taskNo : this.taskNo,
             title: this.title,
             description : this.description,
-            status : this.status == '' ? "Created" : this.status 
+            status : this.status == '' ? "Created" : this.status,
+            assignedBy : loggedInUserData.userName
           });
-        }
+        } 
+  //       this.description="";
+  // this.title="";
+  // this.taskNo=0;
+  // this.taskTitle.nativeElement.value = "";
+  // this.taskDescription.nativeElement.value = "";
+  // this.myForm.resetForm();
       });
+      this.inputValue.taskNo = null;
+      this.taskTitle.nativeElement.value = "";
+    this.taskDescription.nativeElement.value = "";
+    this.myForm.resetForm();
+      // this.taskNo = "";
       return ;
     }
     this.taskNo = Math.floor(Math.random() * 9000) + 1000;

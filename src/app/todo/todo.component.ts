@@ -11,12 +11,13 @@ export class TodoComponent implements OnChanges {
   inputData : any;
   todoList: any = JSON.parse(<any>localStorage.getItem('todoList'));
   
-  // views state : 
+  // views state :   
 tableView : boolean = false;
 listView : boolean = false;
 cardView : boolean = true;
 
 noData : any = this.todoList.length === 0 ? true : false;
+todoData : any;
 
 showTableView () {
   this.tableView = true ;
@@ -35,13 +36,21 @@ showCardView () {
 }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.todoList = JSON.parse(<any>localStorage.getItem('todoList'));
-    this.noData = this.todoList.length === 0 ? true : false
-  }
-
-  ngOnInit() {
+    console.log("PARENT Into the ngOnChanges after edit")
     this.todoList = JSON.parse(<any>localStorage.getItem('todoList'));
     this.noData = this.todoList.length === 0 ? true : false;
+  }
+  
+  ngOnInit() {
+    console.log("PARENT Into the ngOnInit after edit")
+    this.todoList = JSON.parse(<any>localStorage.getItem('todoList'));
+    this.noData = this.todoList.length === 0 ? true : false;
+  }
+
+  getInputValue ($event: any) {
+    console.log("PARENT Into the getIinpuValue and the $event is this : ", $event)
+    let todoList = JSON.parse(<any>localStorage.getItem('todoList'));
+    this.todoList = todoList;
   }
 
   getTodoData(event: any) {
@@ -59,5 +68,9 @@ showCardView () {
     this.todoList = todoList;
     localStorage.setItem('todoList',JSON.stringify(todoList));
     this.noData = this.todoList.length === 0 ? true : false;
+  }
+  editTask(data: any) {
+    console.log("The data in the parent component is this : ", data);
+    this.todoData = data;
   }
 }

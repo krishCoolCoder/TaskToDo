@@ -25,6 +25,7 @@ import { TaskToDoComponent } from './task-to-do/task-to-do.component';
 import { TodoComponent } from './todo/todo.component';
 import { AddOrganisationModelComponent } from './model/add-organisation-model/add-organisation-model.component';
 import { AddTeamModelComponent } from './model/add-team-model/add-team-model.component';
+import { AddTodoModelComponent } from './model/add-todo-model/add-todo-model.component';
 
 const routeConfig: Routes = [
   {
@@ -99,7 +100,8 @@ const routeConfig: Routes = [
     TaskToDoComponent,
     TodoComponent,
     AddOrganisationModelComponent,
-    AddTeamModelComponent
+    AddTeamModelComponent,
+    AddTodoModelComponent
   ],
   imports: [
     BrowserModule,

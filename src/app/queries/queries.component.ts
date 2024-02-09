@@ -29,6 +29,7 @@ export class QueriesComponent implements OnInit, OnChanges {
 
   queryList : any = [
   ];
+  queryData: any ;
   noData : boolean = false;
   ngOnInit(): void {
     this.queryList = JSON.parse(<any>localStorage.getItem('queryList'));
@@ -51,4 +52,8 @@ export class QueriesComponent implements OnInit, OnChanges {
     localStorage.setItem('queryList',JSON.stringify(queryListData))
     this.noData = this.queryList.length === 0 ? true : false; 
     }
+  editQuery(data: any) {
+    this.queryData = data;
+    console.log("Into the editQuery and the data is this : ", data)
+  }
 }

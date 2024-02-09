@@ -20,6 +20,7 @@
     position: sticky;
     top: 0;
     background-color: #FFFFFF;
+    z-index: 9;
 }
 
 .request { 
@@ -129,6 +130,9 @@
 }
 .dropdown:hover {
     cursor: pointer;
+}
+.dropdown-menu {
+    z-index: 5;
 }
 .options:hover {
     cursor: pointer;

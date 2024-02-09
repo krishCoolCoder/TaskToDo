@@ -108,6 +108,8 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
         } 
       });
       this.inputValue = null;
+      this.requestTitle = "";
+      this.requestDescription = ""; 
       this.requestTitleField.nativeElement.value = "";
       this.requestDescriptionField.nativeElement.value = "";
       this.myForm.resetForm();

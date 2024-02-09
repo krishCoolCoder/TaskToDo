@@ -105,14 +105,10 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
             assignedBy : loggedInUserData.userName
           });
         } 
-  //       this.description="";
-  // this.title="";
-  // this.taskNo=0;
-  // this.taskTitle.nativeElement.value = "";
-  // this.taskDescription.nativeElement.value = "";
-  // this.myForm.resetForm();
       });
       this.inputValue = null;
+      this.title = "";
+      this.description = "";
       this.taskTitle.nativeElement.value = "";
     this.taskDescription.nativeElement.value = "";
     this.myForm.resetForm();

@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { NgForm , FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 
@@ -7,7 +7,7 @@ import { NgForm , FormBuilder, FormGroup, Validators} from '@angular/forms';
   templateUrl: './add-user-model.component.html',
   styleUrls: ['./add-user-model.component.css']
 })
-export class AddUserModelComponent {
+export class AddUserModelComponent implements OnInit, OnChanges {
   @ViewChild('myForm')
   myForm!: NgForm;
   @ViewChild('userNameInput')
@@ -16,13 +16,10 @@ export class AddUserModelComponent {
   userEmailInput!: ElementRef;
 
   @Output()
-  inputValue : any = new EventEmitter<string>();
-
-  // task : any = {
-  //   taskNo : 0,
-  //   title : "",
-  //   description : ""
-  // }
+  outputValue : any = new EventEmitter<string>();
+  
+  @Input()
+  inputValue : any;
 
   requestNumber : any = 0;
   requestTitle: string = "";
@@ -41,13 +38,33 @@ export class AddUserModelComponent {
     review : "Lets see"
   }
 
-  // ngOnInit() : void {
-  //   this.task = {
-  //     taskNo: 0,
-  //     title: "",
-  //     description: ""
-  //   }
-  // }
+  ngOnInit(): void {
+    console.log("The value of inputValue in child component is this : ",this.inputValue)
+    if (this.inputValue) {
+      this.userData.userName = this.inputValue.userName;
+      this.userData.userEmail = this.inputValue.userEmail;
+      this.userData.userRole = this.inputValue.userRole;
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    try {
+
+      console.log("The value of inputValue in child component is this : ",this.inputValue);
+      // this.taskTitle = this.inputValue.title;
+      // this.taskDescription = this.inputValue.description;
+      this.userNameInput.nativeElement.value = this.inputValue.userName || "";
+      this.userEmailInput.nativeElement.value = this.inputValue.userEmail || "";
+      if (this.inputValue) {
+        this.userData.userName = this.inputValue.userName;
+        this.userData.userEmail = this.inputValue.userEmail;
+        this.userData.userRole = this.inputValue.userRole;
+      }
+
+    } catch ( error : any) {
+      console.log("The error is this : ", error.name)
+    }
+  }
 
   formUserName(event: any) : any {
     this.userData.userName = event?.target.value;
@@ -65,11 +82,33 @@ export class AddUserModelComponent {
 
   giveInputValue() : any {
     let userListValue = JSON.parse(<any>localStorage.getItem('userList'));
+    let loggedInUserData = JSON.parse(<any>localStorage.getItem('loggedInUser'));
+    if (this.inputValue) {
+      let filteredData = userListValue.forEach((data: any, index: number)=> {
+        if (data.userEmail === this.inputValue.userEmail) {
+          userListValue[index].userEmail = this.userData.userEmail;
+          userListValue[index].userName = this.userData.userName;
+          userListValue[index].userRole = this.userData.userRole;
+          localStorage.setItem('userList',JSON.stringify(userListValue));
+          this.outputValue.emit({
+            userEmail : this.userData.userEmail,
+            userName: this.userData.userName,
+            description : this.userData.userRole
+          });
+        } 
+      });
+      this.inputValue = null;
+      this.userData.userEmail = "";
+this.userData.userName = "";
+this.userData.userRole = "";
+      this.userNameInput.nativeElement.value = "";
+    this.userEmailInput.nativeElement.value = "";
+    this.myForm.resetForm();
+      return ;
+    }
     userListValue.push(this.userData);
-    console.log("The value of the userListValue is this : ", userListValue)
-    console.log("The step two is this : ", userListValue, " and the userData is this : ", this.userData)
     localStorage.setItem('userList',JSON.stringify(userListValue));
-    this.inputValue.emit(this.userData);
+    this.outputValue.emit(this.userData);
     this.myForm.reset();
     this.userNameInput.nativeElement.value = '';
     this.userEmailInput.nativeElement.value = '';

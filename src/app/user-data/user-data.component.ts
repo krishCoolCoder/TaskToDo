@@ -6,6 +6,7 @@ import { Component,OnInit,OnChanges, SimpleChanges } from '@angular/core';
   styleUrls: ['./user-data.component.css']
 })
 export class UserDataComponent implements OnInit ,OnChanges{
+  userData: any;
   // views state : 
   tableView : boolean = false;
   listView : boolean = false;
@@ -85,5 +86,8 @@ export class UserDataComponent implements OnInit ,OnChanges{
   this.userList = userData;
   localStorage.setItem('userList',JSON.stringify(userData))
   this.noData = this.userList.length === 0 ? true : false; 
+  }
+  editUser(data: any) {
+    this.userData = data;
   }
 }

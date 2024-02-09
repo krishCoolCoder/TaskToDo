@@ -22,10 +22,12 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
   
   ngOnInit(): void {
     console.log("The value of inputValue in child component is this : ",this.inputValue)
+    if (this.inputValue) {
     this.taskNo = this.inputValue.taskNo;
         this.title = this.inputValue.title;
         this.description = this.inputValue.description;
         this.status = this.inputValue.status;
+    }
   }
   
   ngOnChanges(changes: SimpleChanges): void {
@@ -83,7 +85,7 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
   giveInputValue() : any {
     let userTasks = JSON.parse(<any>localStorage.getItem('userTasks'));
     let loggedInUserData = JSON.parse(<any>localStorage.getItem('loggedInUser'));
-    if (this.inputValue.taskNo) {
+    if (this.inputValue) {
       console.log("Into the if : ")
       let filteredData = userTasks.forEach((data: any, index: number)=> {
         if (data.taskNo === this.inputValue.taskNo) {
@@ -110,7 +112,7 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
   // this.taskDescription.nativeElement.value = "";
   // this.myForm.resetForm();
       });
-      this.inputValue.taskNo = null;
+      this.inputValue = null;
       this.taskTitle.nativeElement.value = "";
     this.taskDescription.nativeElement.value = "";
     this.myForm.resetForm();

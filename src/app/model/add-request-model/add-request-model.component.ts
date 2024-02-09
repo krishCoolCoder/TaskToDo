@@ -31,18 +31,20 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
   requestStatus ?: string | undefined | null = '';
 
   ngOnInit() : void {
+    if (this.inputValue) {
     this.requestNumber = this.inputValue.requestNumber;
     this.requestTitle = this.inputValue.requestTitle;
     this.requestDescription = this.inputValue.requestDescription;
     this.requestType = this.inputValue.requestType;
     this.requestStatus = this.inputValue.requestStatus;
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     try {
       this.requestTitleField.nativeElement.value = this.inputValue.requestTitle || "";
       this.requestDescriptionField.nativeElement.value = this.inputValue.requestDescription || "";
-      if (this.inputValue.requestNumber) {
+      if (this.inputValue) {
         this.requestNumber = this.inputValue.requestNumber;
         this.requestTitle = this.inputValue.requestTitle;
         this.requestDescription = this.inputValue.requestDescription;
@@ -78,19 +80,20 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
     this.requestNumber = Math.floor(Math.random() * 9000) + 1000;
     let requestList = JSON.parse(<any>localStorage.getItem('requestList'));
     let loggedInUserData = JSON.parse(<any>localStorage.getItem('loggedInUser'))
-    let requestNumber = this.inputValue.requestNumber;
     console.log("whatttt")
     console.log("Actual value of inputvlaue ", this.inputValue)
     console.log("whatttt")
-    if (this.inputValue.requestNumber) {
+    if (this.inputValue) {
+      let requestNumber = this.inputValue.requestNumber;
+      let requestType = this.inputValue.requestType;
       let filteredData = requestList.forEach((data: any, index: number)=> {
         if (data.requestNumber === requestNumber) {
           requestList[index] = {
             requestNumber : requestNumber,
             requestTitle: this.requestTitle,
             requestDescription : this.requestDescription,
-            requestStatus : this.inputValue.requestStatus == '' ? "Unknown request raised" : this.inputValue.requestStatus ,
-            requestType : this.inputValue.requestType == '' ? "Request Raised" : this.inputValue.requestType ,
+            requestStatus : requestType == '' ? "Unknown request raised" : requestType ,
+            requestType : requestType == '' ? "Request Raised" : requestType ,
             requestCreatedBy : loggedInUserData.userName
           };
           localStorage.setItem('requestList',JSON.stringify(requestList));
@@ -98,18 +101,19 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
             requestNumber : this.inputValue.requestNumber,
             requestTitle: this.inputValue.requestTitle,
             requestDescription : this.inputValue.requestDescription,
-            requestStatus : this.inputValue.requestStatus == '' ? "Unknown request raised" : this.inputValue.requestStatus ,
-            requestType : this.inputValue.requestType == '' ? "Request Raised" : this.inputValue.requestType ,
+            requestStatus : requestType == '' ? "Unknown request raised" : requestType ,
+            requestType : requestType == '' ? "Request Raised" : requestType ,
             requestCreatedBy : loggedInUserData.userName
           });
         } 
-        this.inputValue.requestNumber = null;
-        this.requestTitleField.nativeElement.value = "";
-        this.requestDescriptionField.nativeElement.value = "";
-        this.myForm.resetForm();
-        return;
       });
+      this.inputValue = null;
+      this.requestTitleField.nativeElement.value = "";
+      this.requestDescriptionField.nativeElement.value = "";
+      this.myForm.resetForm();
+      return;
     }
+    console.log("After the if for editing")
     requestList.push(
       {
         requestNumber : this.requestNumber,

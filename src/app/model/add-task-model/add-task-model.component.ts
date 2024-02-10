@@ -19,6 +19,10 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
   
   @Input()
   inputValue: any;
+
+  @ViewChild('exampleModalCenter') modalElement!: ElementRef;
+
+  editView: boolean = false;
   
   ngOnInit(): void {
     console.log("The value of inputValue in child component is this : ",this.inputValue)
@@ -27,9 +31,13 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
         this.title = this.inputValue.title;
         this.description = this.inputValue.description;
         this.status = this.inputValue.status;
+        this.editView = true
     }
   }
-  
+  // #exampleModalCenter > div > div > div.modal-header > button
+  onModelClose(){
+    console.log("I got called, so close and it and do your thing.")
+  }
   ngOnChanges(changes: SimpleChanges): void {
     try {
 
@@ -43,6 +51,7 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
         this.title = this.inputValue.title;
         this.description = this.inputValue.description;
         this.status = this.inputValue.status;
+        this.editView = true;
       }
 
     } catch ( error : any) {
@@ -86,6 +95,7 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
     let userTasks = JSON.parse(<any>localStorage.getItem('userTasks'));
     let loggedInUserData = JSON.parse(<any>localStorage.getItem('loggedInUser'));
     if (this.inputValue) {
+      this.editView = true;
       console.log("Into the if : ")
       let filteredData = userTasks.forEach((data: any, index: number)=> {
         if (data.taskNo === this.inputValue.taskNo) {
@@ -121,7 +131,7 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
         taskNo : this.taskNo,
         title: this.title,
         description : this.description,
-        status : this.status == '' ? "Created" : this.status,
+        status : "Created",
         assignedBy : loggedInUserData.userName
       }
     )
@@ -141,6 +151,18 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
   
   onSubmit() {
     this.taskTitle.nativeElement.value = "";
+    this.taskDescription.nativeElement.value = "";
+    this.myForm.resetForm();
+  }
+
+  onModalClose() {
+    // Handle the modal close event here
+    console.log('Modal closed');
+    // Add your logic here
+    this.inputValue = null;
+      this.title = "";
+      this.description = "";
+      this.taskTitle.nativeElement.value = "";
     this.taskDescription.nativeElement.value = "";
     this.myForm.resetForm();
   }

@@ -159,6 +159,7 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
     // Handle the modal close event here
     console.log('Modal closed');
     // Add your logic here
+    this.editView = false;
     this.inputValue = null;
       this.title = "";
       this.description = "";

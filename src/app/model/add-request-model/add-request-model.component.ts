@@ -18,6 +18,8 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
   @Input()
   inputValue: any;
 
+  editView : boolean = false;
+
   // task : any = {
   //   taskNo : 0,
   //   title : "",
@@ -37,6 +39,7 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
     this.requestDescription = this.inputValue.requestDescription;
     this.requestType = this.inputValue.requestType;
     this.requestStatus = this.inputValue.requestStatus;
+    this.editView = true;
     }
   }
 
@@ -50,6 +53,7 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
         this.requestDescription = this.inputValue.requestDescription;
         this.requestType = this.inputValue.requestType;
         this.requestStatus = this.inputValue.requestStatus;
+        this.editView = true;
       }
     } catch (error) {
       console.log("The error is in ngOnChange() in model : ", error)
@@ -84,6 +88,7 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
     console.log("Actual value of inputvlaue ", this.inputValue)
     console.log("whatttt")
     if (this.inputValue) {
+      this.editView = false;
       let requestNumber = this.inputValue.requestNumber;
       let requestType = this.inputValue.requestType;
       let filteredData = requestList.forEach((data: any, index: number)=> {
@@ -92,8 +97,8 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
             requestNumber : requestNumber,
             requestTitle: this.requestTitle,
             requestDescription : this.requestDescription,
-            requestStatus : requestType == '' ? "Unknown request raised" : requestType ,
-            requestType : requestType == '' ? "Request Raised" : requestType ,
+            requestType : this.inputValue.requestStatus == '' ? "Access Control" : this.inputValue.requestStatus ,
+            requestStatus : requestType == '' ? "Request Raised" : requestType ,
             requestCreatedBy : loggedInUserData.userName
           };
           localStorage.setItem('requestList',JSON.stringify(requestList));
@@ -101,8 +106,8 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
             requestNumber : this.inputValue.requestNumber,
             requestTitle: this.inputValue.requestTitle,
             requestDescription : this.inputValue.requestDescription,
-            requestStatus : requestType == '' ? "Unknown request raised" : requestType ,
-            requestType : requestType == '' ? "Request Raised" : requestType ,
+            requestType : this.inputValue.requestStatus == '' ? "Access Control" : this.inputValue.requestStatus ,
+            requestStatus : requestType == '' ? "Request Raised" : requestType ,
             requestCreatedBy : loggedInUserData.userName
           });
         } 
@@ -121,8 +126,8 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
         requestNumber : this.requestNumber,
         requestTitle: this.requestTitle,
         requestDescription : this.requestDescription,
-        requestStatus : this.requestStatus == '' ? "Unknown request raised" : this.requestStatus ,
-        requestType : this.requestType == '' ? "Request Raised" : this.requestType ,
+        requestStatus : this.requestStatus == '' ? "Request Raised" : this.requestStatus ,
+        requestType : this.requestStatus == '' ? "Access Control" : this.requestStatus ,
         requestCreatedBy : loggedInUserData.userName
       }
     )
@@ -131,7 +136,7 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
       requestNumber : this.requestNumber,
       requestTitle: this.requestTitle,
       requestDescription : this.requestDescription,
-      requestStatus : this.requestStatus == '' ? "Unknown request raised" : this.requestStatus 
+      requestStatus : this.requestStatus == '' ? "Request Raised" : this.requestStatus 
     });
     this.requestDescription="";
     this.requestTitle="";
@@ -145,5 +150,16 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
     this.requestDescriptionField.nativeElement.value = "";
     this.myForm.resetForm();
   }
-
+  onModalClose() {
+    // Handle the modal close event here
+    console.log('Modal closed');
+    // Add your logic here
+    this.editView = false;
+    this.inputValue = null;
+    this.requestTitle = "";
+    this.requestDescription = ""; 
+    this.requestTitleField.nativeElement.value = "";
+    this.requestDescriptionField.nativeElement.value = "";
+    this.myForm.resetForm();
+  }
 }

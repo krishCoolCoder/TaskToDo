@@ -19,11 +19,7 @@ export class AddQueryModelComponent implements OnInit, OnChanges{
   @Output()
   outputValue : any = new EventEmitter<string>();
 
-  // task : any = {
-  //   taskNo : 0,
-  //   title : "",
-  //   description : ""
-  // }
+  editView : boolean = false;
 
   queryNumber : any = 0;
   queryTitle: string = "";
@@ -34,6 +30,7 @@ export class AddQueryModelComponent implements OnInit, OnChanges{
     console.log("Into the ngOnInit : ")
     if (this.inputValue) {
       console.log("Into the ngOnInit and into the if ")
+      this.editView = true;
     this.queryNumber = this.inputValue.queryNumber;
     this.queryTitle = this.inputValue.queryTitle;
     this.queryDescription = this.inputValue.queryDescription;
@@ -48,6 +45,7 @@ export class AddQueryModelComponent implements OnInit, OnChanges{
       console.log("Intot he ngOnChanges : ")
       if (this.inputValue) {
         console.log("Into the ngOnChanges and into the if : ")
+        this.editView = true;
         this.queryNumber = this.inputValue.queryNumber;
         this.queryTitle = this.inputValue.queryTitle;
         this.queryDescription = this.inputValue.queryDescription;
@@ -81,6 +79,7 @@ export class AddQueryModelComponent implements OnInit, OnChanges{
     console.log("Actual value of inputvlaue ", this.inputValue)
     console.log("whatttt")
     if (this.inputValue) {
+      this.editView = true;
       console.log("Into the if on giveInputValue and the this.queryTitle is this : ", this.queryTitle)
       let filteredData = queryListValues.forEach((data: any, index: number)=> {
         if (data.queryNumber === this.inputValue.queryNumber) {
@@ -137,5 +136,16 @@ export class AddQueryModelComponent implements OnInit, OnChanges{
     this.queryTitleField.nativeElement.value = '';
     this.queryDescriptionField.nativeElement.value = '';
     // this.myForm.resetForm();
+  }
+  onModalClose() {
+    // Handle the modal close event here
+    console.log('Modal closed');
+    // Add your logic here
+    this.editView = false;
+    this.queryDescription="";
+    this.queryTitle="";
+    this.queryNumber=0;
+    this.queryTitleField.nativeElement.value = '';
+    this.queryDescriptionField.nativeElement.value = '';
   }
 }

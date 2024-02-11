@@ -1,6 +1,5 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, Renderer2, SimpleChanges, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-
 @Component({
   selector: 'app-add-task-model',
   templateUrl: './add-task-model.component.html',
@@ -13,6 +12,7 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
   taskTitle!: ElementRef;
   @ViewChild('taskDescription')
   taskDescription!: ElementRef;
+  @ViewChild('closeModel') closebutton: any;
   
   @Output()
   outputValue : any = new EventEmitter<string>();
@@ -22,7 +22,23 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
 
   @ViewChild('exampleModalCenter') modalElement!: ElementRef;
 
+  // @ViewChild('exampleModal') modalElement: ElementRef;
+
   editView: boolean = false;
+
+  class : any = "modal fade show";
+
+  // constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
+
+  // @HostListener('document:click', ['$event'])
+  // clickout(event: MouseEvent) {
+  //   // Check if the click event target is outside the modal
+  //   if (!this.elementRef.nativeElement.contains(event.target)) {
+  //     // Perform your action here, such as closing the modal
+  //     // this.closeModal();
+  //     console.log("Click outside to close the model")
+  //   }
+  // }
   
   ngOnInit(): void {
     console.log("The value of inputValue in child component is this : ",this.inputValue)
@@ -34,10 +50,7 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
         this.editView = true
     }
   }
-  // #exampleModalCenter > div > div > div.modal-header > button
-  onModelClose(){
-    console.log("I got called, so close and it and do your thing.")
-  }
+
   ngOnChanges(changes: SimpleChanges): void {
     try {
 
@@ -57,6 +70,10 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
     } catch ( error : any) {
       console.log("The error is this : ", error.name)
     }
+  }
+
+  constructor(private eRef: ElementRef) {
+    console.log('no clicks yet test');
   }
 
   // task : any = {
@@ -160,12 +177,25 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
     console.log('Modal closed');
     // Add your logic here
     this.editView = false;
-    this.inputValue = null;
+    console.log("Into the test() and the inputValue is this : ", this.inputValue)
+    // this.inputValue = null;
       this.title = "";
       this.description = "";
       this.taskTitle.nativeElement.value = "";
     this.taskDescription.nativeElement.value = "";
-    this.myForm.resetForm();
+    // this.myForm.resetForm();
+  }
+  
+  test() {
+    console.log("I clicked it.")
+    this.closebutton.nativeElement.click();
+    this.editView = false;
+    // this.inputValue = null;
+    console.log("Into the test() and the inputValue is this : ", this.inputValue)
+      this.title = "";
+      this.description = "";
+      this.taskTitle.nativeElement.value = "";
+    this.taskDescription.nativeElement.value = "";
   }
 
 }

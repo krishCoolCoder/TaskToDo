@@ -1,9 +1,36 @@
 #exampleModalCenter{
     background-color: rgba(0, 0, 0, 0.268);
+    /* z-index: 10; */
+}
+.modal-content {
+    /* position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: .3rem;
+    outline: 0; */
+    z-index: 9;
+}
+#testing{
+    /* z-index: 19; */
 }
 
 button:focus {
     outline: 1px none;
 }
 
-/* use this in future */
+.outerLayer {
+    position: absolute;
+    top: 0px;
+    height: 100vh;
+    width: 200vh;
+    background-color: rgba(0, 0, 0, 0.268);
+    /* background-color: red; */
+    /* z-index: -1; */
+}

@@ -19,6 +19,8 @@ cardView : boolean = true;
 noData : any = this.todoList.length === 0 ? true : false;
 todoData : any;
 
+isEdit : boolean = false;
+
 showTableView () {
   this.tableView = true ;
   this.listView = false;
@@ -69,8 +71,9 @@ showCardView () {
     localStorage.setItem('todoList',JSON.stringify(todoList));
     this.noData = this.todoList.length === 0 ? true : false;
   }
-  editTask(data: any) {
+  editTask(data: any, flag: boolean) {
     console.log("The data in the parent component is this : ", data);
     this.todoData = data;
+    this.isEdit = flag;
   }
 }

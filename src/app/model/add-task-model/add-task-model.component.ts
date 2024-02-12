@@ -12,88 +12,77 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
   taskTitle!: ElementRef;
   @ViewChild('taskDescription')
   taskDescription!: ElementRef;
-  @ViewChild('closeModel') closebutton: any;
   
   @Output()
   outputValue : any = new EventEmitter<string>();
   
   @Input()
   inputValue: any;
+  
+  @Input()
+  isEdit?: boolean;
 
   @ViewChild('exampleModalCenter') modalElement!: ElementRef;
-
-  // @ViewChild('exampleModal') modalElement: ElementRef;
-
-  editView: boolean = false;
-
-  class : any = "modal fade show";
-
-  // constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
-
-  // @HostListener('document:click', ['$event'])
-  // clickout(event: MouseEvent) {
-  //   // Check if the click event target is outside the modal
-  //   if (!this.elementRef.nativeElement.contains(event.target)) {
-  //     // Perform your action here, such as closing the modal
-  //     // this.closeModal();
-  //     console.log("Click outside to close the model")
-  //   }
-  // }
-  
-  ngOnInit(): void {
-    console.log("The value of inputValue in child component is this : ",this.inputValue)
-    if (this.inputValue) {
-    this.taskNo = this.inputValue.taskNo;
-        this.title = this.inputValue.title;
-        this.description = this.inputValue.description;
-        this.status = this.inputValue.status;
-        this.editView = true
-    }
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    try {
-
-      console.log("The value of inputValue in child component is this : ",this.inputValue);
-      // this.taskTitle = this.inputValue.title;
-      // this.taskDescription = this.inputValue.description;
-      this.taskTitle.nativeElement.value = this.inputValue.title || "";
-      this.taskDescription.nativeElement.value = this.inputValue.description || "";
-      if (this.inputValue.taskNo) {
-      this.taskNo = this.inputValue.taskNo;
-        this.title = this.inputValue.title;
-        this.description = this.inputValue.description;
-        this.status = this.inputValue.status;
-        this.editView = true;
-      }
-
-    } catch ( error : any) {
-      console.log("The error is this : ", error.name)
-    }
-  }
-
-  constructor(private eRef: ElementRef) {
-    console.log('no clicks yet test');
-  }
-
-  // task : any = {
-  //   taskNo : 0,
-  //   title : "",
-  //   description : ""
-  // }
 
   taskNo : any = 0;
   title: string = "";
   description : string = "";
   status ?: string | undefined | null = '';
 
-  // ngOnInit() : void {
-  //   this.task = {
-  //     taskNo: 0,
-  //     title: "",
-  //     description: ""
-  //   }
-  // }
+  editView: boolean = false;
+  
+  ngOnInit(): void {
+    console.log("The value of inputValue in ngOnInit() child component is this : ",this.inputValue, " and the isEdit is this : ", this.isEdit)
+    if (this.isEdit === true) {
+      if (this.inputValue) {
+        this.taskNo = this.inputValue.taskNo;
+        this.title = this.inputValue.title;
+        this.description = this.inputValue.description;
+        this.status = this.inputValue.status;
+        this.editView = true;
+      }
+    } else if (this.isEdit === false) {
+      console.log('Into the else if on false on ngOnInit');
+      this.taskNo = '';
+      this.title = '';
+      this.description = '';
+      this.status = '';
+      this.editView = false;
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    try {
+
+      console.log("The value of inputValue in gOnChanges() child component is this : ",this.inputValue, " and the isEdit is this : ", this.isEdit);
+      // this.taskTitle = this.inputValue.title;
+      // this.taskDescription = this.inputValue.description;
+      if (this.isEdit === true) {
+        if (this.inputValue.taskNo) {
+          console.log('Into the if on true on ngOnChanges');
+          this.taskNo = this.inputValue.taskNo;
+          this.title = this.inputValue.title;
+          this.description = this.inputValue.description;
+          this.taskTitle.nativeElement.value = this.inputValue.title || "";
+          this.taskDescription.nativeElement.value = this.inputValue.description || "";
+          this.status = this.inputValue.status;
+          this.editView = true;
+        }
+      } else if (this.isEdit === false) {
+        console.log('Into the else if on false on ngOnChanges');
+        this.taskTitle.nativeElement.value = "";
+        this.taskDescription.nativeElement.value = "";
+        this.taskNo = '';
+        this.title = '';
+        this.description = '';
+        this.status = '';
+        this.editView = false;
+      }
+
+    } catch ( error : any) {
+      console.log("The error is this : ", error)
+    }
+  }
 
   formTitle(event: any) : any {
     this.title = event?.target.value;
@@ -111,7 +100,8 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
   giveInputValue() : any {
     let userTasks = JSON.parse(<any>localStorage.getItem('userTasks'));
     let loggedInUserData = JSON.parse(<any>localStorage.getItem('loggedInUser'));
-    if (this.inputValue) {
+    if (this.isEdit === true) {
+    if (this.inputValue !== false) {
       this.editView = true;
       console.log("Into the if : ")
       let filteredData = userTasks.forEach((data: any, index: number)=> {
@@ -142,6 +132,7 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
       // this.taskNo = "";
       return ;
     }
+  }
     this.taskNo = Math.floor(Math.random() * 9000) + 1000;
     userTasks.push(
       {
@@ -177,25 +168,14 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
     console.log('Modal closed');
     // Add your logic here
     this.editView = false;
-    console.log("Into the test() and the inputValue is this : ", this.inputValue)
+    console.log("Into the onModelClose() and the inputValue is this : ", this.inputValue)
+    if (this.isEdit === false) {
     // this.inputValue = null;
       this.title = "";
       this.description = "";
       this.taskTitle.nativeElement.value = "";
     this.taskDescription.nativeElement.value = "";
-    // this.myForm.resetForm();
-  }
-  
-  test() {
-    console.log("I clicked it.")
-    this.closebutton.nativeElement.click();
-    this.editView = false;
-    // this.inputValue = null;
-    console.log("Into the test() and the inputValue is this : ", this.inputValue)
-      this.title = "";
-      this.description = "";
-      this.taskTitle.nativeElement.value = "";
-    this.taskDescription.nativeElement.value = "";
+    }
   }
 
 }

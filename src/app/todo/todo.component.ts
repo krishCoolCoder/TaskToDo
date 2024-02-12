@@ -53,6 +53,7 @@ showCardView () {
     console.log("PARENT Into the getIinpuValue and the $event is this : ", $event)
     let todoList = JSON.parse(<any>localStorage.getItem('todoList'));
     this.todoList = todoList;
+    this.noData = this.todoList.length === 0 ? true : false;
   }
 
   getTodoData(event: any) {

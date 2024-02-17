@@ -6,6 +6,8 @@ import { Component,OnInit,OnChanges, SimpleChanges } from '@angular/core';
   styleUrls: ['./queries.component.css']
 })
 export class QueriesComponent implements OnInit, OnChanges {
+  isEdit : boolean = false;
+
   // views state : 
   tableView : boolean = false;
   listView : boolean = false;
@@ -52,8 +54,9 @@ export class QueriesComponent implements OnInit, OnChanges {
     localStorage.setItem('queryList',JSON.stringify(queryListData))
     this.noData = this.queryList.length === 0 ? true : false; 
     }
-  editQuery(data: any) {
+  editQuery(data: any, flag: boolean) {
     this.queryData = data;
+    this.isEdit = flag;
     console.log("Into the editQuery and the data is this : ", data)
   }
 }

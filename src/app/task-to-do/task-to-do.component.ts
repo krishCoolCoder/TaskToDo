@@ -36,6 +36,7 @@ ngOnChanges(changes: SimpleChanges): void {
 }
 taskList : any = [];
 noData : boolean = false;
+isEdit : boolean = false;
 ngOnInit () {
   this.taskList = JSON.parse(<any>localStorage.getItem('userTasks'));
   this.noData = this.taskList.length === 0 ? true : false
@@ -54,8 +55,9 @@ deleteTask(index: any) {
   localStorage.setItem('userTasks',JSON.stringify(tasks))
   this.noData = this.taskList.length === 0 ? true : false
 }
-editTask(data: any){
+editTask(data: any, flag: boolean){
   console.log("The data in the parent component is this : ", data);
   this.taskData = data;
+  this.isEdit = flag;
 }
 }

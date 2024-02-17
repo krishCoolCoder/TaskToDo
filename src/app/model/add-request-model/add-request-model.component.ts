@@ -13,18 +13,15 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
   requestTitleField!: ElementRef;
   @ViewChild('requestDescriptionField')
   requestDescriptionField!: ElementRef;
+  
   @Output()
   outputValue : any = new EventEmitter<string>();
   @Input()
   inputValue: any;
+  @Input()
+  isEdit?: boolean;
 
   editView : boolean = false;
-
-  // task : any = {
-  //   taskNo : 0,
-  //   title : "",
-  //   description : ""
-  // }
 
   requestNumber : any = 0;
   requestTitle: string = "";
@@ -33,6 +30,8 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
   requestStatus ?: string | undefined | null = '';
 
   ngOnInit() : void {
+    console.log("The value of inputValue in ngOnInit() child component is this : ",this.inputValue, " and the isEdit is this : ", this.isEdit)
+    if (this.isEdit === true) {
     if (this.inputValue) {
     this.requestNumber = this.inputValue.requestNumber;
     this.requestTitle = this.inputValue.requestTitle;
@@ -40,21 +39,43 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
     this.requestType = this.inputValue.requestType;
     this.requestStatus = this.inputValue.requestStatus;
     this.editView = true;
-    }
+  }
+} else if (this.isEdit === false) {
+  console.log('Into the else if on false on ngOnInit');
+  this.requestNumber = '';
+  this.requestTitle = '';
+  this.requestDescription = '';
+  this.requestType = "Access Control";
+  this.requestStatus = "Request Raised";
+  }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     try {
-      this.requestTitleField.nativeElement.value = this.inputValue.requestTitle || "";
-      this.requestDescriptionField.nativeElement.value = this.inputValue.requestDescription || "";
-      if (this.inputValue) {
-        this.requestNumber = this.inputValue.requestNumber;
-        this.requestTitle = this.inputValue.requestTitle;
-        this.requestDescription = this.inputValue.requestDescription;
-        this.requestType = this.inputValue.requestType;
-        this.requestStatus = this.inputValue.requestStatus;
-        this.editView = true;
-      }
+      if (this.isEdit === true) {
+        if (this.inputValue) {
+          console.log('Into the if on true on ngOnChanges');
+          this.requestNumber = this.inputValue.requestNumber;
+          this.requestTitle = this.inputValue.requestTitle;
+          this.requestTitleField.nativeElement.value = this.inputValue.requestTitle || "";
+          this.requestDescriptionField.nativeElement.value = this.inputValue.requestDescription || "";
+          this.requestDescription = this.inputValue.requestDescription;
+          this.requestType = this.inputValue.requestType;
+          this.requestStatus = this.inputValue.requestStatus;
+          this.editView = true;
+        }
+      } else if (this.isEdit === false) {
+        console.log('Into the else if on false on ngOnChanges');
+      this.requestTitleField.nativeElement.value = "";
+      this.requestDescriptionField.nativeElement.value = "";
+      this.requestNumber = '';
+      this.requestTitle = '';
+      this.requestDescription = '';
+      this.requestType = "Access Control";
+      this.requestStatus = "Request Raised";
+      this.editView = false;
+    
+    }
     } catch (error) {
       console.log("The error is in ngOnChange() in model : ", error)
     }
@@ -84,9 +105,7 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
     this.requestNumber = Math.floor(Math.random() * 9000) + 1000;
     let requestList = JSON.parse(<any>localStorage.getItem('requestList'));
     let loggedInUserData = JSON.parse(<any>localStorage.getItem('loggedInUser'))
-    console.log("whatttt")
-    console.log("Actual value of inputvlaue ", this.inputValue)
-    console.log("whatttt")
+    if (this.isEdit === true) {
     if (this.inputValue) {
       this.editView = false;
       let requestNumber = this.inputValue.requestNumber;
@@ -120,6 +139,7 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
       this.myForm.resetForm();
       return;
     }
+  }
     console.log("After the if for editing")
     requestList.push(
       {
@@ -155,11 +175,14 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
     console.log('Modal closed');
     // Add your logic here
     this.editView = false;
+    console.log("Into the onModelClose() and the inputValue is this : ", this.inputValue)
+    if (this.isEdit === false) {
     this.inputValue = null;
     this.requestTitle = "";
     this.requestDescription = ""; 
     this.requestTitleField.nativeElement.value = "";
     this.requestDescriptionField.nativeElement.value = "";
-    this.myForm.resetForm();
+    // this.myForm.resetForm();
+    }
   }
 }

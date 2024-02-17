@@ -19,6 +19,8 @@ cardView : boolean = true;
 noData : any = this.todoList.length === 0 ? true : false;
 todoData : any;
 
+isEdit : boolean = false;
+
 showTableView () {
   this.tableView = true ;
   this.listView = false;
@@ -51,6 +53,7 @@ showCardView () {
     console.log("PARENT Into the getIinpuValue and the $event is this : ", $event)
     let todoList = JSON.parse(<any>localStorage.getItem('todoList'));
     this.todoList = todoList;
+    this.noData = this.todoList.length === 0 ? true : false;
   }
 
   getTodoData(event: any) {
@@ -69,8 +72,9 @@ showCardView () {
     localStorage.setItem('todoList',JSON.stringify(todoList));
     this.noData = this.todoList.length === 0 ? true : false;
   }
-  editTask(data: any) {
+  editTask(data: any, flag: boolean) {
     console.log("The data in the parent component is this : ", data);
     this.todoData = data;
+    this.isEdit = flag;
   }
 }

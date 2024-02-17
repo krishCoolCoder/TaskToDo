@@ -189,13 +189,27 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
   test() {
     console.log("I clicked it.")
     this.closebutton.nativeElement.click();
-    this.editView = false;
-    // this.inputValue = null;
-    console.log("Into the test() and the inputValue is this : ", this.inputValue)
+    if (this.inputValue == false) {
+
+      this.editView = false;
+      // this.inputValue = null;
+      console.log("Into the test() and the inputValue is this : ", this.inputValue)
       this.title = "";
       this.description = "";
       this.taskTitle.nativeElement.value = "";
-    this.taskDescription.nativeElement.value = "";
+      this.taskDescription.nativeElement.value = "";
+    } else {
+      this.editView = false;
+      // this.inputValue = null;
+      console.log("Into the else test() and the inputValue is this : ", this.inputValue)
+      console.log("How can this be possible : ", this.inputValue.title);
+      let title = this.inputValue.title;
+      this.title = title;
+      this.description = this.inputValue.description;
+      this.taskTitle.nativeElement.value = this.inputValue.taskTitle;
+      this.taskDescription.nativeElement.value = this.inputValue.nativeElement;
+
+    }
   }
 
 }

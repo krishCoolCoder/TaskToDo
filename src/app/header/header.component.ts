@@ -59,7 +59,7 @@ export class HeaderComponent implements OnInit ,OnChanges {
       let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
       console.log("The orgnanisation data in ngOnInit is this : ", organisationTeamMapping)
       this.team = organisationTeamMapping?.currentTeam || "My tasks";
-      this.accountType = organisationTeamMapping?.currentOrganisation || "My Organisation";
+      this.accountType = organisationTeamMapping?.currentOrganisation || "Personal account";
       this.teamListData = JSON.parse(<any>localStorage.getItem('teamList'));
       console.log("the value of this.loggedInUserData is this : ", this.loggedInUserData);
       console.log("The team is this : ", this.team)

@@ -11,21 +11,58 @@ export class HeaderComponent implements OnInit ,OnChanges {
     private route: ActivatedRoute,
     private router: Router  ) {
     }
-    login : boolean = false;
+    login : boolean = true;
     loggedInUserData : any = JSON.parse(<any>localStorage.getItem('loggedInUser'));
     organisationListData : any = JSON.parse(<any>localStorage.getItem('organisationList'));
     teamListData : any = JSON.parse(<any>localStorage.getItem('teamList'));
+    accountType : any = "Personal account";
+    team : any = "My tasks";
+    // isPersonalAccount : boolean = true;
+
+    updateOriganisation(event : any) {
+      console.log('The value is this : ', event.target as HTMLParagraphElement);
+    let data = event.target as HTMLParagraphElement;
+      console.log("The data.textContent is this : " ,data.textContent);
+      this.accountType = data.textContent;
+      let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
+      organisationTeamMapping = {
+        currentOrganisation : data.textContent
+      }
+      localStorage.setItem('currentOrganisationTeamRef', JSON.stringify(organisationTeamMapping));
+      if (this.accountType !== "Personal account"){
+        // this.isPersonalAccount = false;
+      }
+    }
+    updateTeam(event : any) {
+      console.log('The value is this : ', event.target as HTMLParagraphElement);
+    let data = event.target as HTMLParagraphElement;
+      console.log("The data.textContent is this : " ,data.textContent);
+      this.team = data.textContent;
+      let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
+      organisationTeamMapping["currentTeam"] = this.team;
+      localStorage.setItem('currentOrganisationTeamRef', JSON.stringify(organisationTeamMapping));
+      if (this.accountType !== "Personal account"){
+        // this.isPersonalAccount = false;
+      }
+    }
+
     ngOnChanges(changes: SimpleChanges): void {
       console.log("The changes has been made in header.")
       console.log("login data in ngOnChanges : ", this.login)
       this.organisationListData = JSON.parse(<any>localStorage.getItem('organisationList'));
+      this.team = this.organisationListData.currentTeam || "My tasks";
       this.teamListData = JSON.parse(<any>localStorage.getItem('teamList'));
     }
     ngOnInit() {
       this.loggedInUserData = JSON.parse(<any>localStorage.getItem('loggedInUser'));
       this.organisationListData = JSON.parse(<any>localStorage.getItem('organisationList'));
+      let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
+      console.log("The orgnanisation data in ngOnInit is this : ", organisationTeamMapping)
+      this.team = organisationTeamMapping.currentTeam || "My tasks";
+      this.accountType = organisationTeamMapping.currentOrganisation || "My tasks";
       this.teamListData = JSON.parse(<any>localStorage.getItem('teamList'));
       console.log("the value of this.loggedInUserData is this : ", this.loggedInUserData);
+      console.log("The team is this : ", this.team)
       if (this.loggedInUserData !== undefined && this.loggedInUserData !== null) {
         this.login = true;
         console.log("Into the if : ")
@@ -42,6 +79,7 @@ export class HeaderComponent implements OnInit ,OnChanges {
       console.log("The event value is this : ", $event);
       console.log("login data in getInputValue : ",this.login)
       this.organisationListData = JSON.parse(<any>localStorage.getItem('organisationList'));
+      this.team = this.organisationListData.currentTeam || "My tasks";
       this.teamListData = JSON.parse(<any>localStorage.getItem('teamList'));
     } 
 }

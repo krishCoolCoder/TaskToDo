@@ -31,6 +31,7 @@ export class SignInComponent {
       localStorage.setItem('teamList', "[]");
       localStorage.setItem('loggedInUser', "null");
       localStorage.setItem('todoList', "[]");
+      localStorage.setItem('currentOrganisationTeamRef', "null");
       
       let userData = JSON.parse(<any>localStorage.getItem('userList'));
       userData.push(
@@ -48,6 +49,11 @@ export class SignInComponent {
         )
         let loggedInUseData = userData.filter((data: { userEmail: string; }) => data.userEmail == this.emailId);
         localStorage.setItem('loggedInUser', JSON.stringify(loggedInUseData[0]));
+        let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
+      organisationTeamMapping = {
+        currentOrganisation : "Personal account"
+      }
+      localStorage.setItem('currentOrganisationTeamRef', JSON.stringify(organisationTeamMapping));
         
         console.log("The result data is this : ",userData.filter((data: { userEmail: string; }) => data.userEmail == this.emailId));
         if (loggedInUseData.length === 0) {

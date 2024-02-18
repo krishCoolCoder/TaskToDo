@@ -121,6 +121,11 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
 
   giveInputValue(): any {
     let userTasks = JSON.parse(<any>localStorage.getItem('userTasks'));
+    let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
+    if (organisationTeamMapping === null || organisationTeamMapping.currentTeam === undefined || organisationTeamMapping.currentOrganisation === undefined ) {
+      alert("Kindly select organisation/account type and team.");
+      return;
+    }
     let loggedInUserData = JSON.parse(
       <any>localStorage.getItem('loggedInUser')
     );
@@ -136,6 +141,8 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
               description: this.description,
               status: this.status == '' ? 'Created' : this.status,
               assignedBy: loggedInUserData.userName,
+              organisationRef : organisationTeamMapping.currentOrganisation,
+              currentTeamRef : organisationTeamMapping.currentTeam
             };
             localStorage.setItem('userTasks', JSON.stringify(userTasks));
             this.outputValue.emit({
@@ -144,6 +151,8 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
               description: this.description,
               status: this.status == '' ? 'Created' : this.status,
               assignedBy: loggedInUserData.userName,
+              organisationRef : organisationTeamMapping.currentOrganisation,
+              currentTeamRef : organisationTeamMapping.currentTeam
             });
           }
         });

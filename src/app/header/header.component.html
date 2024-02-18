@@ -48,27 +48,33 @@
         <!-- </div> -->
         <div class="accountAndTeamContainer headerRoutes" *ngIf="login">
             <div class="dropdown mr-3">
-                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" >Select Team
+                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" >{{team}}
                 <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                  <li class="d-inline-block text-truncate mb-0" *ngFor="let data of teamListData; index as i"><p>{{data.teamTitle}}</p></li>
-                  <li class="d-inline-block text-truncate" *ngIf="teamListData?.length === 0"><p>No data</p></li>
+                  <li class="d-inline-block text-truncate mb-0" *ngFor="let data of teamListData; index as i">
+                    <p (click)="updateTeam($event)">{{data.teamTitle}}</p>
+                </li>
+                  <li class="d-inline-block text-truncate" *ngIf="teamListData?.length === 0">
+                    <p >No data</p>
+                </li>
                   <div class="dropdown-divider"></div>
                   <li class="d-inline-block text-truncate" ><a href="#" data-toggle="modal" data-target="#addTeamModel" >Creat team</a></li>
                   <div class="dropdown-divider"></div>
-                  <li class="d-inline-block text-truncate"><a href="#">My team</a></li>
+                  <li class="d-inline-block text-truncate" (click)="updateTeam($event)"><p>My tasks</p></li>
                 </ul>
               </div>
         <div class="dropdown">
-            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Select account
+            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{accountType}}
             <span class="caret"></span></button>
             <ul class="dropdown-menu">
               <li class="d-inline-block text-truncate" *ngIf="organisationListData?.length === 0"><p>No organisation registered</p></li>
-              <li class="d-inline-block text-truncate" *ngFor="let data of organisationListData; index as i"><a href="#">{{data.organisationTitle}}</a></li>
+              <li class="d-inline-block text-truncate" *ngFor="let data of organisationListData; index as i">
+                <p (click)="updateOriganisation($event)">{{data.organisationTitle}}</p>
+              </li>
               <div class="dropdown-divider"></div>
-              <li class="d-inline-block text-truncate" ><a href="#" data-toggle="modal" data-target="#addOrganizationModel" >Register organisation</a></li>
+              <li class="d-inline-block text-truncate" ><p data-toggle="modal" data-target="#addOrganizationModel">Register organisation</p></li>
               <div class="dropdown-divider"></div>
-              <li class="d-inline-block text-truncate"><a href="#">Personal account</a></li>
+              <li class="d-inline-block text-truncate"><p (click)="updateOriganisation($event)">Personal account</p></li>
             </ul>
           </div>
         </div>

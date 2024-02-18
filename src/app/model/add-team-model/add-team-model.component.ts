@@ -20,6 +20,7 @@ export class AddTeamModelComponent {
   teamTitle: string = "";
   teamDescription : string = "";
   teamStatus ?: string | undefined | null = '';
+  organisationRef ?: string = "";
 
   formOrganisationName(event: any) : any {
     this.teamTitle = event?.target.value;
@@ -38,6 +39,7 @@ export class AddTeamModelComponent {
   giveInputValue() : any {
     let teamList = JSON.parse(<any>localStorage.getItem('teamList'));
     let loggedInUserData = JSON.parse(<any>localStorage.getItem('loggedInUser'));
+    let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
     console.log("The loggedInUerData is this : ", loggedInUserData)
     console.log("The organizationList is this : ", teamList)
     this.teamId = Math.floor(Math.random() * 9000) + 1000;
@@ -47,7 +49,8 @@ export class AddTeamModelComponent {
         teamTitle: this.teamTitle,
         teamDescription : this.teamDescription,
         teamStatus : this.teamStatus == '' ? "Private" : this.teamStatus,
-        teamCreatedBy : loggedInUserData.userName
+        teamCreatedBy : loggedInUserData.userName,
+        organisationRef : organisationTeamMapping.currentOrganisation
       }
       )
       localStorage.setItem('teamList',JSON.stringify(teamList));
@@ -56,7 +59,8 @@ export class AddTeamModelComponent {
         teamTitle: this.teamTitle,
         teamDescription : this.teamDescription,
         teamStatus : this.teamStatus == '' ? "Private" : this.teamStatus ,
-        teamCreatedBy : loggedInUserData.userName
+        teamCreatedBy : loggedInUserData.userName,
+        organisationRef : organisationTeamMapping.currentOrganisation
     });
     this.teamDescription="";
     this.teamTitle="";

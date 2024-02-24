@@ -51,7 +51,7 @@
                 <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" >{{team}}
                 <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                  <li class="d-inline-block text-truncate mb-0" *ngFor="let data of teamListData; index as i">
+                  <li class="d-inline-block text-truncate mb-1 d-flex flex-column" *ngFor="let data of teamListData; index as i">
                     <p (click)="updateTeam($event)">{{data.teamTitle}}</p>
                 </li>
                   <li class="d-inline-block text-truncate" *ngIf="teamListData?.length === 0">
@@ -68,7 +68,7 @@
             <span class="caret"></span></button>
             <ul class="dropdown-menu">
               <li class="d-inline-block text-truncate" *ngIf="organisationListData?.length === 0"><p>No organisation registered</p></li>
-              <li class="d-inline-block text-truncate" *ngFor="let data of organisationListData; index as i">
+              <li class="d-inline-block text-truncate d-flex flex-column mb-1" *ngFor="let data of organisationListData; index as i">
                 <p (click)="updateOriganisation($event)">{{data.organisationTitle}}</p>
               </li>
               <div class="dropdown-divider"></div>

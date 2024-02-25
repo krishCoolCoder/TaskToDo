@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -11,6 +11,14 @@ export class HeaderComponent implements OnInit ,OnChanges {
     private route: ActivatedRoute,
     private router: Router  ) {
     }
+
+  @Output()
+  outputData : any = new EventEmitter<string>();
+
+  // @Output()
+  // outputValue: any = new EventEmitter<string>();
+
+
     login : boolean = true;
     loggedInUserData : any = JSON.parse(<any>localStorage.getItem('loggedInUser'));
     organisationListData : any = JSON.parse(<any>localStorage.getItem('organisationList'));
@@ -32,13 +40,16 @@ export class HeaderComponent implements OnInit ,OnChanges {
       this.teamListData = JSON.parse(<any>localStorage.getItem('teamList'));
       console.log("The teamlist before filter is this : ", this.teamListData)
       this.teamListData = this.teamListData.filter((data : any)=> {
-        console.log("The data.organisationRef is this : ",data.organisationRef, " and the organsiationTeamMapping.currentOrganisation : ", organisationTeamMapping.currentOrganisation)
         return data.organisationRef == organisationTeamMapping.currentOrganisation
       })
       console.log("The teamlist after filter is this : ", this.teamListData)
       if (this.accountType !== "Personal account"){
         // this.isPersonalAccount = false;
       }
+      this.outputData.emit({
+        currentOrganisation : data.textContent || "Personal account",
+        currentTeam : organisationTeamMapping?.currentTeam || "My task"
+      })
     }
     updateTeam(event : any) {
       console.log('The value is this : ', event.target as HTMLParagraphElement);
@@ -49,15 +60,15 @@ export class HeaderComponent implements OnInit ,OnChanges {
       this.teamListData = JSON.parse(<any>localStorage.getItem('teamList'));
       console.log("The teamlist before filter is this : ", this.teamListData)
       this.teamListData = this.teamListData.filter((data : any)=> {
-        console.log("Into the updateTeam the data.organisationRef is this : ",data.organisationRef, " and the organsiationTeamMapping.currentOrganisation : ", organisationTeamMapping.currentOrganisation)
         return data.organisationRef == organisationTeamMapping.currentOrganisation
       })
       // console.log('The team data is this : ', organisationTeamMapping)
       organisationTeamMapping["currentTeam"] = this.team;
       localStorage.setItem('currentOrganisationTeamRef', JSON.stringify(organisationTeamMapping));
-      if (this.accountType !== "Personal account"){
-        // this.isPersonalAccount = false;
-      }
+      this.outputData.emit({
+        currentOrganisation : "Personal account",
+        currentTeam : "My task"
+      })
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -68,26 +79,28 @@ export class HeaderComponent implements OnInit ,OnChanges {
       this.teamListData = JSON.parse(<any>localStorage.getItem('teamList'));
       let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
       this.teamListData = this.teamListData.filter((data : any)=> {
-        console.log("The data.organisationRef is this : ",data.organisationRef, " and the organsiationTeamMapping.currentOrganisation : ", organisationTeamMapping.currentOrganisation)
         return data.organisationRef == organisationTeamMapping.currentOrganisation
+      })
+      this.outputData.emit({
+        currentOrganisation : "Personal account",
+        currentTeam : organisationTeamMapping?.currentTeam || "My task"
       })
     }
     ngOnInit() {
       this.loggedInUserData = JSON.parse(<any>localStorage.getItem('loggedInUser'));
       this.organisationListData = JSON.parse(<any>localStorage.getItem('organisationList'));
       let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
-      console.log("The orgnanisation data in ngOnInit is this : ", organisationTeamMapping)
+      // console.log("The orgnanisation data in ngOnInit is this : ", organisationTeamMapping)
       this.team = organisationTeamMapping?.currentTeam || "My tasks";
       this.accountType = organisationTeamMapping?.currentOrganisation || "Personal account";
       this.teamListData = JSON.parse(<any>localStorage.getItem('teamList'));
       console.log("The teamlist before filter is this : ", this.teamListData)
       this.teamListData = this.teamListData.filter((data : any)=> {
-        console.log("The data.organisationRef is this : ",data.organisationRef, " and the organsiationTeamMapping.currentOrganisation : ", organisationTeamMapping.currentOrganisation)
         return data.organisationRef == organisationTeamMapping.currentOrganisation
       })
-      console.log("The team list is this : ", this.teamListData)
-      console.log("the value of this.loggedInUserData is this : ", this.loggedInUserData);
-      console.log("The team is this : ", this.team)
+      // console.log("The team list is this : ", this.teamListData)
+      // console.log("the value of this.loggedInUserData is this : ", this.loggedInUserData);
+      // console.log("The team is this : ", this.team)
       if (this.loggedInUserData !== undefined && this.loggedInUserData !== null) {
         this.login = true;
         console.log("Into the if : ")
@@ -96,6 +109,10 @@ export class HeaderComponent implements OnInit ,OnChanges {
         console.log("Into the else : ")
       }
       console.log("login data in ngOnInit : ", this.login)
+      this.outputData.emit({
+        currentOrganisation : "Personal account",
+        currentTeam : organisationTeamMapping?.currentTeam || "My task"
+      })
     }
     onClick(){
       this.router.navigate(['/'], { relativeTo: this.route });

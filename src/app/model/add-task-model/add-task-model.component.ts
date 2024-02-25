@@ -85,7 +85,7 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
           this.taskNo = this.inputValue.taskNo;
           this.title = this.inputValue.title;
           this.description = this.inputValue.description;
-          this.taskTitle.nativeElement.value = this.inputValue.title || '';
+          this.taskTitle.nativeElement.value = this.inputValue?.title || '';
           this.taskDescription.nativeElement.value =
             this.inputValue.description || '';
           this.status = this.inputValue.status;
@@ -122,6 +122,7 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
   giveInputValue(): any {
     let userTasks = JSON.parse(<any>localStorage.getItem('userTasks'));
     let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
+    console.log("The organisationTeamMapping is this : ", organisationTeamMapping.currentOrganisation, " and ",organisationTeamMapping.currentTeam)
     if (organisationTeamMapping === null || organisationTeamMapping.currentTeam === undefined || organisationTeamMapping.currentOrganisation === undefined ) {
       alert("Kindly select organisation/account type and team.");
       return;
@@ -173,6 +174,8 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
       description: this.description,
       status: 'Created',
       assignedBy: loggedInUserData.userName,
+      organisationRef : organisationTeamMapping.currentOrganisation,
+      currentTeamRef : organisationTeamMapping.currentTeam
     });
     localStorage.setItem('userTasks', JSON.stringify(userTasks));
     this.outputValue.emit({
@@ -180,6 +183,8 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
       title: this.title,
       description: this.description,
       status: this.status == '' ? 'Created' : this.status,
+      organisationRef : organisationTeamMapping.currentOrganisation,
+      currentTeamRef : organisationTeamMapping.currentTeam
     });
     this.description = '';
     this.title = '';

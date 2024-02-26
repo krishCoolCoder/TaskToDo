@@ -104,6 +104,12 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
   giveInputValue() : any {
     this.requestNumber = Math.floor(Math.random() * 9000) + 1000;
     let requestList = JSON.parse(<any>localStorage.getItem('requestList'));
+    let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
+    console.log("The organisationTeamMapping is this : ", organisationTeamMapping.currentOrganisation, " and ",organisationTeamMapping.currentTeam)
+    if (organisationTeamMapping === null || organisationTeamMapping.currentTeam === undefined || organisationTeamMapping.currentOrganisation === undefined ) {
+      alert("Kindly select organisation/account type and team.");
+      return;
+    }
     let loggedInUserData = JSON.parse(<any>localStorage.getItem('loggedInUser'))
     if (this.isEdit === true) {
     if (this.inputValue) {
@@ -118,7 +124,9 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
             requestDescription : this.requestDescription,
             requestType : this.inputValue.requestStatus == '' ? "Access Control" : this.inputValue.requestStatus ,
             requestStatus : requestType == '' ? "Request Raised" : requestType ,
-            requestCreatedBy : loggedInUserData.userName
+            requestCreatedBy : loggedInUserData.userName,
+            organisationRef : organisationTeamMapping.currentOrganisation,
+            currentTeamRef : organisationTeamMapping.currentTeam
           };
           localStorage.setItem('requestList',JSON.stringify(requestList));
           this.outputValue.emit({
@@ -127,7 +135,9 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
             requestDescription : this.inputValue.requestDescription,
             requestType : this.inputValue.requestStatus == '' ? "Access Control" : this.inputValue.requestStatus ,
             requestStatus : requestType == '' ? "Request Raised" : requestType ,
-            requestCreatedBy : loggedInUserData.userName
+            requestCreatedBy : loggedInUserData.userName,
+            organisationRef : organisationTeamMapping.currentOrganisation,
+            currentTeamRef : organisationTeamMapping.currentTeam
           });
         } 
       });
@@ -148,7 +158,9 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
         requestDescription : this.requestDescription,
         requestStatus : this.requestStatus == '' ? "Request Raised" : this.requestStatus ,
         requestType : this.requestStatus == '' ? "Access Control" : this.requestStatus ,
-        requestCreatedBy : loggedInUserData.userName
+        requestCreatedBy : loggedInUserData.userName,
+        organisationRef : organisationTeamMapping.currentOrganisation,
+        currentTeamRef : organisationTeamMapping.currentTeam
       }
     )
     localStorage.setItem('requestList',JSON.stringify(requestList));
@@ -156,7 +168,9 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
       requestNumber : this.requestNumber,
       requestTitle: this.requestTitle,
       requestDescription : this.requestDescription,
-      requestStatus : this.requestStatus == '' ? "Request Raised" : this.requestStatus 
+      requestStatus : this.requestStatus == '' ? "Request Raised" : this.requestStatus,
+      organisationRef : organisationTeamMapping.currentOrganisation,
+      currentTeamRef : organisationTeamMapping.currentTeam
     });
     this.requestDescription="";
     this.requestTitle="";

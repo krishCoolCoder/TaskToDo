@@ -98,7 +98,13 @@ export class AddQueryModelComponent implements OnInit, OnChanges{
     this.queryNumber = Math.floor(Math.random() * 9000) + 1000;
     let queryListValues = JSON.parse(<any>localStorage.getItem('queryList'));
     let loggedInUserData = JSON.parse(<any>localStorage.getItem('loggedInUser'))
-
+    let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
+    console.log("The organisationTeamMapping is this : ", organisationTeamMapping.currentOrganisation, " and ",organisationTeamMapping.currentTeam)
+    if (organisationTeamMapping === null || organisationTeamMapping.currentTeam === undefined || organisationTeamMapping.currentOrganisation === undefined ) {
+      alert("Kindly select organisation/account type and team.");
+      return;
+    }
+    
     if (this.isEdit === true) {
     if (this.inputValue) {
       this.editView = true;
@@ -110,7 +116,9 @@ export class AddQueryModelComponent implements OnInit, OnChanges{
             queryTitle: this.queryTitle,
             queryDescription : this.queryDescription,
             queryStatus : this.inputValue.queryStatus == '' ? "Unknown query raised" : this.inputValue.queryStatus,
-            queryCreatedBy : loggedInUserData.userName
+            queryCreatedBy : loggedInUserData.userName,
+            organisationRef : organisationTeamMapping.currentOrganisation,
+            currentTeamRef : organisationTeamMapping.currentTeam
           };
           localStorage.setItem('queryList',JSON.stringify(queryListValues));
           this.outputValue.emit({
@@ -118,7 +126,9 @@ export class AddQueryModelComponent implements OnInit, OnChanges{
             queryTitle: this.queryTitle,
             queryDescription : this.inputValue.queryDescription,
             queryStatus : this.inputValue.queryStatus == '' ? "Unknown query raised" : this.inputValue.queryStatus,
-            queryCreatedBy : loggedInUserData.userName
+            queryCreatedBy : loggedInUserData.userName,
+            organisationRef : organisationTeamMapping.currentOrganisation,
+            currentTeamRef : organisationTeamMapping.currentTeam
           });
         } 
       });
@@ -138,14 +148,18 @@ export class AddQueryModelComponent implements OnInit, OnChanges{
       queryTitle: this.queryTitle,
       queryDescription : this.queryDescription,
       queryStatus : this.queryStatus == '' ? "Unknown query raised" : this.queryStatus,
-      queryCreatedBy : loggedInUserData.userName
+      queryCreatedBy : loggedInUserData.userName,
+      organisationRef : organisationTeamMapping.currentOrganisation,
+      currentTeamRef : organisationTeamMapping.currentTeam
     });
     localStorage.setItem('queryList',JSON.stringify(queryListValues));
     this.outputValue.emit({
       queryNumber : this.queryNumber,
       queryTitle: this.queryTitle,
       queryDescription : this.queryDescription,
-      queryStatus : this.queryStatus == '' ? "Unknown query raised" : this.queryStatus 
+      queryStatus : this.queryStatus == '' ? "Unknown query raised" : this.queryStatus,
+      organisationRef : organisationTeamMapping.currentOrganisation,
+      currentTeamRef : organisationTeamMapping.currentTeam
     });
     this.queryDescription="";
     this.queryTitle="";

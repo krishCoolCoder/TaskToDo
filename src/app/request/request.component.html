@@ -1,4 +1,4 @@
-<app-header></app-header>
+<app-header (outputData)="getDataFromHeader($event)"></app-header>
 <app-sidebar-menu></app-sidebar-menu>
 <app-add-request-model (outputValue)="getInputValue($event)" [inputValue]="requestData" [isEdit]="isEdit"></app-add-request-model>
 <div class="taskContainer d-flex flex-column">

@@ -32,10 +32,12 @@ export class HeaderComponent implements OnInit ,OnChanges {
     let data = event.target as HTMLParagraphElement;
       console.log("The data.textContent is this : " ,data.textContent);
       this.accountType = data.textContent;
+      this.team = "My tasks";
       let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
       organisationTeamMapping = {
         currentOrganisation : data.textContent
       }
+      organisationTeamMapping["currentTeam"] = this.team;
       localStorage.setItem('currentOrganisationTeamRef', JSON.stringify(organisationTeamMapping));
       this.teamListData = JSON.parse(<any>localStorage.getItem('teamList'));
       console.log("The teamlist before filter is this : ", this.teamListData)
@@ -66,8 +68,8 @@ export class HeaderComponent implements OnInit ,OnChanges {
       organisationTeamMapping["currentTeam"] = this.team;
       localStorage.setItem('currentOrganisationTeamRef', JSON.stringify(organisationTeamMapping));
       this.outputData.emit({
-        currentOrganisation : "Personal account",
-        currentTeam : "My task"
+        currentOrganisation : data.textContent || "Personal account",
+        currentTeam : organisationTeamMapping?.currentTeam || "My task"
       })
     }
 

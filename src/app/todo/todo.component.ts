@@ -41,12 +41,24 @@ showCardView () {
     console.log("PARENT Into the ngOnChanges after edit")
     this.todoList = JSON.parse(<any>localStorage.getItem('todoList'));
     this.noData = this.todoList.length === 0 ? true : false;
+
+    let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
+    console.log("The queryList before filter is this : ", this.todoList);
+    this.todoList = this.todoList.filter((data:any)=>{
+      return ((data.organisationRef == organisationTeamMapping.currentOrganisation) && (data.currentTeamRef == organisationTeamMapping.currentTeam))
+    })
   }
   
   ngOnInit() {
     console.log("PARENT Into the ngOnInit after edit")
     this.todoList = JSON.parse(<any>localStorage.getItem('todoList'));
     this.noData = this.todoList.length === 0 ? true : false;
+
+    let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
+    console.log("The queryList before filter is this : ", this.todoList);
+    this.todoList = this.todoList.filter((data:any)=>{
+      return ((data.organisationRef == organisationTeamMapping.currentOrganisation) && (data.currentTeamRef == organisationTeamMapping.currentTeam))
+    })
   }
 
   getInputValue ($event: any) {
@@ -54,6 +66,12 @@ showCardView () {
     let todoList = JSON.parse(<any>localStorage.getItem('todoList'));
     this.todoList = todoList;
     this.noData = this.todoList.length === 0 ? true : false;
+
+    let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
+    console.log("The queryList before filter is this : ", this.todoList);
+    this.todoList = this.todoList.filter((data:any)=>{
+      return ((data.organisationRef == organisationTeamMapping.currentOrganisation) && (data.currentTeamRef == organisationTeamMapping.currentTeam))
+    })
   }
 
   getTodoData(event: any) {
@@ -71,10 +89,34 @@ showCardView () {
     this.todoList = todoList;
     localStorage.setItem('todoList',JSON.stringify(todoList));
     this.noData = this.todoList.length === 0 ? true : false;
+
+    let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
+    console.log("The queryList before filter is this : ", this.todoList);
+    this.todoList = this.todoList.filter((data:any)=>{
+      return ((data.organisationRef == organisationTeamMapping.currentOrganisation) && (data.currentTeamRef == organisationTeamMapping.currentTeam))
+    })
   }
   editTask(data: any, flag: boolean) {
     console.log("The data in the parent component is this : ", data);
-    this.todoData = data;
+    this.todoData = data.todoData;
     this.isEdit = flag;
+
+    let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
+    console.log("The queryList before filter is this : ", this.todoList);
+    this.todoList = this.todoList.filter((data:any)=>{
+      return ((data.organisationRef == organisationTeamMapping.currentOrganisation) && (data.currentTeamRef == organisationTeamMapping.currentTeam))
+    })
+  }
+  getDataFromHeader($event : any) {
+    console.log("Into the headerData and the headerData is this : ");
+    let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
+    this.todoList = JSON.parse(<any>localStorage.getItem('todoList'));
+    console.log("The todoList before filter is this : ", this.todoList);
+    this.todoList = this.todoList.filter((data:any)=>{
+      return ((data.organisationRef == organisationTeamMapping.currentOrganisation) && (data.currentTeamRef == organisationTeamMapping.currentTeam))
+    })
+    console.log("The todoList after filter is this : ", this.todoList)
+    // organisationRef : organisationTeamMapping.currentOrganisation,
+    //             currentTeamRef : organisationTeamMapping.currentTeam
   }
 }

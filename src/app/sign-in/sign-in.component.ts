@@ -51,7 +51,8 @@ export class SignInComponent {
         localStorage.setItem('loggedInUser', JSON.stringify(loggedInUseData[0]));
         let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
       organisationTeamMapping = {
-        currentOrganisation : "Personal account"
+        currentOrganisation : "Personal account",
+        currentTeam : "My task"
       }
       localStorage.setItem('currentOrganisationTeamRef', JSON.stringify(organisationTeamMapping));
         

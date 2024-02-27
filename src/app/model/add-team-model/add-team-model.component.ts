@@ -54,6 +54,15 @@ export class AddTeamModelComponent {
       }
       )
       localStorage.setItem('teamList',JSON.stringify(teamList));
+
+      // let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
+      organisationTeamMapping = {
+        currentOrganisation : organisationTeamMapping.currentOrganisation,
+        currentTeam : this.teamTitle
+      }
+      localStorage.setItem('currentOrganisationTeamRef', JSON.stringify(organisationTeamMapping));
+
+
       this.inputValue.emit({
         teamId : this.teamId,
         teamTitle: this.teamTitle,

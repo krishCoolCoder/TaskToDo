@@ -1,4 +1,4 @@
-<app-header></app-header>
+<app-header (outputData)="getDataFromHeader($event)"></app-header>
 <app-sidebar-menu></app-sidebar-menu>
 <app-add-todo-model (outputValue)="getInputValue($event)" [inputValue]="todoData" [isEdit]="isEdit"></app-add-todo-model>
 <div class="test">
@@ -45,7 +45,7 @@
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                 </div>
                 <div class="pt-2 flex-grow-1 bd-highlight ml-2">
-                    <p>{{data}}</p>
+                    <p>{{data.todoData}}</p>
                 </div>
                 <div class="p-2 bd-highlight">
                   <div class="options mb-3 mr-3 dropdown">
@@ -82,7 +82,7 @@
     *ngFor="let data of todoList; index as i"
     >
         <div class="requestNumber p-2 flex-grow-1 bd-highlight mr-4 ml-4">
-            {{data}}
+            {{data.todoData}}
         </div>
         <div class="requestStatus mr-1 p-2 dropdown">
           <svg 
@@ -138,7 +138,7 @@
                 <p class="font-weight-bold"></p>
             </div>
               <div class="taskTitleDescription mb-3">
-                <p class="mb-0 font-weight-bold">{{data}}</p>
+                <p class="mb-0 font-weight-bold">{{data.todoData}}</p>
               </div>
           </div>
       </div>

@@ -35,7 +35,8 @@ export class HeaderComponent implements OnInit ,OnChanges {
       this.team = "My tasks";
       let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
       organisationTeamMapping = {
-        currentOrganisation : data.textContent
+        currentOrganisation : data.textContent,
+        currentTeam : "My tasks"
       }
       organisationTeamMapping["currentTeam"] = this.team;
       localStorage.setItem('currentOrganisationTeamRef', JSON.stringify(organisationTeamMapping));

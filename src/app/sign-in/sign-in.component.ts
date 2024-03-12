@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ApiService } from '../service/api.service';
+import { firstValueFrom } from 'rxjs';
+// import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sign-in',
@@ -9,10 +13,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class SignInComponent {
   constructor(
     private route: ActivatedRoute,
-    private router: Router  ) {
+    private router: Router  ,
+    private api: ApiService
+    ) {
     }
   emailId : string = "";
   password : string = "";
+  loader: boolean = false;
   emailInput(event: any) {
     this.emailId = event.target.value
   }
@@ -21,9 +28,13 @@ export class SignInComponent {
     this.password = event.target.value
   }
 
-  validate() {
-    if ( (this.emailId == "saikrishnatechno@gmail.com" || this.emailId == "saikingstyle@gmail.com") && this.password == "admin") {
-      localStorage.setItem('userList',"[]");
+  async validate() {
+    this.loader = true;
+    let loginApiRes = this.api.loginApi({ userMail: this.emailId, userPassword: this.password }).pipe(
+      map((response) => {
+        // Handle success response here
+        console.log('API Response:', response);
+        localStorage.setItem('userList',"[]");
       localStorage.setItem('userTasks',"[]");
       localStorage.setItem('requestList',"[]");
       localStorage.setItem('queryList', "[]");
@@ -57,6 +68,7 @@ export class SignInComponent {
       localStorage.setItem('currentOrganisationTeamRef', JSON.stringify(organisationTeamMapping));
         
         console.log("The result data is this : ",userData.filter((data: { userEmail: string; }) => data.userEmail == this.emailId));
+
         if (loggedInUseData.length === 0) {
           this.router.navigate(['/'], { relativeTo: this.route });
           alert("The user is not recognised");
@@ -64,7 +76,29 @@ export class SignInComponent {
           localStorage.setItem('userList',JSON.stringify(userData))
           this.router.navigate(['/taskList'], { relativeTo: this.route });
         }
-    }
+        return response; // Forward the response to the next operator
+      }),
+      catchError((error) => {
+        // Handle error response here
+        console.error('API Error:', error);
+        alert(error.error.message || error.statusText)
+        throw error; // Re-throw the error to propagate it
+        // Alternatively, you can return a default value or another Observable here
+        // return of(defaultValue); // Return a default value
+        // return throwError('Error occurred'); // Return another Observable
+      })
+    ).subscribe({
+        next: (data) => {
+          console.log('API Response:', data);
+          this.loader = false;
+          // Handle the response data here
+        },
+        error: (error) => {
+          console.error('API Error:', error);
+          this.loader = false;
+          // Handle any errors here
+        }
+      });
   }
 
 }

@@ -26,6 +26,9 @@ import { TodoComponent } from './todo/todo.component';
 import { AddOrganisationModelComponent } from './model/add-organisation-model/add-organisation-model.component';
 import { AddTeamModelComponent } from './model/add-team-model/add-team-model.component';
 import { AddTodoModelComponent } from './model/add-todo-model/add-todo-model.component';
+import { ApiService } from './service/api.service';
+
+import { HttpClientModule } from '@angular/common/http';
 
 const routeConfig: Routes = [
   {
@@ -109,8 +112,9 @@ const routeConfig: Routes = [
     RouterModule.forRoot(routeConfig),
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent,ApiService]
 })
 export class AppModule { }

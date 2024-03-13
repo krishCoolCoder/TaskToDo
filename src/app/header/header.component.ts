@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit ,OnChanges {
   // outputValue: any = new EventEmitter<string>();
 
 
-    login : boolean = true;
+    login : boolean = false;
     loggedInUserData : any = JSON.parse(<any>localStorage.getItem('loggedInUser'));
     organisationListData : any = JSON.parse(<any>localStorage.getItem('organisationList'));
     teamListData : any = JSON.parse(<any>localStorage.getItem('teamList'));

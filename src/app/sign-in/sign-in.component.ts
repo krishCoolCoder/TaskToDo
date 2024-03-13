@@ -41,6 +41,7 @@ export class SignInComponent {
       localStorage.setItem('organisationList', "[]");
       localStorage.setItem('teamList', "[]");
       localStorage.setItem('loggedInUser', "null");
+      localStorage.setItem('currentUser', "null");
       localStorage.setItem('todoList', "[]");
       localStorage.setItem('currentOrganisationTeamRef', "null");
       
@@ -60,6 +61,7 @@ export class SignInComponent {
         )
         let loggedInUseData = userData.filter((data: { userEmail: string; }) => data.userEmail == this.emailId);
         localStorage.setItem('loggedInUser', JSON.stringify(loggedInUseData[0]));
+        localStorage.setItem('currentUser', JSON.stringify(response));
         let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
       organisationTeamMapping = {
         currentOrganisation : "Personal account",

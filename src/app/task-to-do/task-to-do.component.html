@@ -110,9 +110,9 @@
                     <div class="pt-2 bd-highlight ml-2">
                         <p>{{data.taskNo}}</p>
                     </div>
-                    <div class="p-2 flex-grow-1 bd-highlight">{{data.title}}</div>
-                    <div class="p-2 bd-highlight mr-5 text-start ml-1">{{data.status}}</div>
-                    <div class="p-2 bd-highlight mr-5">Assigned by {{data.assignedBy}}</div>
+                    <div class="p-2 flex-grow-1 bd-highlight">{{data.taskTitle}}</div>
+                    <div class="p-2 bd-highlight mr-5 text-start ml-1">{{data.taskStatus}}</div>
+                    <div class="p-2 bd-highlight mr-5">Assigned by {{data.taskCreatedBy}}</div>
                     <div class="p-2 bd-highlight">
                       <div class="options mb-3 dropdown">
                         <svg 
@@ -122,7 +122,7 @@
                           </svg>  
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <!-- <a class="dropdown-item" href="#">Action</a> -->
-                            <div class="dropdown-item" (click)="deleteTask(i)">
+                            <div class="dropdown-item" (click)="deleteTask(data._id)">
                                 <svg class="mr-2" width="10" height="13" viewBox="0 0 10 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M0.714286 11.5556C0.714286 12.35 1.35714 13 2.14286 13H7.85714C8.64286 13 9.28571 12.35 9.28571 11.5556V4.33333C9.28571 3.53889 8.64286 2.88889 7.85714 2.88889H2.14286C1.35714 2.88889 0.714286 3.53889 0.714286 4.33333V11.5556ZM9.28571 0.722222H7.5L6.99286 0.209444C6.86429 0.0794444 6.67857 0 6.49286 0H3.50714C3.32143 0 3.13571 0.0794444 3.00714 0.209444L2.5 0.722222H0.714286C0.321429 0.722222 0 1.04722 0 1.44444C0 1.84167 0.321429 2.16667 0.714286 2.16667H9.28571C9.67857 2.16667 10 1.84167 10 1.44444C10 1.04722 9.67857 0.722222 9.28571 0.722222Z" fill="black"/>
                                 </svg>
@@ -151,13 +151,13 @@
                 {{data.taskNo}}
             </div>
             <div class="requestTitle p-2 flex-grow-1 bd-highlight">
-                {{data.title}}
+                {{data.taskTitle}}
             </div>
             <div class="requestStatus p-2 bd-highlight mr-4">
-                {{data.status}}
+                {{data.taskStatus}}
             </div>
             <div class="requestStatus p-2 bd-highlight mr-4">
-                Assigned by : {{data.assignedBy}}
+                Assigned by : {{data.taskCreatedBy}}
             </div>
 
             <div class="mr-1 p-2 dropdown">
@@ -168,7 +168,7 @@
               </svg>  
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <!-- <a class="dropdown-item" href="#">Action</a> -->
-                <div class="dropdown-item" (click)="deleteTask(i)">
+                <div class="dropdown-item" (click)="deleteTask(data._id)">
                     <svg class="mr-2" width="10" height="13" viewBox="0 0 10 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M0.714286 11.5556C0.714286 12.35 1.35714 13 2.14286 13H7.85714C8.64286 13 9.28571 12.35 9.28571 11.5556V4.33333C9.28571 3.53889 8.64286 2.88889 7.85714 2.88889H2.14286C1.35714 2.88889 0.714286 3.53889 0.714286 4.33333V11.5556ZM9.28571 0.722222H7.5L6.99286 0.209444C6.86429 0.0794444 6.67857 0 6.49286 0H3.50714C3.32143 0 3.13571 0.0794444 3.00714 0.209444L2.5 0.722222H0.714286C0.321429 0.722222 0 1.04722 0 1.44444C0 1.84167 0.321429 2.16667 0.714286 2.16667H9.28571C9.67857 2.16667 10 1.84167 10 1.44444C10 1.04722 9.67857 0.722222 9.28571 0.722222Z" fill="black"/>
                     </svg>
@@ -197,7 +197,7 @@
               </svg>  
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <!-- <a class="dropdown-item" href="#">Action</a> -->
-                <div class="dropdown-item" (click)="deleteTask(i)">
+                <div class="dropdown-item" (click)="deleteTask(data._id)">
                     <svg class="mr-2" width="10" height="13" viewBox="0 0 10 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M0.714286 11.5556C0.714286 12.35 1.35714 13 2.14286 13H7.85714C8.64286 13 9.28571 12.35 9.28571 11.5556V4.33333C9.28571 3.53889 8.64286 2.88889 7.85714 2.88889H2.14286C1.35714 2.88889 0.714286 3.53889 0.714286 4.33333V11.5556ZM9.28571 0.722222H7.5L6.99286 0.209444C6.86429 0.0794444 6.67857 0 6.49286 0H3.50714C3.32143 0 3.13571 0.0794444 3.00714 0.209444L2.5 0.722222H0.714286C0.321429 0.722222 0 1.04722 0 1.44444C0 1.84167 0.321429 2.16667 0.714286 2.16667H9.28571C9.67857 2.16667 10 1.84167 10 1.44444C10 1.04722 9.67857 0.722222 9.28571 0.722222Z" fill="black"/>
                     </svg>
@@ -217,12 +217,12 @@
                     <p class="font-weight-bold">{{data.taskNo}}</p>
                 </div>
                   <div class="taskTitleDescription">
-                    <p class="mb-0 font-weight-bold">{{data.title}}</p>
+                    <p class="mb-0 font-weight-bold">{{data.taskTitle}}</p>
                     <p class="text-truncate mr-3">{{data.description}}</p>
                   </div>
                   <div class="taskStatus">
-                    <p class="mb-0">Status : {{data.status}}</p>
-                    <p>Assigned by : {{data.assignedBy}}</p>
+                    <p class="mb-0">Status : {{data.taskStatus}}</p>
+                    <p>Assigned by : {{data.taskCreatedBy}}</p>
                   </div>
               </div>
           </div>

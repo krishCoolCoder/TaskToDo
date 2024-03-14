@@ -96,7 +96,7 @@
       <div class="listContainer" *ngIf="listView">
         <div class="request mr-3 ml-3 mt-3 d-flex bd-highlight mb-2" *ngFor="let data of queryList; index as i">
             <div class="requestNumber p-2 bd-highlight mr-4 ml-4">
-                {{data.queryNumber}}
+                {{data.queryCode}}
             </div>
             <div class="requestTitle p-2 flex-grow-1 bd-highlight">
                 {{data.queryTitle}}
@@ -115,7 +115,7 @@
                   </svg>  
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <!-- <a class="dropdown-item" href="#">Action</a> -->
-                    <div class="dropdown-item" (click)="deleteQuery(i)">
+                    <div class="dropdown-item" (click)="deleteQuery(data)">
                         <svg class="mr-2" width="10" height="13" viewBox="0 0 10 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M0.714286 11.5556C0.714286 12.35 1.35714 13 2.14286 13H7.85714C8.64286 13 9.28571 12.35 9.28571 11.5556V4.33333C9.28571 3.53889 8.64286 2.88889 7.85714 2.88889H2.14286C1.35714 2.88889 0.714286 3.53889 0.714286 4.33333V11.5556ZM9.28571 0.722222H7.5L6.99286 0.209444C6.86429 0.0794444 6.67857 0 6.49286 0H3.50714C3.32143 0 3.13571 0.0794444 3.00714 0.209444L2.5 0.722222H0.714286C0.321429 0.722222 0 1.04722 0 1.44444C0 1.84167 0.321429 2.16667 0.714286 2.16667H9.28571C9.67857 2.16667 10 1.84167 10 1.44444C10 1.04722 9.67857 0.722222 9.28571 0.722222Z" fill="black"/>
                         </svg>
@@ -139,7 +139,7 @@
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                 </div>
                 <div class="pt-2 bd-highlight ml-2">
-                    <p>{{data.queryNumber}}</p>
+                    <p>{{data.queryCode}}</p>
                 </div>
                 <div class="p-2 flex-grow-1 bd-highlight">{{data.queryTitle}}</div>
                 <div class="p-2 bd-highlight mr-5">Status : {{data.queryStatus}}</div>
@@ -153,7 +153,7 @@
                       </svg>  
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <!-- <a class="dropdown-item" href="#">Action</a> -->
-                        <div class="dropdown-item" (click)="deleteQuery(i)">
+                        <div class="dropdown-item" (click)="deleteQuery(data)">
                             <svg class="mr-2" width="10" height="13" viewBox="0 0 10 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0.714286 11.5556C0.714286 12.35 1.35714 13 2.14286 13H7.85714C8.64286 13 9.28571 12.35 9.28571 11.5556V4.33333C9.28571 3.53889 8.64286 2.88889 7.85714 2.88889H2.14286C1.35714 2.88889 0.714286 3.53889 0.714286 4.33333V11.5556ZM9.28571 0.722222H7.5L6.99286 0.209444C6.86429 0.0794444 6.67857 0 6.49286 0H3.50714C3.32143 0 3.13571 0.0794444 3.00714 0.209444L2.5 0.722222H0.714286C0.321429 0.722222 0 1.04722 0 1.44444C0 1.84167 0.321429 2.16667 0.714286 2.16667H9.28571C9.67857 2.16667 10 1.84167 10 1.44444C10 1.04722 9.67857 0.722222 9.28571 0.722222Z" fill="black"/>
                             </svg>
@@ -183,7 +183,7 @@
             </svg>  
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <!-- <a class="dropdown-item" href="#">Action</a> -->
-              <div class="dropdown-item" (click)="deleteQuery(i)">
+              <div class="dropdown-item" (click)="deleteQuery(data)">
                   <svg class="mr-2" width="10" height="13" viewBox="0 0 10 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M0.714286 11.5556C0.714286 12.35 1.35714 13 2.14286 13H7.85714C8.64286 13 9.28571 12.35 9.28571 11.5556V4.33333C9.28571 3.53889 8.64286 2.88889 7.85714 2.88889H2.14286C1.35714 2.88889 0.714286 3.53889 0.714286 4.33333V11.5556ZM9.28571 0.722222H7.5L6.99286 0.209444C6.86429 0.0794444 6.67857 0 6.49286 0H3.50714C3.32143 0 3.13571 0.0794444 3.00714 0.209444L2.5 0.722222H0.714286C0.321429 0.722222 0 1.04722 0 1.44444C0 1.84167 0.321429 2.16667 0.714286 2.16667H9.28571C9.67857 2.16667 10 1.84167 10 1.44444C10 1.04722 9.67857 0.722222 9.28571 0.722222Z" fill="black"/>
                   </svg>
@@ -199,7 +199,7 @@
         </div>
             <div class="taskDetails d-flex flex-column pt-2 pl-3 pr-2">
               <div class="taskNumber">
-                  <p class="font-weight-bold">{{data.queryNumber}}</p>
+                  <p class="font-weight-bold">{{data.queryCode}}</p>
               </div>
                 <div class="taskTitleDescription">
                   <p class="mb-0 font-weight-bold">{{data.queryTitle}}</p>

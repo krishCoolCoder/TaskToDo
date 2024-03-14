@@ -1,4 +1,6 @@
 import { Component,OnInit,OnChanges, SimpleChanges } from '@angular/core';
+import { ApiService } from '../service/api.service';
+import { catchError, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-data',
@@ -29,16 +31,51 @@ export class UserDataComponent implements OnInit ,OnChanges{
     this.cardView = true;
   }
 
+  constructor ( private api: ApiService ) {}
+
   ngOnChanges(changes: SimpleChanges): void {
     this.userList = localStorage.getItem('userList');
     console.log("The ngOnChanges method has been called and the user Data is this : ", typeof this.userList)
   }
   ngOnInit(): void {
-    this.userList = JSON.parse(<any>localStorage.getItem('userList'));
-    this.noData = this.userList.length === 0 ? true : false;
-    // this.userList.review = this.userList.performance === 0 ? "Lets see" : (this.userList.performance < 50 && this.userList.performance > 60 ) ? "Good" : ((this.userList.performance < 60 && this.userList.performance > 100)) ? "Very good" : "Satifactory";
-    console.log("The ngOnInit is being called and the value is : ", this.userList)
-    // throw new Error('Method not implemented.');
+    let userListApi = this.api.userListApi().pipe(
+      map((response: any) => {
+        console.log("queries.component.ts says that response is this : ", response);
+        this.userList = response?.data;
+        this.noData = response?.data.length === 0 ? true : false; 
+
+        // this.noData = response.data.length === 0 ? true : false;
+        // this.taskList = response?.data
+        return response; // Forward the response to the next operator
+      }),
+      catchError((error) => {
+        // Handle error response here
+        console.error('API Error:', error);
+        // this.noData = this.response?.data.length === 0 ? true : false; 
+        alert(error.error.message || error.statusText)
+        throw error; // Re-throw the error to propagate it
+        // Alternatively, you can return a default value or another Observable here
+        // return of(defaultValue); // Return a default value
+        // return throwError('Error occurred'); // Return another Observable
+      })
+    ).subscribe({
+        next: (data) => {
+          console.log('API Response:', data);
+          // this.loader = false;
+          // Handle the response data here
+        },
+        error: (error) => {
+          console.error('API Error:', error);
+          // this.loader = false;
+          // Handle any errors here
+        }
+      });
+    
+    // this.userList = JSON.parse(<any>localStorage.getItem('userList'));
+    // this.noData = this.userList.length === 0 ? true : false;
+    // // this.userList.review = this.userList.performance === 0 ? "Lets see" : (this.userList.performance < 50 && this.userList.performance > 60 ) ? "Good" : ((this.userList.performance < 60 && this.userList.performance > 100)) ? "Very good" : "Satifactory";
+    // console.log("The ngOnInit is being called and the value is : ", this.userList)
+    // // throw new Error('Method not implemented.');
   }
 
   userList : any = [
@@ -60,17 +97,50 @@ export class UserDataComponent implements OnInit ,OnChanges{
   noData : boolean = true;
 
   getInputValue ($event: any) {
-    console.log("The event value is this : ", $event);
-    // this.userList.push({
-    //   userName : $event.userName,
-    //   userEmail : $event.userEmail
-    // });
-    let localStorageValue : any = localStorage.getItem("userList");
-    console.log("The localStorageValue is this : ", localStorageValue)
-    this.userList = JSON.parse(<any>localStorage?.getItem("userList"));
-    this.noData = false; 
-    console.log("The value of the data is this : ", JSON.parse(<any>localStorage?.getItem("userData")))
-    console.log("And the array value is this : ", this.userList)
+    let userListApi = this.api.userListApi().pipe(
+      map((response: any) => {
+        console.log("queries.component.ts says that response is this : ", response);
+        this.userList = response?.data;
+        this.noData = response?.data.length === 0 ? true : false; 
+
+        // this.noData = response.data.length === 0 ? true : false;
+        // this.taskList = response?.data
+        return response; // Forward the response to the next operator
+      }),
+      catchError((error) => {
+        // Handle error response here
+        console.error('API Error:', error);
+        // this.noData = this.response?.data.length === 0 ? true : false; 
+        alert(error.error.message || error.statusText)
+        throw error; // Re-throw the error to propagate it
+        // Alternatively, you can return a default value or another Observable here
+        // return of(defaultValue); // Return a default value
+        // return throwError('Error occurred'); // Return another Observable
+      })
+    ).subscribe({
+        next: (data) => {
+          console.log('API Response:', data);
+          // this.loader = false;
+          // Handle the response data here
+        },
+        error: (error) => {
+          console.error('API Error:', error);
+          // this.loader = false;
+          // Handle any errors here
+        }
+      });
+
+    // console.log("The event value is this : ", $event);
+    // // this.userList.push({
+    // //   userName : $event.userName,
+    // //   userEmail : $event.userEmail
+    // // });
+    // let localStorageValue : any = localStorage.getItem("userList");
+    // console.log("The localStorageValue is this : ", localStorageValue)
+    // this.userList = JSON.parse(<any>localStorage?.getItem("userList"));
+    // this.noData = false; 
+    // console.log("The value of the data is this : ", JSON.parse(<any>localStorage?.getItem("userData")))
+    // console.log("And the array value is this : ", this.userList)
   } 
   test() {
     // localStorage.setItem('token','xhja787'); // This creates a key value pair in local storage.
@@ -80,13 +150,109 @@ export class UserDataComponent implements OnInit ,OnChanges{
     // localStorage.removeItem('token'); // To remove as specific data from the local storage use this method.
     // localStorage.clear() // Use this method to remove all the data from the local storage.
   }
-  deleteUser(data: any) {
-  console.log("The delete user method says : ","'"+data+"'");
-  let userData = JSON.parse(<any>localStorage.getItem('userList'));
-  userData.splice(data,1);
-  this.userList = userData;
-  localStorage.setItem('userList',JSON.stringify(userData))
-  this.noData = this.userList.length === 0 ? true : false; 
+  async deleteUser(data: any) {
+    let todoDeleteApi = await this.api.userDeleteApi(data._id).pipe(
+      map((response: any) => {
+        console.log("queries.component.ts says that response is this : ", response);
+        // this.requestList = response?.data;
+        // this.noData = response?.data.length === 0 ? true : false; 
+
+        // this.noData = response.data.length === 0 ? true : false;
+        // this.taskList = response?.data
+        let userListApi = this.api.userListApi().pipe(
+          map((response: any) => {
+            console.log("queries.component.ts says that response is this : ", response);
+            this.userList = response?.data;
+            this.noData = response?.data.length === 0 ? true : false; 
+    
+            // this.noData = response.data.length === 0 ? true : false;
+            // this.taskList = response?.data
+            return response; // Forward the response to the next operator
+          }),
+          catchError((error) => {
+            // Handle error response here
+            console.error('API Error:', error);
+            // this.noData = this.response?.data.length === 0 ? true : false; 
+            alert(error.error.message || error.statusText)
+            throw error; // Re-throw the error to propagate it
+            // Alternatively, you can return a default value or another Observable here
+            // return of(defaultValue); // Return a default value
+            // return throwError('Error occurred'); // Return another Observable
+          })
+        ).subscribe({
+            next: (data) => {
+              console.log('API Response:', data);
+              // this.loader = false;
+              // Handle the response data here
+            },
+            error: (error) => {
+              console.error('API Error:', error);
+              // this.loader = false;
+              // Handle any errors here
+            }
+          });
+        return response; // Forward the response to the next operator
+      }),
+      catchError((error) => {
+        // Handle error response here
+        console.error('API Error:', error);
+        let userListApi = this.api.userListApi().pipe(
+          map((response: any) => {
+            console.log("queries.component.ts says that response is this : ", response);
+            this.userList = response?.data;
+            this.noData = response?.data.length === 0 ? true : false; 
+    
+            // this.noData = response.data.length === 0 ? true : false;
+            // this.taskList = response?.data
+            return response; // Forward the response to the next operator
+          }),
+          catchError((error) => {
+            // Handle error response here
+            console.error('API Error:', error);
+            // this.noData = this.response?.data.length === 0 ? true : false; 
+            alert(error.error.message || error.statusText)
+            throw error; // Re-throw the error to propagate it
+            // Alternatively, you can return a default value or another Observable here
+            // return of(defaultValue); // Return a default value
+            // return throwError('Error occurred'); // Return another Observable
+          })
+        ).subscribe({
+            next: (data) => {
+              console.log('API Response:', data);
+              // this.loader = false;
+              // Handle the response data here
+            },
+            error: (error) => {
+              console.error('API Error:', error);
+              // this.loader = false;
+              // Handle any errors here
+            }
+          });
+        // this.noData = this.response?.data.length === 0 ? true : false; 
+        alert(error.error.message || error.statusText)
+        throw error; // Re-throw the error to propagate it
+        // Alternatively, you can return a default value or another Observable here
+        // return of(defaultValue); // Return a default value
+        // return throwError('Error occurred'); // Return another Observable
+      })
+    ).subscribe({
+        next: (data) => {
+          console.log('API Response:', data);
+          // this.loader = false;
+          // Handle the response data here
+        },
+        error: (error) => {
+          console.error('API Error:', error);
+          // this.loader = false;
+          // Handle any errors here
+        }
+      });
+  // console.log("The delete user method says : ","'"+data+"'");
+  // let userData = JSON.parse(<any>localStorage.getItem('userList'));
+  // userData.splice(data,1);
+  // this.userList = userData;
+  // localStorage.setItem('userList',JSON.stringify(userData))
+  // this.noData = this.userList.length === 0 ? true : false; 
   }
   editUser(data: any, flag: boolean) {
     this.userData = data;

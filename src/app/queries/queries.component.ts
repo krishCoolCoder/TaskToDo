@@ -1,4 +1,6 @@
 import { Component,OnInit,OnChanges, SimpleChanges } from '@angular/core';
+import { ApiService } from '../service/api.service';
+import { catchError, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-queries',
@@ -33,16 +35,52 @@ export class QueriesComponent implements OnInit, OnChanges {
   ];
   queryData: any ;
   noData : boolean = false;
-  ngOnInit(): void {
-    this.queryList = JSON.parse(<any>localStorage.getItem('queryList'));
-    this.noData = this.queryList.length === 0 ? true : false; 
 
-    let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
-    this.queryList = JSON.parse(<any>localStorage.getItem('queryList'));
-    console.log("The queryList before filter is this : ", this.queryList);
-    this.queryList = this.queryList.filter((data:any)=>{
-      return ((data.organisationRef == organisationTeamMapping.currentOrganisation) && (data.currentTeamRef == organisationTeamMapping.currentTeam))
-    })
+  constructor ( private api: ApiService ) {}
+  
+  ngOnInit(): void {
+    let queryListApi = this.api.queryListApi().pipe(
+      map((response: any) => {
+        console.log("queries.component.ts says that response is this : ", response);
+        this.queryList = response?.data;
+        this.noData = response?.data.length === 0 ? true : false; 
+
+        // this.noData = response.data.length === 0 ? true : false;
+        // this.taskList = response?.data
+        return response; // Forward the response to the next operator
+      }),
+      catchError((error) => {
+        // Handle error response here
+        console.error('API Error:', error);
+        // this.noData = this.response?.data.length === 0 ? true : false; 
+        alert(error.error.message || error.statusText)
+        throw error; // Re-throw the error to propagate it
+        // Alternatively, you can return a default value or another Observable here
+        // return of(defaultValue); // Return a default value
+        // return throwError('Error occurred'); // Return another Observable
+      })
+    ).subscribe({
+        next: (data) => {
+          console.log('API Response:', data);
+          // this.loader = false;
+          // Handle the response data here
+        },
+        error: (error) => {
+          console.error('API Error:', error);
+          // this.loader = false;
+          // Handle any errors here
+        }
+      });
+
+    // this.queryList = JSON.parse(<any>localStorage.getItem('queryList'));
+    // this.noData = this.queryList.length === 0 ? true : false; 
+
+    // let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
+    // this.queryList = JSON.parse(<any>localStorage.getItem('queryList'));
+    // console.log("The queryList before filter is this : ", this.queryList);
+    // this.queryList = this.queryList.filter((data:any)=>{
+    //   return ((data.organisationRef == organisationTeamMapping.currentOrganisation) && (data.currentTeamRef == organisationTeamMapping.currentTeam))
+    // })
   }
   ngOnChanges(changes: SimpleChanges): void {
     this.queryList = JSON.parse(<any>localStorage.getItem('queryList'));
@@ -55,41 +93,143 @@ export class QueriesComponent implements OnInit, OnChanges {
       return ((data.organisationRef == organisationTeamMapping.currentOrganisation) && (data.currentTeamRef == organisationTeamMapping.currentTeam))
     })
   }
-  getInputValue ($event: any) {
-    let queryListData = JSON.parse(<any>localStorage.getItem('queryList'));
-    this.queryList = queryListData;
-    console.log("The queryList is this : ", this.queryList)
-    this.noData = this.queryList.length === 0 ? true : false; 
+  async getInputValue ($event: any) {
+    console.log("Calling all autobots : ")
+    let queryListApi = await this.api.queryListApi().pipe(
+      map((response: any) => {
+        console.log("queries.component.ts says that response is this : ", response);
+        this.queryList = response?.data;
+        this.noData = response?.data.length === 0 ? true : false; 
 
-    let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
-    console.log("The queryList before filter is this : ", this.queryList);
-    this.queryList = this.queryList.filter((data:any)=>{
-      return ((data.organisationRef == organisationTeamMapping.currentOrganisation) && (data.currentTeamRef == organisationTeamMapping.currentTeam))
-    })
+        // this.noData = response.data.length === 0 ? true : false;
+        // this.taskList = response?.data
+        return response; // Forward the response to the next operator
+      }),
+      catchError((error) => {
+        // Handle error response here
+        console.error('API Error:', error);
+        // this.noData = this.response?.data.length === 0 ? true : false; 
+        alert(error.error.message || error.statusText)
+        throw error; // Re-throw the error to propagate it
+        // Alternatively, you can return a default value or another Observable here
+        // return of(defaultValue); // Return a default value
+        // return throwError('Error occurred'); // Return another Observable
+      })
+    ).subscribe({
+        next: (data) => {
+          console.log('API Response:', data);
+          // this.loader = false;
+          // Handle the response data here
+        },
+        error: (error) => {
+          console.error('API Error:', error);
+          // this.loader = false;
+          // Handle any errors here
+        }
+      });
+    // let queryListData = JSON.parse(<any>localStorage.getItem('queryList'));
+    // this.queryList = queryListData;
+    // console.log("The queryList is this : ", this.queryList)
+    // this.noData = this.queryList.length === 0 ? true : false; 
+
+    // let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
+    // console.log("The queryList before filter is this : ", this.queryList);
+    // this.queryList = this.queryList.filter((data:any)=>{
+    //   return ((data.organisationRef == organisationTeamMapping.currentOrganisation) && (data.currentTeamRef == organisationTeamMapping.currentTeam))
+    // })
   } 
-  deleteQuery(data: any) {
-    let queryListData = JSON.parse(<any>localStorage.getItem('queryList'));
-    let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
-    queryListData.splice(data,1);
-    this.queryList = queryListData;
-    queryListData = this.queryList.filter((data:any)=>{
-      return ((data.organisationRef == organisationTeamMapping.currentOrganisation) && (data.currentTeamRef == organisationTeamMapping.currentTeam))
-    });
-    this.queryList = queryListData;
-    localStorage.setItem('queryList',JSON.stringify(queryListData))
-    this.noData = this.queryList.length === 0 ? true : false; 
+  async deleteQuery(data: any) {
+    if(!data?.id){
+
+      let queryDeleteApi = await this.api.queryDeleteApi(data?._id).pipe(
+        map((response: any) => {
+          console.log("queries.component.ts says that response is this : ", response);
+          this.queryList = response?.data;
+          this.noData = response?.data.length === 0 ? true : false; 
+          
+          // this.noData = response.data.length === 0 ? true : false;
+          // this.taskList = response?.data
+          return response; // Forward the response to the next operator
+        }),
+        catchError((error) => {
+          // Handle error response here
+          console.error('API Error:', error);
+          // this.noData = this.response?.data.length === 0 ? true : false; 
+          alert(error.error.message || error.statusText)
+          throw error; // Re-throw the error to propagate it
+          // Alternatively, you can return a default value or another Observable here
+          // return of(defaultValue); // Return a default value
+          // return throwError('Error occurred'); // Return another Observable
+        })
+        ).subscribe({
+          next: (data) => {
+            console.log('API Response:', data);
+            // this.loader = false;
+            // Handle the response data here
+          },
+          error: (error) => {
+            console.error('API Error:', error);
+            // this.loader = false;
+            // Handle any errors here
+          }
+        });
+      } else {
+        alert("Delete operation failed.")
+      }
+      let queryListApi = await this.api.queryListApi().pipe(
+        map((response: any) => {
+          console.log("queries.component.ts says that response is this : ", response);
+          this.queryList = response?.data;
+          this.noData = response?.data.length === 0 ? true : false; 
+  
+          // this.noData = response.data.length === 0 ? true : false;
+          // this.taskList = response?.data
+          return response; // Forward the response to the next operator
+        }),
+        catchError((error) => {
+          // Handle error response here
+          console.error('API Error:', error);
+          // this.noData = this.response?.data.length === 0 ? true : false; 
+          alert(error.error.message || error.statusText)
+          throw error; // Re-throw the error to propagate it
+          // Alternatively, you can return a default value or another Observable here
+          // return of(defaultValue); // Return a default value
+          // return throwError('Error occurred'); // Return another Observable
+        })
+      ).subscribe({
+          next: (data) => {
+            console.log('API Response:', data);
+            // this.loader = false;
+            // Handle the response data here
+          },
+          error: (error) => {
+            console.error('API Error:', error);
+            // this.loader = false;
+            // Handle any errors here
+          }
+        });
+    // let queryListData = JSON.parse(<any>localStorage.getItem('queryList'));
+    // let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
+    // queryListData.splice(data,1);
+    // this.queryList = queryListData;
+    // queryListData = this.queryList.filter((data:any)=>{
+    //   return ((data.organisationRef == organisationTeamMapping.currentOrganisation) && (data.currentTeamRef == organisationTeamMapping.currentTeam))
+    // });
+    // this.queryList = queryListData;
+    // localStorage.setItem('queryList',JSON.stringify(queryListData))
+    // this.noData = this.queryList.length === 0 ? true : false; 
     }
   editQuery(data: any, flag: boolean) {
     this.queryData = data;
     this.isEdit = flag;
-    console.log("Into the editQuery and the data is this : ", data);
+    // console.log("Into the editQuery and the data is this : ", data);
 
-    let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
-    this.queryList = JSON.parse(<any>localStorage.getItem('queryList'));
-    console.log("The queryList before filter is this : ", this.queryList);
-    this.queryList = this.queryList.filter((data:any)=>{
-      return ((data.organisationRef == organisationTeamMapping.currentOrganisation) && (data.currentTeamRef == organisationTeamMapping.currentTeam))
-    })
+    // let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
+    // this.queryList = JSON.parse(<any>localStorage.getItem('queryList'));
+    // console.log("The queryList before filter is this : ", this.queryList);
+    // this.queryList = this.queryList.filter((data:any)=>{
+    //   return ((data.organisationRef == organisationTeamMapping.currentOrganisation) && (data.currentTeamRef == organisationTeamMapping.currentTeam))
+    // })
   }
   getDataFromHeader($event : any) {
     console.log("Into the headerData and the headerData is this : ");

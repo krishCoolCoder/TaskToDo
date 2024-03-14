@@ -141,12 +141,14 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
         console.log("The response of the api is this : ", response);
         // this.noData = response.data.length === 0 ? true : false;
         // this.taskList = response?.data
+        this.outputValue.emit({data: "response"});
         return response; // Forward the response to the next operator
       }),
       catchError((error) => {
         // Handle error response here
         console.error('API Error:', error);
         alert(error.error.message || error.statusText)
+        this.outputValue.emit({data: "response"});
         throw error; // Re-throw the error to propagate it
         // Alternatively, you can return a default value or another Observable here
         // return of(defaultValue); // Return a default value
@@ -162,7 +164,6 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
         }
       });
       console.log("The response of api hit attempt is this : ",taskDeleteApi)
-      this.outputValue.emit({data: "response"});
     } else if (this.inputValue?._id) {
       let taskDeleteApi = await this.api.taskUpdateApi(
         {
@@ -186,6 +187,7 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
           // Handle error response here
           console.error('API Error:', error);
           alert(error.error.message || error.statusText)
+          this.outputValue.emit({data: "response"});
           throw error; // Re-throw the error to propagate it
           // Alternatively, you can return a default value or another Observable here
           // return of(defaultValue); // Return a default value

@@ -1,5 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ApiService } from 'src/app/service/api.service';
+import { catchError, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-request-model',
@@ -28,6 +30,8 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
   requestDescription : string = "";
   requestType : string | undefined | null = '';
   requestStatus ?: string | undefined | null = '';
+
+  constructor ( private api: ApiService ) {}
 
   ngOnInit() : void {
     console.log("The value of inputValue in ngOnInit() child component is this : ",this.inputValue, " and the isEdit is this : ", this.isEdit)
@@ -101,82 +105,164 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
     console.log("The vlue isss : ", this.requestStatus, " and the data is this : ", data)
   }
 
-  giveInputValue() : any {
-    this.requestNumber = Math.floor(Math.random() * 9000) + 1000;
-    let requestList = JSON.parse(<any>localStorage.getItem('requestList'));
-    let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
-    console.log("The organisationTeamMapping is this : ", organisationTeamMapping.currentOrganisation, " and ",organisationTeamMapping.currentTeam)
-    if (organisationTeamMapping === null || organisationTeamMapping.currentTeam === undefined || organisationTeamMapping.currentOrganisation === undefined ) {
-      alert("Kindly select organisation/account type and team.");
-      return;
-    }
-    let loggedInUserData = JSON.parse(<any>localStorage.getItem('loggedInUser'))
-    if (this.isEdit === true) {
-    if (this.inputValue) {
-      this.editView = false;
-      let requestNumber = this.inputValue.requestNumber;
-      let requestType = this.inputValue.requestType;
-      let filteredData = requestList.forEach((data: any, index: number)=> {
-        if (data.requestNumber === requestNumber) {
-          requestList[index] = {
-            requestNumber : requestNumber,
-            requestTitle: this.requestTitle,
-            requestDescription : this.requestDescription,
-            requestType : this.inputValue.requestStatus == '' ? "Access Control" : this.inputValue.requestStatus ,
-            requestStatus : requestType == '' ? "Request Raised" : requestType ,
-            requestCreatedBy : loggedInUserData.userName,
-            organisationRef : organisationTeamMapping.currentOrganisation,
-            currentTeamRef : organisationTeamMapping.currentTeam
-          };
-          localStorage.setItem('requestList',JSON.stringify(requestList));
-          this.outputValue.emit({
-            requestNumber : this.inputValue.requestNumber,
-            requestTitle: this.inputValue.requestTitle,
-            requestDescription : this.inputValue.requestDescription,
-            requestType : this.inputValue.requestStatus == '' ? "Access Control" : this.inputValue.requestStatus ,
-            requestStatus : requestType == '' ? "Request Raised" : requestType ,
-            requestCreatedBy : loggedInUserData.userName,
-            organisationRef : organisationTeamMapping.currentOrganisation,
-            currentTeamRef : organisationTeamMapping.currentTeam
-          });
-        } 
-      });
-      this.inputValue = null;
-      this.requestTitle = "";
-      this.requestDescription = ""; 
-      this.requestTitleField.nativeElement.value = "";
-      this.requestDescriptionField.nativeElement.value = "";
-      this.myForm.resetForm();
-      return;
-    }
-  }
-    console.log("After the if for editing")
-    requestList.push(
-      {
-        requestNumber : this.requestNumber,
-        requestTitle: this.requestTitle,
-        requestDescription : this.requestDescription,
-        requestStatus : this.requestStatus == '' ? "Request Raised" : this.requestStatus ,
-        requestType : this.requestStatus == '' ? "Access Control" : this.requestStatus ,
-        requestCreatedBy : loggedInUserData.userName,
-        organisationRef : organisationTeamMapping.currentOrganisation,
-        currentTeamRef : organisationTeamMapping.currentTeam
+  async giveInputValue() : Promise<any> {
+
+    if (!this.inputValue?._id){
+      let requestListApi = await this.api.requestCreateApi(
+        {
+          requestTitle: this.requestTitle,
+          requestDescription: this.requestDescription,
+          requestStatus: this.requestStatus,
+          requestType: this.requestType
       }
-    )
-    localStorage.setItem('requestList',JSON.stringify(requestList));
-    this.outputValue.emit({
-      requestNumber : this.requestNumber,
-      requestTitle: this.requestTitle,
-      requestDescription : this.requestDescription,
-      requestStatus : this.requestStatus == '' ? "Request Raised" : this.requestStatus,
-      organisationRef : organisationTeamMapping.currentOrganisation,
-      currentTeamRef : organisationTeamMapping.currentTeam
-    });
-    this.requestDescription="";
-    this.requestTitle="";
-    this.requestNumber=0;
-    this.requestTitleField.nativeElement.value = "";
-    this.requestDescriptionField.nativeElement.value = "";
+      ).pipe(
+        map((response: any) => {
+          console.log("add-query-model.component.ts says that response is this : ", response);
+          // this.noData = response.data.length === 0 ? true : false;
+          // this.taskList = response?.data
+          this.outputValue.emit({data:"response"});
+          return response; // Forward the response to the next operator
+        }),
+        catchError((error) => {
+          // Handle error response here
+          console.error('API Error:', error);
+          alert(error.error.message || error.statusText)
+          this.outputValue.emit({data:"response"});
+          throw error; // Re-throw the error to propagate it
+          // Alternatively, you can return a default value or another Observable here
+          // return of(defaultValue); // Return a default value
+          // return throwError('Error occurred'); // Return another Observable
+        })
+      ).subscribe({
+          next: (data) => {
+            console.log('API Response:', data);
+            // this.loader = false;
+            // Handle the response data here
+          },
+          error: (error) => {
+            console.error('API Error:', error);
+            // this.loader = false;
+            // Handle any errors here
+          }
+        });
+        // this.outputValue.emit({data:"response"});
+      } else {
+        let queryListApi = await this.api.requestUpdateApi(
+          {
+            id : this.inputValue._id,
+            requestTitle: this.requestTitle,
+            requestDescription: this.requestDescription,
+            requestStatus: this.requestStatus,
+            requestType: this.requestType
+        }
+        ).pipe(
+          map((response: any) => {
+            console.log("add-query-model.component.ts says that response is this : ", response);
+            // this.noData = response.data.length === 0 ? true : false;
+            // this.taskList = response?.data
+            this.outputValue.emit({data:"response"});
+            return response; // Forward the response to the next operator
+          }),
+          catchError((error) => {
+            // Handle error response here
+            console.error('API Error:', error);
+            alert(error.error.message || error.statusText)
+            this.outputValue.emit({data:"response"});
+            throw error; // Re-throw the error to propagate it
+            // Alternatively, you can return a default value or another Observable here
+            // return of(defaultValue); // Return a default value
+            // return throwError('Error occurred'); // Return another Observable
+          })
+        ).subscribe({
+            next: (data) => {
+              console.log('API Response:', data);
+              // this.loader = false;
+              // Handle the response data here
+            },
+            error: (error) => {
+              console.error('API Error:', error);
+              // this.loader = false;
+              // Handle any errors here
+            }
+          });
+          // this.outputValue.emit({data:"response"});
+      }
+
+  //   this.requestNumber = Math.floor(Math.random() * 9000) + 1000;
+  //   let requestList = JSON.parse(<any>localStorage.getItem('requestList'));
+  //   let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
+  //   console.log("The organisationTeamMapping is this : ", organisationTeamMapping.currentOrganisation, " and ",organisationTeamMapping.currentTeam)
+  //   if (organisationTeamMapping === null || organisationTeamMapping.currentTeam === undefined || organisationTeamMapping.currentOrganisation === undefined ) {
+  //     alert("Kindly select organisation/account type and team.");
+  //     return;
+  //   }
+  //   let loggedInUserData = JSON.parse(<any>localStorage.getItem('loggedInUser'))
+  //   if (this.isEdit === true) {
+  //   if (this.inputValue) {
+  //     this.editView = false;
+  //     let requestNumber = this.inputValue.requestNumber;
+  //     let requestType = this.inputValue.requestType;
+  //     let filteredData = requestList.forEach((data: any, index: number)=> {
+  //       if (data.requestNumber === requestNumber) {
+  //         requestList[index] = {
+  //           requestNumber : requestNumber,
+  //           requestTitle: this.requestTitle,
+  //           requestDescription : this.requestDescription,
+  //           requestType : this.inputValue.requestStatus == '' ? "Access Control" : this.inputValue.requestStatus ,
+  //           requestStatus : requestType == '' ? "Request Raised" : requestType ,
+  //           requestCreatedBy : loggedInUserData.userName,
+  //           organisationRef : organisationTeamMapping.currentOrganisation,
+  //           currentTeamRef : organisationTeamMapping.currentTeam
+  //         };
+  //         localStorage.setItem('requestList',JSON.stringify(requestList));
+  //         this.outputValue.emit({
+  //           requestNumber : this.inputValue.requestNumber,
+  //           requestTitle: this.inputValue.requestTitle,
+  //           requestDescription : this.inputValue.requestDescription,
+  //           requestType : this.inputValue.requestStatus == '' ? "Access Control" : this.inputValue.requestStatus ,
+  //           requestStatus : requestType == '' ? "Request Raised" : requestType ,
+  //           requestCreatedBy : loggedInUserData.userName,
+  //           organisationRef : organisationTeamMapping.currentOrganisation,
+  //           currentTeamRef : organisationTeamMapping.currentTeam
+  //         });
+  //       } 
+  //     });
+  //     this.inputValue = null;
+  //     this.requestTitle = "";
+  //     this.requestDescription = ""; 
+  //     this.requestTitleField.nativeElement.value = "";
+  //     this.requestDescriptionField.nativeElement.value = "";
+  //     this.myForm.resetForm();
+  //     return;
+  //   }
+  // }
+  //   console.log("After the if for editing")
+  //   requestList.push(
+  //     {
+  //       requestNumber : this.requestNumber,
+  //       requestTitle: this.requestTitle,
+  //       requestDescription : this.requestDescription,
+  //       requestStatus : this.requestStatus == '' ? "Request Raised" : this.requestStatus ,
+  //       requestType : this.requestType == '' ? "Access Control" : this.requestType ,
+  //       requestCreatedBy : loggedInUserData.userName,
+  //       organisationRef : organisationTeamMapping.currentOrganisation,
+  //       currentTeamRef : organisationTeamMapping.currentTeam
+  //     }
+  //   )
+  //   localStorage.setItem('requestList',JSON.stringify(requestList));
+  //   this.outputValue.emit({
+  //     requestNumber : this.requestNumber,
+  //     requestTitle: this.requestTitle,
+  //     requestDescription : this.requestDescription,
+  //     requestStatus : this.requestStatus == '' ? "Request Raised" : this.requestStatus,
+  //     organisationRef : organisationTeamMapping.currentOrganisation,
+  //     currentTeamRef : organisationTeamMapping.currentTeam
+  //   });
+    // this.requestDescription="";
+    // this.requestTitle="";
+    // this.requestNumber=0;
+    // this.requestTitleField.nativeElement.value = "";
+    // this.requestDescriptionField.nativeElement.value = "";
   }
   
   onSubmit() {

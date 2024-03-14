@@ -194,4 +194,76 @@ export class ApiService {
     const options = { headers: headers };
     return this.api.delete(`${this.apiUrl}/user/deleteUser?userId=${requestId}`,options)
   }
+  organisationListApi() {
+    let currentUser = JSON.parse(<any>localStorage.getItem('currentUser'));
+    console.log("The current user is this : ", currentUser);
+    const headers = new HttpHeaders({
+      'Authentication': `${currentUser.token}` // Set your header value here
+    });
+    const options = { headers: headers };
+    return this.api.get(`${this.apiUrl}/organisation/organisationList`,options)
+  }
+  organisationCreateApi(payload : any) {
+    let currentUser = JSON.parse(<any>localStorage.getItem('currentUser'));
+    console.log("The current user is this : ", currentUser);
+    const headers = new HttpHeaders({
+      'Authentication': `${currentUser.token}` // Set your header value here
+    });
+    const options = { headers: headers };
+    return this.api.post(`${this.apiUrl}/organisation/createOrganisation`,payload, options)
+  }
+  organisationUpdateApi(payload : any) {
+    let currentUser = JSON.parse(<any>localStorage.getItem('currentUser'));
+    console.log("The current user is this : ", currentUser);
+    const headers = new HttpHeaders({
+      'Authentication': `${currentUser.token}` // Set your header value here
+    });
+    const options = { headers: headers };
+    return this.api.patch(`${this.apiUrl}/organisation/updateOrganisation`,payload, options)
+  }
+  organisationDeleteApi(requestId : any) {
+    let currentUser = JSON.parse(<any>localStorage.getItem('currentUser'));
+    console.log("The current user is this : ", currentUser);
+    const headers = new HttpHeaders({
+      'Authentication': `${currentUser.token}` // Set your header value here
+    });
+    const options = { headers: headers };
+    return this.api.delete(`${this.apiUrl}/organisation/deleteOrganisation?organisationId=${requestId}`,options)
+  }
+  teamListApi(organisationId: string) {
+    let currentUser = JSON.parse(<any>localStorage.getItem('currentUser'));
+    console.log("The current user is this : ", currentUser);
+    const headers = new HttpHeaders({
+      'Authentication': `${currentUser.token}` // Set your header value here
+    });
+    const options = { headers: headers };
+    return this.api.get(`${this.apiUrl}/team/teamList?organisationId=${organisationId}`,options)
+  }
+  teamCreateApi(payload : any) {
+    let currentUser = JSON.parse(<any>localStorage.getItem('currentUser'));
+    console.log("The current user is this : ", currentUser);
+    const headers = new HttpHeaders({
+      'Authentication': `${currentUser.token}` // Set your header value here
+    });
+    const options = { headers: headers };
+    return this.api.post(`${this.apiUrl}/team/createTeam`,payload, options)
+  }
+  teamUpdateApi(payload : any) {
+    let currentUser = JSON.parse(<any>localStorage.getItem('currentUser'));
+    console.log("The current user is this : ", currentUser);
+    const headers = new HttpHeaders({
+      'Authentication': `${currentUser.token}` // Set your header value here
+    });
+    const options = { headers: headers };
+    return this.api.patch(`${this.apiUrl}/team/updateTeam`,payload, options)
+  }
+  teamDeleteApi(requestId : any) {
+    let currentUser = JSON.parse(<any>localStorage.getItem('currentUser'));
+    console.log("The current user is this : ", currentUser);
+    const headers = new HttpHeaders({
+      'Authentication': `${currentUser.token}` // Set your header value here
+    });
+    const options = { headers: headers };
+    return this.api.delete(`${this.apiUrl}/team/deleteTeam?teamId=${requestId}`,options)
+  }
 }

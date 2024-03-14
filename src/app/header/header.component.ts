@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ApiService } from '../service/api.service';
+import { catchError, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +11,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class HeaderComponent implements OnInit ,OnChanges {
   constructor(
     private route: ActivatedRoute,
-    private router: Router  ) {
+    private router: Router,
+    private api: ApiService ) {
     }
 
   @Output()
@@ -90,48 +93,151 @@ export class HeaderComponent implements OnInit ,OnChanges {
       })
     }
     ngOnInit() {
-      this.loggedInUserData = JSON.parse(<any>localStorage.getItem('loggedInUser'));
-      this.organisationListData = JSON.parse(<any>localStorage.getItem('organisationList'));
-      let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
-      // console.log("The orgnanisation data in ngOnInit is this : ", organisationTeamMapping)
-      this.team = organisationTeamMapping?.currentTeam || "My tasks";
-      this.accountType = organisationTeamMapping?.currentOrganisation || "Personal account";
-      this.teamListData = JSON.parse(<any>localStorage.getItem('teamList'));
-      console.log("The teamlist before filter is this : ", this.teamListData)
-      this.teamListData = this.teamListData.filter((data : any)=> {
-        return data.organisationRef == organisationTeamMapping.currentOrganisation
-      })
-      // console.log("The team list is this : ", this.teamListData)
-      // console.log("the value of this.loggedInUserData is this : ", this.loggedInUserData);
-      // console.log("The team is this : ", this.team)
-      if (this.loggedInUserData !== undefined && this.loggedInUserData !== null) {
+      let userListApi = this.api.organisationListApi().pipe(
+        map((response: any) => {
+          console.log("queries.component.ts says that response is this : ", response);
+          this.organisationListData = response?.data;
+          return response; // Forward the response to the next operator
+        }),
+        catchError((error) => {
+          // Handle error response here
+          console.error('API Error:', error);
+          // this.noData = this.response?.data.length === 0 ? true : false; 
+          alert(error.error.message || error.statusText)
+          throw error; // Re-throw the error to propagate it
+          // Alternatively, you can return a default value or another Observable here
+          // return of(defaultValue); // Return a default value
+          // return throwError('Error occurred'); // Return another Observable
+        })
+      ).subscribe({
+          next: (data) => {
+            console.log('API Response:', data);
+            // this.loader = false;
+            // Handle the response data here
+          },
+          error: (error) => {
+            console.error('API Error:', error);
+            // this.loader = false;
+            // Handle any errors here
+          }
+        });
+        let teamListApi = this.api.teamListApi("65ee012afb950508f9164649").pipe(
+          map((response: any) => {
+            this.teamListData = response?.data;
+            return response; // Forward the response to the next operator
+          }),
+          catchError((error) => {
+            // Handle error response here
+            console.error('API Error:', error);
+            alert(error.error.message || error.statusText)
+            throw error; // Re-throw the error to propagate it
+          })
+        ).subscribe({
+            next: (data) => {
+              console.log('API Response:', data);
+              // this.loader = false;
+              // Handle the response data here
+            },
+            error: (error) => {
+              console.error('API Error:', error);
+              // this.loader = false;
+              // Handle any errors here
+            }
+          });
+      // this.loggedInUserData = JSON.parse(<any>localStorage.getItem('loggedInUser'));
+      // this.organisationListData = JSON.parse(<any>localStorage.getItem('organisationList'));
+      // let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
+      // // console.log("The orgnanisation data in ngOnInit is this : ", organisationTeamMapping)
+      // this.team = organisationTeamMapping?.currentTeam || "My tasks";
+      // this.accountType = organisationTeamMapping?.currentOrganisation || "Personal account";
+      // this.teamListData = JSON.parse(<any>localStorage.getItem('teamList'));
+      // console.log("The teamlist before filter is this : ", this.teamListData)
+      // this.teamListData = this.teamListData.filter((data : any)=> {
+      //   return data.organisationRef == organisationTeamMapping.currentOrganisation
+      // })
+      // // console.log("The team list is this : ", this.teamListData)
+      // // console.log("the value of this.loggedInUserData is this : ", this.loggedInUserData);
+      // // console.log("The team is this : ", this.team)
+      // if (this.loggedInUserData !== undefined && this.loggedInUserData !== null) {
         this.login = true;
-        console.log("Into the if : ")
-      } else {
-        this.login = false;
-        console.log("Into the else : ")
-      }
-      console.log("login data in ngOnInit : ", this.login)
-      this.outputData.emit({
-        currentOrganisation : "Personal account",
-        currentTeam : organisationTeamMapping?.currentTeam || "My task"
-      })
+      //   console.log("Into the if : ")
+      // } else {
+      //   this.login = false;
+      //   console.log("Into the else : ")
+      // }
+      // console.log("login data in ngOnInit : ", this.login)
+      // this.outputData.emit({
+      //   currentOrganisation : "Personal account",
+      //   currentTeam : organisationTeamMapping?.currentTeam || "My task"
+      // })
     }
     onClick(){
       this.router.navigate(['/'], { relativeTo: this.route });
     }
     getInputValue ($event: any) {
-      console.log("The event value is this : ", $event);
-      console.log("login data in getInputValue : ",this.login)
-      this.organisationListData = JSON.parse(<any>localStorage.getItem('organisationList'));
-      this.team = this.organisationListData.currentTeam || "My tasks";
-      this.teamListData = JSON.parse(<any>localStorage.getItem('teamList'));
-      console.log("The teamlist before filter is this : ", this.teamListData)
-      let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
-      this.teamListData = this.teamListData.filter((data : any)=> {
-        console.log("The data.organisationRef is this : ",data.organisationRef, " and the organsiationTeamMapping.currentOrganisation : ", organisationTeamMapping.currentOrganisation)
-        return data.organisationRef == organisationTeamMapping.currentOrganisation
-      })
-      console.log("The team list is this : ", this.teamListData)
+      let organisatonListApi = this.api.organisationListApi().pipe(
+        map((response: any) => {
+          console.log("queries.component.ts says that response is this : ", response);
+          this.organisationListData = response?.data;
+          return response; // Forward the response to the next operator
+        }),
+        catchError((error) => {
+          // Handle error response here
+          console.error('API Error:', error);
+          // this.noData = this.response?.data.length === 0 ? true : false; 
+          alert(error.error.message || error.statusText)
+          throw error; // Re-throw the error to propagate it
+          // Alternatively, you can return a default value or another Observable here
+          // return of(defaultValue); // Return a default value
+          // return throwError('Error occurred'); // Return another Observable
+        })
+      ).subscribe({
+          next: (data) => {
+            console.log('API Response:', data);
+            // this.loader = false;
+            // Handle the response data here
+          },
+          error: (error) => {
+            console.error('API Error:', error);
+            // this.loader = false;
+            // Handle any errors here
+          }
+        });
+      let teamListApi = this.api.teamListApi("65ee012afb950508f9164649").pipe(
+        map((response: any) => {
+          this.teamListData = response?.data;
+          return response; // Forward the response to the next operator
+        }),
+        catchError((error) => {
+          // Handle error response here
+          console.error('API Error:', error);
+          alert(error.error.message || error.statusText)
+          throw error; // Re-throw the error to propagate it
+        })
+      ).subscribe({
+          next: (data) => {
+            console.log('API Response:', data);
+            // this.loader = false;
+            // Handle the response data here
+          },
+          error: (error) => {
+            console.error('API Error:', error);
+            // this.loader = false;
+            // Handle any errors here
+          }
+        });
+
+      // console.log("The event value is this : ", $event);
+      // console.log("login data in getInputValue : ",this.login)
+      // this.organisationListData = JSON.parse(<any>localStorage.getItem('organisationList'));
+      // this.team = this.organisationListData.currentTeam || "My tasks";
+      // this.teamListData = JSON.parse(<any>localStorage.getItem('teamList'));
+      // console.log("The teamlist before filter is this : ", this.teamListData)
+      // let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
+      // this.teamListData = this.teamListData.filter((data : any)=> {
+      //   console.log("The data.organisationRef is this : ",data.organisationRef, " and the organsiationTeamMapping.currentOrganisation : ", organisationTeamMapping.currentOrganisation)
+      //   return data.organisationRef == organisationTeamMapping.currentOrganisation
+      // })
+      // console.log("The team list is this : ", this.teamListData)
     } 
 }

@@ -52,7 +52,7 @@
                 <span class="caret"></span></button>
                 <ul class="dropdown-menu">
                   <li class="d-inline-block text-truncate mb-1 d-flex flex-column" *ngFor="let data of teamListData; index as i">
-                    <p (click)="updateTeam($event)">{{data.teamTitle}}</p>
+                    <p (click)="updateTeam($event)">{{data.teamName}}</p>
                 </li>
                   <li class="d-inline-block text-truncate" *ngIf="teamListData?.length === 0">
                     <p >No data</p>

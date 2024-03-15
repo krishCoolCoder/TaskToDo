@@ -55,16 +55,15 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
     //   ' and the isEdit is this : ',
     //   this.isEdit
     // );
-    if (this.isEdit === true) {
-      if (this.inputValue) {
+    console.log("The value of this.inputValue is this : ", this.inputValue)
+    if (this.isEdit) {
+      console.log("Into the if : ")
         this.taskNo = this.inputValue.taskNo;
-        this.title = this.inputValue.title;
-        this.description = this.inputValue.description;
-        this.status = this.inputValue.status;
+        this.title = this.inputValue.taskTitle;
+        this.description = this.inputValue?.taskDescription;
+        this.status = this.inputValue.taskStatus;
         this.editView = true;
-      }
-    } else if (this.isEdit === false) {
-      console.log('Into the else if on false on ngOnInit');
+    } else {
       this.taskNo = '';
       this.title = '';
       this.description = '';
@@ -75,36 +74,54 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     try {
-      // console.log(
-      //   'The value of inputValue in gOnChanges() child component is this : ',
-      //   this.inputValue,
-      //   ' and the isEdit is this : ',
-      //   this.isEdit
-      // );
-      // this.taskTitle = this.inputValue.title;
-      // this.taskDescription = this.inputValue.description;
-      if (this.isEdit === true) {
-        if (this.inputValue.taskNo) {
-          // console.log('Into the if on true on ngOnChanges');
-          this.taskNo = this.inputValue.taskNo;
-          this.title = this.inputValue.title;
-          this.description = this.inputValue.description;
-          this.taskTitle.nativeElement.value = this.inputValue?.title || '';
-          this.taskDescription.nativeElement.value =
-            this.inputValue.description || '';
-          this.status = this.inputValue.status;
+      console.log(
+        'The value of inputValue in gOnChanges() child component is this : ',
+        this.inputValue,
+        ' and the isEdit is this : ',
+        this.isEdit
+      );
+      if (this.isEdit) {
+        console.log("Into the if : ")
+          // this.taskNo = this.inputValue.taskNo;
+          // this.title = this.inputValue.taskTitle;
+          // this.description = this.inputValue?.taskDescription;
+          // this.status = this.inputValue.taskStatus;
+          // this.editView = true;
           this.editView = true;
-        }
-      } else if (this.isEdit === false) {
-        // console.log('Into the else if on false on ngOnChanges');
-        this.taskTitle.nativeElement.value = '';
-        this.taskDescription.nativeElement.value = '';
+          this.status = this.inputValue?.taskStatus;
+          this.taskTitle.nativeElement.value = this.inputValue?.taskTitle || '';
+          this.taskDescription.nativeElement.value = this.inputValue.taskDescription || '';
+      } else {
         this.taskNo = '';
         this.title = '';
         this.description = '';
         this.status = '';
         this.editView = false;
       }
+      // this.taskTitle = this.inputValue.title;
+      // this.taskDescription = this.inputValue.description;
+      // if (this.isEdit === true) {
+      //   if (this.inputValue.taskNo) {
+      //     // console.log('Into the if on true on ngOnChanges');
+      //     this.taskNo = this.inputValue.taskNo;
+      //     this.title = this.inputValue.title;
+      //     this.description = this.inputValue.description;
+      //     this.taskTitle.nativeElement.value = this.inputValue?.title || '';
+      //     this.taskDescription.nativeElement.value =
+      //       this.inputValue.description || '';
+      //     this.status = this.inputValue.status;
+      //     this.editView = true;
+      //   }
+      // } else if (this.isEdit === false) {
+      //   // console.log('Into the else if on false on ngOnChanges');
+      //   this.taskTitle.nativeElement.value = '';
+      //   this.taskDescription.nativeElement.value = '';
+      //   this.taskNo = '';
+      //   this.title = '';
+      //   this.description = '';
+      //   this.status = '';
+      //   this.editView = false;
+      // }
     } catch (error: any) {
       console.log('The error is this : ', error);
     }
@@ -124,6 +141,20 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
   }
 
    async giveInputValue(): Promise<any> {
+    // if (this.isEdit) {
+    //   console.log("Into the if : ")
+    //     this.taskNo = this.inputValue.taskNo;
+    //     this.title = this.inputValue.taskTitle;
+    //     this.description = this.inputValue?.taskDescription;
+    //     this.status = this.inputValue.taskStatus;
+    //     this.editView = true;
+    // } else {
+    //   this.taskNo = '';
+    //   this.title = '';
+    //   this.description = '';
+    //   this.status = '';
+    //   this.editView = false;
+    // }
     console.log("Into the giveInputValue on add-task-model and the value of inputValue : ",this.inputValue)
     let currentUser = JSON.parse(<any>localStorage.getItem('currentUser'));
     if (!this.inputValue?._id) {
@@ -165,6 +196,9 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
       });
       console.log("The response of api hit attempt is this : ",taskDeleteApi)
     } else if (this.inputValue?._id) {
+      this.title = this.taskTitle.nativeElement.value;
+      this.description = this.taskDescription.nativeElement.value;
+      console.log("The taskTitle is this : ", this.title)
       let taskDeleteApi = await this.api.taskUpdateApi(
         {
           id : this.inputValue._id,

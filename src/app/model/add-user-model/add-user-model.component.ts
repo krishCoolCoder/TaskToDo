@@ -72,10 +72,10 @@ export class AddUserModelComponent implements OnInit, OnChanges {
       // this.taskDescription = this.inputValue.description;
       if (this.isEdit === true) {
       this.userNameInput.nativeElement.value = this.inputValue.userName || "";
-      this.userEmailInput.nativeElement.value = this.inputValue.userEmail || "";
+      this.userEmailInput.nativeElement.value = this.inputValue.email || "";
       if (this.inputValue) {
         this.userData.userName = this.inputValue.userName;
-        this.userData.userEmail = this.inputValue.userEmail;
+        this.userData.userEmail = this.inputValue.email;
         this.userData.userRole = this.inputValue.userRole;
       }
     } else if (this.isEdit === false) { 
@@ -97,6 +97,7 @@ export class AddUserModelComponent implements OnInit, OnChanges {
   }
   formUserEmail(event: any) : any {
     this.userData.userEmail = event?.target.value;
+    console.log("The userEmail is this : ", this.userData.userEmail)
   }
 
   updateStatus(value: any): any {
@@ -149,7 +150,14 @@ export class AddUserModelComponent implements OnInit, OnChanges {
         });
         // this.outputValue.emit({data:"response"});
       } else {
-        console.log("I am megatron.")
+        console.log("I am megatron.",{
+          id : this.inputValue._id,
+            userName: this.userData.userName,
+            firstName: "testing",
+            lastName: "testing",
+            email:  this.userData.userEmail,
+            password: "testing"
+      })
         let todoListApi = await this.api.userUpdateApi(
           {
             id : this.inputValue._id,

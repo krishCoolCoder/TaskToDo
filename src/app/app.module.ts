@@ -29,6 +29,7 @@ import { AddTodoModelComponent } from './model/add-todo-model/add-todo-model.com
 import { ApiService } from './service/api.service';
 
 import { HttpClientModule } from '@angular/common/http';
+import { AccountComponent } from './account/account.component';
 
 const routeConfig: Routes = [
   {
@@ -78,6 +79,10 @@ const routeConfig: Routes = [
   {
     path: "user",
     component: UserDataComponent,
+  },
+  {
+    path: "account",
+    component: AccountComponent,
   }
 ];
 
@@ -104,7 +109,8 @@ const routeConfig: Routes = [
     TodoComponent,
     AddOrganisationModelComponent,
     AddTeamModelComponent,
-    AddTodoModelComponent
+    AddTodoModelComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,

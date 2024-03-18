@@ -1,4 +1,18 @@
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+// import { Component, ElementRef, EventEmitter, Output, SimpleChanges, ViewChild, OnInit,OnChanges } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  Renderer2,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ApiService } from 'src/app/service/api.service';
 import { catchError, map } from 'rxjs/operators';
@@ -8,7 +22,7 @@ import { catchError, map } from 'rxjs/operators';
   templateUrl: './add-organisation-model.component.html',
   styleUrls: ['./add-organisation-model.component.css']
 })
-export class AddOrganisationModelComponent {
+export class AddOrganisationModelComponent implements OnInit,OnChanges{
   @ViewChild('myForm')
   myForm!: NgForm;
   @ViewChild('organisationNameField')
@@ -24,7 +38,44 @@ export class AddOrganisationModelComponent {
   organisationDescription : string = "";
   organisationAccessControl ?: string | undefined | null = '';
 
-  constructor ( private api: ApiService ) {}
+  constructor ( private api: ApiService ) {
+    console.log("Into the conroller of add-organisation")
+  }
+  // ngOnInit(): void {
+  //   console.log("Hello world;")
+  // }
+
+  ngOnInit(): void {
+    try {
+      console.log("Into the ngOnit for the edit organisation and team.")
+      if (this.inputValue?._id) {
+        this.organisationTitle = this.inputValue.organisationName;
+        this.organisationDescription = this.inputValue.organisationDescription;
+        console.log("into the if and the value is this  : ", this.organisationTitle, " and "), this.organisationDescription
+    } else  {
+      this.organisationTitle = "";
+        this.organisationDescription = "";
+    }
+    } catch ( error ) {
+      console.log("The error in ngOnInit is this : ", error)
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    try {
+      console.log("Into the ngOnit for the edit organisation and team.")
+      if (this.inputValue?._id) {
+        this.organisationTitle = this.inputValue.organisationName;
+        this.organisationDescription = this.inputValue.organisationDescription;
+        console.log("into the if and the value is this  : ", this.organisationTitle, " and "), this.organisationDescription
+    } else  {
+      this.organisationTitle = "";
+        this.organisationDescription = "";
+    }
+    } catch (error: any) {
+      console.log('The error is this : ', error);
+    }
+  }
 
   formOrganisationName(event: any) : any {
     this.organisationTitle = event?.target.value;
@@ -41,6 +92,7 @@ export class AddOrganisationModelComponent {
   }
 
   async giveInputValue() : Promise<any> {
+    console.log("Into the giveInputValue ; ")
     if (!this.inputValue?._id){
       console.log("I am optimus prime")
       let organisationCreateApi = await this.api.organisationCreateApi(

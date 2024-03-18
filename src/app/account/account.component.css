@@ -1,0 +1,287 @@
+.taskContainer {
+    /* height: 82vh; */
+    height : auto;
+    background-color: #FFFFFF;
+    margin-left: 110px;
+    z-index: 1;
+    border-color: #A1F7FF;
+    border: 3px solid #E5FDFF; 
+    position: absolute;
+    right : 0px;
+    left: 10px;
+    top : 50px;
+    bottom : 18px;
+    overflow-y: scroll;
+    box-shadow: 0 0 3px 20px rgba(255, 255, 255, 0.3) inset; 
+}
+.taskContainer::-webkit-scrollbar { width: 0 !important }
+
+.topButtons {
+    position: sticky;
+    top: 0;
+    background-color: #FFFFFF;
+    z-index: 5;
+}
+
+.request { 
+    background-color : color(srgb 0.92 0.92 0.92); 
+    border-radius: 10px;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+.dropdown-menu {
+    min-width: auto;
+}
+.userCardContainer {
+    z-index: -1;
+}
+.userCard {
+    width: 300px;
+    /* background-color: red; */
+    border: 3px solid #000000; 
+    border-radius: 10px;
+    position: relative;
+
+    /* margin-left: 20px; */
+}
+.options {
+    position: absolute;
+    right: 0px;
+}
+.userDetails {
+    /* height : 70px; */
+    /* width : 80px; */
+    /* background-color: green; */
+}
+.userData{
+    height : 70px;
+    width: 200px;
+    /* background-color: yellow; */
+}
+.userData div p{
+    margin-bottom: 0px;
+    margin-left : 10px;
+}
+.email {
+    margin-left : 10px;
+    max-width: 170px;
+}
+.userProfilePic {
+    height: 70px;
+    width : 80px;
+    background-color: #A1F7FF;
+    border-radius: 50%;
+}
+.userProgress p {
+    margin-bottom: 0px;
+    font-size : 12px;
+}
+.percentage{
+    padding-top: 0px;
+}
+.p-2 {
+    padding-top: 0px;
+}
+.tasksDetails {
+    height: 70px;
+    width: 150px;
+    /* background-color: blueviolet; */
+    border-radius: 10px;
+}
+.count {
+    /* margin-top : 0px; */
+    /* margin-bottom: 4px; */
+}
+.tasksDetails .row .col p{
+    font-size: 13px;
+    z-index: 50;
+    color: black;
+}
+.userProgress {
+    height : 70px;
+    width: 130px;
+    background-color: yellow;
+    border-radius: 10px;
+}
+.progress {
+    height : 5px;
+    margin : 10px 10px;
+}
+.progress-bar {
+    background-color : #2DFF4E;
+}
+.col {
+    height: 20px;
+    width : 10px;
+    border-radius: 10px;
+    z-index: -1;
+}
+
+.totalTaskCount{
+    background-color: #99b3ff;
+    /* opacity: 50%; */
+    /* opacity: 100%; */
+}
+.completedTaskCount{
+    background-color: #9eeaa0;
+}
+.taskInProgressCount{
+    background-color: #f4f59e;
+}
+.taskToDoCount{
+    background-color: #f9bc9b;
+}
+.noData {
+    width: 100%;
+}
+.totalTaskReferenceColor {
+    height : 15px;
+    width : 15px;
+    background-color: #2E68FC;
+    border-radius : 50%;
+}
+.totalTaskReferenceTitle p {
+    font-size: 15px;
+}
+.completedTaskColor {
+    height : 15px;
+    width : 15px;
+    background-color: #0BD437;
+    border-radius : 50%;
+}
+.completedTaskRefernceTitle{
+    font-size: 15px;
+}
+.taskInProgressColor {
+    height : 15px;
+    width : 15px;
+    background-color: #E9ED1E;
+    border-radius : 50%;
+}
+.taskInProgressReferenceTitle p {
+    font-size: 15px;
+}
+.taskToDoColor {
+    height : 15px;
+    width : 15px;
+    background-color: #F27731;
+    border-radius : 50%;
+}
+.taskToDoReferenceTitle p {
+    font-size: 15px;
+}
+.userItems {
+    position: absolute;
+    left: 0px;
+    right : 0px;
+    height: 200px;
+    
+}
+.taskItem{
+    height: 40px;
+    
+    border-width: 0.2px; 
+    border-color: #000000;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-left-style: solid;
+}
+.text-start{
+    
+}
+.taskItem:first-child {
+    border-width: 0.2px; 
+    border-radius: 10px 10px 0px 0px;
+    border-color: #000000;
+    border-top-style: solid;
+    border-bottom-style: none;
+  border-right-style: solid;
+  border-left-style: solid;
+}
+.taskItem:last-child {
+    border-width: 0.2px; 
+    border-radius: 0px 0px 10px 10px;
+    border-color: #000000;
+    border-bottom-style: solid;
+  border-right-style: solid;
+  border-left-style: solid;
+}
+.taskItem:only-child {
+    border-width: 0.2px; 
+    border-radius: 10px;
+    border-color: #000000;
+    border-style: solid;
+}
+.row p{
+    font-size: 15px;
+    margin-right: 10px;
+    /* padding-right: 100px; */
+}
+.userListContainer{
+    margin-top: 15px;
+}
+.userList{
+    background-color : color(srgb 0.92 0.92 0.92); 
+    border-radius: 10px;
+}
+
+.totalTaskCountTableView{
+    background-color: #99b3ff;
+    width: 100px;
+    text-align: center;
+    padding-bottom: 25px;
+    /* opacity: 50%; */
+    /* opacity: 100%; */
+}
+.completedTaskCountTableView{
+    background-color: #9eeaa0;
+    width: 100px;
+    text-align: center;
+    padding-bottom: 25px;
+}
+.taskInProgressCountTableView{
+    background-color: #f4f59e;
+    width: 100px;
+    text-align: center;
+    padding-bottom: 25px;
+}
+.taskToDoCountTableView{
+    background-color: #f9bc9b;
+    width: 100px;
+    text-align: center;
+    padding-bottom: 25px;
+}
+.tableViewRow{
+    z-index: 1;
+}
+.options {
+    position: absolute;
+    right: 10px;
+}
+.dropdown:hover {
+    cursor: pointer;
+}
+.options:hover {
+    cursor: pointer;
+}
+.taskCard {
+    width: 300px;
+    /* background-color: red; */
+    border: 3px solid #000000; 
+    border-radius: 10px;
+    position: relative;
+
+    /* margin-left: 20px; */
+}
+.options {
+    position: absolute;
+    right: 10px;
+}
+.dropdown:hover {
+    cursor: pointer;
+}
+.options:hover {
+    cursor: pointer;
+}

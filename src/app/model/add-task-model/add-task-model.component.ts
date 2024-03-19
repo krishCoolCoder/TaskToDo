@@ -55,7 +55,7 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
     //   ' and the isEdit is this : ',
     //   this.isEdit
     // );
-    console.log("The value of this.inputValue is this : ", this.inputValue)
+    console.log("ppppppp[p The value of this.inputValue is this : ", this.inputValue)
     if (this.isEdit) {
       console.log("Into the if : ")
         this.taskNo = this.inputValue.taskNo;

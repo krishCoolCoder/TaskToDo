@@ -1,4 +1,3 @@
-// import { Component, ElementRef, EventEmitter, Output, SimpleChanges, ViewChild, OnInit,OnChanges } from '@angular/core';
 import {
   Component,
   ElementRef,
@@ -21,11 +20,12 @@ import { ApiService } from 'src/app/service/api.service';
 import { catchError, map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-add-organisation-model',
-  templateUrl: './add-organisation-model.component.html',
-  styleUrls: ['./add-organisation-model.component.css']
+  selector: 'app-edit-organisation-model',
+  templateUrl: './edit-organisation-model.component.html',
+  styleUrls: ['./edit-organisation-model.component.css']
 })
-export class AddOrganisationModelComponent implements OnInit,OnChanges{
+export class EditOrganisationModelComponent {
+  
   @ViewChild('myForm')
   myForm!: NgForm;
   @ViewChild('organisationNameFields')
@@ -96,6 +96,30 @@ export class AddOrganisationModelComponent implements OnInit,OnChanges{
     // }
     } catch ( error ) {
       console.log("The error in ngOnInit is this : ", error)
+    }
+  }
+
+  ngAfterViewInit(): void {
+    try {
+    //   console.log("After the viwe init is this : ")
+    //   setTimeout(() => {
+    //   if (this.inputValue) {
+    //     console.log("INTO THE IF")
+    //     let name = this.inputValue.organisationName;
+    //     let description = this.inputValue.organisationDescription;
+    //     this.organisationTitle = name + " kya re";
+    //     this.organisationDescription = description + " Sai 2";
+    //     // this.organisationNameField.nativeElement.value = "Freaking hell";
+    //     // this.organisationDescriptionField.nativeElement.value = this.inputValue.organisationName;
+    //     console.log("The test : ", this.organisationNameField, " and the input value is this : ", this.inputValue)
+    //   } else {
+    //     console.log("INTO THE ELSE")
+    //     this.organisationTitle = "";
+    //     this.organisationDescription = "";
+    //   }
+    // },1000);
+    } catch (error) {
+      console.log("Error updating ViewChild elements:", error);
     }
   }
 

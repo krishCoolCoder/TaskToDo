@@ -30,6 +30,11 @@ export class HeaderComponent implements OnInit ,OnChanges {
     team : any = "My tasks";
     // isPersonalAccount : boolean = true;
 
+    test: boolean = false;
+  changeTest():void {
+    this.test = !this.test;
+  }
+
     updateOriganisation(event : any) {
       console.log('The value is this : ', event.target as HTMLParagraphElement);
     let data = event.target as HTMLParagraphElement;
@@ -93,6 +98,7 @@ export class HeaderComponent implements OnInit ,OnChanges {
       })
     }
     ngOnInit() {
+      this.test = false;
       let userListApi = this.api.organisationListApi().pipe(
         map((response: any) => {
           console.log("queries.component.ts says that response is this : ", response);

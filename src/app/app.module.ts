@@ -29,7 +29,10 @@ import { AddTodoModelComponent } from './model/add-todo-model/add-todo-model.com
 import { ApiService } from './service/api.service';
 
 import { HttpClientModule } from '@angular/common/http';
-import { AccountComponent } from './account/account.component';
+import { EditOrganisationModelComponent } from './model/edit-organisation-model/edit-organisation-model.component';
+import { OrganisationComponent } from './organisation/organisation.component';
+import { TeamComponent } from './team/team.component';
+import { EditTeamModelComponent } from './model/edit-team-model/edit-team-model.component';
 
 const routeConfig: Routes = [
   {
@@ -81,8 +84,12 @@ const routeConfig: Routes = [
     component: UserDataComponent,
   },
   {
-    path: "account",
-    component: AccountComponent,
+    path: "organisation",
+    component: OrganisationComponent,
+  },
+  {
+    path: "team",
+    component: TeamComponent,
   }
 ];
 
@@ -110,7 +117,10 @@ const routeConfig: Routes = [
     AddOrganisationModelComponent,
     AddTeamModelComponent,
     AddTodoModelComponent,
-    AccountComponent
+    EditOrganisationModelComponent,
+    OrganisationComponent,
+    TeamComponent,
+    EditTeamModelComponent
   ],
   imports: [
     BrowserModule,

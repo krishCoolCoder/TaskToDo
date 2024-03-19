@@ -1,14 +1,16 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ApiService } from 'src/app/service/api.service';
 import { catchError, map } from 'rxjs/operators';
 
+
 @Component({
-  selector: 'app-add-team-model',
-  templateUrl: './add-team-model.component.html',
-  styleUrls: ['./add-team-model.component.css']
+  selector: 'app-edit-team-model',
+  templateUrl: './edit-team-model.component.html',
+  styleUrls: ['./edit-team-model.component.css']
 })
-export class AddTeamModelComponent {
+export class EditTeamModelComponent {
+  
   @ViewChild('myForm')
   myForm!: NgForm;
   @ViewChild('teamNameField')
@@ -16,11 +18,7 @@ export class AddTeamModelComponent {
   @ViewChild('teamDescriptionField')
   teamDescriptionField!: ElementRef;
   @Output()
-  outputValue : any = new EventEmitter<string>();
-  @Input()
-  inputValue: any;
-  @Input()
-  isEdit?: boolean;
+  inputValue : any = new EventEmitter<string>();
 
   teamId : any = 0;
   teamTitle: string = "";

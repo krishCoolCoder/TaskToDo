@@ -33,6 +33,7 @@ import { EditOrganisationModelComponent } from './model/edit-organisation-model/
 import { OrganisationComponent } from './organisation/organisation.component';
 import { TeamComponent } from './team/team.component';
 import { EditTeamModelComponent } from './model/edit-team-model/edit-team-model.component';
+import { UpdateTaskStatusModelComponent } from './model/update-task-status-model/update-task-status-model.component';
 
 const routeConfig: Routes = [
   {
@@ -120,7 +121,8 @@ const routeConfig: Routes = [
     EditOrganisationModelComponent,
     OrganisationComponent,
     TeamComponent,
-    EditTeamModelComponent
+    EditTeamModelComponent,
+    UpdateTaskStatusModelComponent
   ],
   imports: [
     BrowserModule,

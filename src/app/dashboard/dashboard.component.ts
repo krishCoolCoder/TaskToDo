@@ -28,7 +28,7 @@ export class DashboardComponent {
       return data.status === "Assigned"
     })
     let inProgressTasksCount : any = this.userTasks.filter((data : any)=> {
-      return data.status === "In prgress"
+      return data.status === "In progress"
     })
     let pendingTasksCount : any = this.userTasks.filter((data : any)=> {
       return data.status === "Pending"

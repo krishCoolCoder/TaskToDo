@@ -211,3 +211,6 @@ button {
 .options:hover {
     cursor: pointer;
 }
+.progressBar{
+    width: 200px;
+}

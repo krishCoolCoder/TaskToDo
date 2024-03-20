@@ -78,6 +78,7 @@ taskList : any = [];
 noData : boolean = false;
 isEdit : boolean = false;
 loader: boolean = false;
+progress ?: number;
 ngOnInit () {
   let taskListApi = this.api.taskListApi().pipe(
     map((response: any) => {
@@ -249,5 +250,9 @@ getDataFromHeader($event : any) {
   console.log("The taskList after filter is this : ", this.taskList)
   // organisationRef : organisationTeamMapping.currentOrganisation,
   //             currentTeamRef : organisationTeamMapping.currentTeam
+}
+getProgressValue(event: any) {
+  console.log("The event value is this : ", event.target.value)
+  this.progress = event.target.value;
 }
 }

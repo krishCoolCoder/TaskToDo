@@ -27,10 +27,7 @@ import { catchError, map } from 'rxjs/operators';
 export class UpdateTaskStatusModelComponent {
   @ViewChild('myForm')
   myForm!: NgForm;
-  @ViewChild('taskTitle')
-  taskTitle!: ElementRef;
-  @ViewChild('taskDescription')
-  taskDescription!: ElementRef;
+
   @ViewChild('taskProgress')
   taskProgress!: ElementRef;
 
@@ -88,6 +85,7 @@ export class UpdateTaskStatusModelComponent {
         ' and the isEdit is this : ',
         this.isEdit
       );
+      console.log("The taskProgress in ngOnChanges is this : ", this.inputValue.taskProgress);
       if (this.isEdit) {
         console.log("Into the if : ")
           // this.taskNo = this.inputValue.taskNo;
@@ -97,9 +95,10 @@ export class UpdateTaskStatusModelComponent {
           // this.editView = true;
           this.editView = true;
           this.status = this.inputValue?.taskStatus;
-          this.taskTitle.nativeElement.value = this.inputValue?.taskTitle || '';
-          this.taskDescription.nativeElement.value = this.inputValue.taskDescription || '';
+          console.log("The value of taskProgress is this : ", this.taskProgress)
           this.taskProgress.nativeElement.value = this.inputValue.taskProgress || '';
+          this.progress = this.inputValue.taskProgress;
+          console.log("The value of thi progress inside the if is : ", this.progress)
       } else {
         this.taskNo = '';
         this.title = '';
@@ -206,8 +205,6 @@ export class UpdateTaskStatusModelComponent {
       });
       console.log("The response of api hit attempt is this : ",taskDeleteApi)
     } else if (this.inputValue?._id) {
-      this.title = this.taskTitle.nativeElement.value;
-      this.description = this.taskDescription.nativeElement.value;
       console.log("The taskTitle is this : ", this.title)
       let taskDeleteApi = await this.api.taskUpdateApi(
         {
@@ -318,8 +315,6 @@ export class UpdateTaskStatusModelComponent {
   }
 
   onSubmit() {
-    this.taskTitle.nativeElement.value = '';
-    this.taskDescription.nativeElement.value = '';
     this.myForm.resetForm();
   }
 
@@ -336,8 +331,6 @@ export class UpdateTaskStatusModelComponent {
       // this.inputValue = null;
       this.title = '';
       this.description = '';
-      this.taskTitle.nativeElement.value = '';
-      this.taskDescription.nativeElement.value = '';
     }
   }
   getProgressValue(event: any) {

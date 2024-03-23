@@ -96,7 +96,7 @@ export class UpdateTaskStatusModelComponent {
           this.editView = true;
           this.status = this.inputValue?.taskStatus;
           console.log("The value of taskProgress is this : ", this.taskProgress)
-          this.taskProgress.nativeElement.value = this.inputValue.taskProgress || '';
+          this.status = this.inputValue.taskProgress || '';
           this.progress = this.inputValue.taskProgress;
           console.log("The value of thi progress inside the if is : ", this.progress)
       } else {
@@ -150,6 +150,7 @@ export class UpdateTaskStatusModelComponent {
   }
 
    async giveInputValue(): Promise<any> {
+    // console.log("The value of this.taskProgress.nativeElement.value is this : ",this.taskProgress?.nativeElement?.value);
     // if (this.isEdit) {
     //   console.log("Into the if : ")
     //     this.taskNo = this.inputValue.taskNo;
@@ -167,51 +168,14 @@ export class UpdateTaskStatusModelComponent {
     console.log("Into the giveInputValue on add-task-model and the value of inputValue : ",this.inputValue)
     let currentUser = JSON.parse(<any>localStorage.getItem('currentUser'));
     if (!this.inputValue?._id) {
-    let taskDeleteApi = await this.api.taskCreateApi(
-      {
-        taskTitle: this.title,
-        taskDescription: this.description,
-        taskStatus: this.status == '' ? 'Created' : this.status,
-        taskCreatedBy: currentUser.data[0]._id
-        // organisationRef : organisationTeamMapping.currentOrganisation,
-        // teamRef : organisationTeamMapping.currentTeam
-      }
-    ).pipe(
-      map((response: any) => {
-        console.log("The response of the api is this : ", response);
-        // this.noData = response.data.length === 0 ? true : false;
-        // this.taskList = response?.data
-        this.outputValue.emit({data: "response"});
-        return response; // Forward the response to the next operator
-      }),
-      catchError((error) => {
-        // Handle error response here
-        console.error('API Error:', error);
-        alert(error.error.message || error.statusText)
-        this.outputValue.emit({data: "response"});
-        throw error; // Re-throw the error to propagate it
-        // Alternatively, you can return a default value or another Observable here
-        // return of(defaultValue); // Return a default value
-        // return throwError('Error occurred'); // Return another Observable
-      })).subscribe({
-        next: (data) => {
-          console.log('API Response:', data);
-          // Handle the response data here
-        },
-        error: (error) => {
-          console.error('API Error:', error);
-          // Handle any errors here
-        }
-      });
-      console.log("The response of api hit attempt is this : ",taskDeleteApi)
+    alert("Unable to update the status, Kindly try again.")
     } else if (this.inputValue?._id) {
       console.log("The taskTitle is this : ", this.title)
-      let taskDeleteApi = await this.api.taskUpdateApi(
+      let taskDeleteApi = await this.api.taskStatusUpdateApi(
         {
           id : this.inputValue._id,
-          taskTitle: this.title,
-          taskDescription: this.description,
-          taskStatus: this.status || this.inputValue.taskStatus,
+          taskProgress: this.taskProgress?.nativeElement?.value || this.inputValue.taskStatus,
+          taskStatus: this.status|| this.inputValue.taskStatus,
           taskUpdatedBy: currentUser.data[0]._id
           // organisationRef : organisationTeamMapping.currentOrganisation,
           // teamRef : organisationTeamMapping.currentTeam

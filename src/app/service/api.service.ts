@@ -50,6 +50,15 @@ export class ApiService {
     const options = { headers: headers };
     return this.api.patch(`${this.apiUrl}/task/updateTask`,payload, options)
   }
+  taskStatusUpdateApi(payload : any) {
+    let currentUser = JSON.parse(<any>localStorage.getItem('currentUser'));
+    console.log("The current user is this : ", currentUser);
+    const headers = new HttpHeaders({
+      'Authentication': `${currentUser.token}` // Set your header value here
+    });
+    const options = { headers: headers };
+    return this.api.patch(`${this.apiUrl}/task/updateTaskStatus`,payload, options)
+  }
   queryListApi() {
     let currentUser = JSON.parse(<any>localStorage.getItem('currentUser'));
     console.log("The current user is this : ", currentUser);

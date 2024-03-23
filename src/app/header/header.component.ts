@@ -164,8 +164,10 @@ export class HeaderComponent implements OnInit ,OnChanges {
       // // console.log("The team list is this : ", this.teamListData)
       // // console.log("the value of this.loggedInUserData is this : ", this.loggedInUserData);
       // // console.log("The team is this : ", this.team)
-      // if (this.loggedInUserData !== undefined && this.loggedInUserData !== null) {
-        this.login = true;
+      let currentUser = JSON.parse(<any>localStorage.getItem('currentUser'));
+      if (currentUser?.id !== undefined && currentUser !== null) {
+        this.login = false;
+      }
       //   console.log("Into the if : ")
       // } else {
       //   this.login = false;

@@ -55,6 +55,7 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
     //   ' and the isEdit is this : ',
     //   this.isEdit
     // );
+    console.log("Into the ngOnInit : ")
     console.log("ppppppp[p The value of this.inputValue is this : ", this.inputValue)
     if (this.isEdit) {
       console.log("Into the if : ")
@@ -74,6 +75,7 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     try {
+      console.log("Into the ngOnChanges : ")
       console.log(
         'The value of inputValue in gOnChanges() child component is this : ',
         this.inputValue,

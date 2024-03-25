@@ -96,7 +96,7 @@ export class UpdateTaskStatusModelComponent {
           this.editView = true;
           this.status = this.inputValue?.taskStatus;
           console.log("The value of taskProgress is this : ", this.taskProgress)
-          this.status = this.inputValue.taskProgress || '';
+          // this.status = this.inputValue.taskProgress || '';
           this.progress = this.inputValue.taskProgress;
           console.log("The value of thi progress inside the if is : ", this.progress)
       } else {
@@ -174,7 +174,7 @@ export class UpdateTaskStatusModelComponent {
       let taskDeleteApi = await this.api.taskStatusUpdateApi(
         {
           id : this.inputValue._id,
-          taskProgress: this.taskProgress?.nativeElement?.value || this.inputValue.taskStatus,
+          taskProgress: this.taskProgress?.nativeElement?.value || this.inputValue.taskProgress,
           taskStatus: this.status|| this.inputValue.taskStatus,
           taskUpdatedBy: currentUser.data[0]._id
           // organisationRef : organisationTeamMapping.currentOrganisation,

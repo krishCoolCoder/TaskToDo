@@ -76,7 +76,8 @@ export class AddUserModelComponent implements OnInit, OnChanges {
       if (this.inputValue) {
         this.userData.userName = this.inputValue.userName;
         this.userData.userEmail = this.inputValue.email;
-        this.userData.userRole = this.inputValue.userRole;
+        this.userData.userRole = this.inputValue.userRoles[0].roleName;
+        this.userRole = this.inputValue.userRoles[0].roleName;
       }
     } else if (this.isEdit === false) { 
       this.userData.userName = '';

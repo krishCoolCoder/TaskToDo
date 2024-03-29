@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit ,OnChanges {
     teamListData : any = JSON.parse(<any>localStorage.getItem('teamList'));
     accountType : any = "Personal account";
     team : any = "My tasks";
+    project : any = "My Project"; // Display the project as My Project only when he has no task assinged from an organisations.
     // isPersonalAccount : boolean = true;
 
     test: boolean = false;
@@ -165,7 +166,9 @@ export class HeaderComponent implements OnInit ,OnChanges {
       // // console.log("the value of this.loggedInUserData is this : ", this.loggedInUserData);
       // // console.log("The team is this : ", this.team)
       let currentUser = JSON.parse(<any>localStorage.getItem('currentUser'));
+      console.log("The currentUser is this : ", currentUser)
       if (currentUser.data[0]?._id) {
+        console.log("Into the if : ")
         this.login = true;
       }
       //   console.log("Into the if : ")

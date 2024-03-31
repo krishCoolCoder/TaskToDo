@@ -35,6 +35,9 @@ import { TeamComponent } from './team/team.component';
 import { EditTeamModelComponent } from './model/edit-team-model/edit-team-model.component';
 import { UpdateTaskStatusModelComponent } from './model/update-task-status-model/update-task-status-model.component';
 import { EditTaskModelComponent } from './model/edit-task-model/edit-task-model.component';
+import { AddProjectModelComponent } from './model/add-project-model/add-project-model.component';
+import { UpdateProjectModelComponent } from './model/update-project-model/update-project-model.component';
+import { ProjectComponent } from './project/project.component';
 
 const routeConfig: Routes = [
   {
@@ -92,6 +95,10 @@ const routeConfig: Routes = [
   {
     path: "team",
     component: TeamComponent,
+  },
+  {
+    path: "project",
+    component: ProjectComponent
   }
 ];
 
@@ -124,7 +131,10 @@ const routeConfig: Routes = [
     TeamComponent,
     EditTeamModelComponent,
     UpdateTaskStatusModelComponent,
-    EditTaskModelComponent
+    EditTaskModelComponent,
+    AddProjectModelComponent,
+    UpdateProjectModelComponent,
+    ProjectComponent
   ],
   imports: [
     BrowserModule,

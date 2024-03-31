@@ -26,9 +26,9 @@ export class HeaderComponent implements OnInit ,OnChanges {
     loggedInUserData : any = JSON.parse(<any>localStorage.getItem('loggedInUser'));
     organisationListData : any = JSON.parse(<any>localStorage.getItem('organisationList'));
     teamListData : any = JSON.parse(<any>localStorage.getItem('teamList'));
-    accountType : any = "Personal account";
-    team : any = "My tasks";
-    project : any = "My Project"; // Display the project as My Project only when he has no task assinged from an organisations.
+    accountType : any = "All organisation";
+    team : any = "All tasks";
+    project : any = "All Project"; // Display the project as My Project only when he has no task assinged from an organisations.
     // isPersonalAccount : boolean = true;
 
     test: boolean = false;

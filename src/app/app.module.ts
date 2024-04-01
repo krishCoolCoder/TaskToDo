@@ -38,6 +38,7 @@ import { EditTaskModelComponent } from './model/edit-task-model/edit-task-model.
 import { AddProjectModelComponent } from './model/add-project-model/add-project-model.component';
 import { UpdateProjectModelComponent } from './model/update-project-model/update-project-model.component';
 import { ProjectComponent } from './project/project.component';
+import { ApiCall } from './dependancy/apiService.service';
 
 const routeConfig: Routes = [
   {
@@ -144,7 +145,7 @@ const routeConfig: Routes = [
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [ApiCall],
   bootstrap: [AppComponent,ApiService]
 })
 export class AppModule { }

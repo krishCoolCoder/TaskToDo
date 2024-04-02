@@ -53,7 +53,7 @@ export class AddProjectModelComponent {
   taskNo: any = 0;
   title: string = '';
   description: string = '';
-  status?: string | undefined | null = '';
+  status?: string | undefined | null = 'Active';
 
   editView: boolean = false;
 
@@ -94,14 +94,8 @@ export class AddProjectModelComponent {
         this.isEdit
       );
       if (this.isEdit) {
-        console.log("Into the if : ")
-          // this.taskNo = this.inputValue.taskNo;
-          // this.title = this.inputValue.taskTitle;
-          // this.description = this.inputValue?.taskDescription;
-          // this.status = this.inputValue.taskStatus;
-          // this.editView = true;
           this.editView = true;
-          this.status = this.inputValue?.taskStatus;
+          this.status = this.inputValue?.projectStatus;
           this.taskTitle.nativeElement.value = this.inputValue?.projectName || '';
           this.taskDescription.nativeElement.value = this.inputValue.projectDescription || '';
       } else {
@@ -154,160 +148,25 @@ export class AddProjectModelComponent {
   }
 
    async giveInputValue(): Promise<any> {
-    // if (this.isEdit) {
-    //   console.log("Into the if : ")
-    //     this.taskNo = this.inputValue.taskNo;
-    //     this.title = this.inputValue.taskTitle;
-    //     this.description = this.inputValue?.taskDescription;
-    //     this.status = this.inputValue.taskStatus;
-    //     this.editView = true;
-    // } else {
-    //   this.taskNo = '';
-    //   this.title = '';
-    //   this.description = '';
-    //   this.status = '';
-    //   this.editView = false;
-    // }
-    console.log("Into the giveInputValue on add-task-model and the value of inputValue : ",this.inputValue)
-    let currentUser = JSON.parse(<any>localStorage.getItem('currentUser'));
     if (!this.inputValue?._id) {
       await this.testing.projectPostApi({
         projectName: this.title,
-        projectDescription: this.description,
-        // organisationRef : organisationTeamMapping.currentOrganisation,
-        // teamRef : organisationTeamMapping.currentTeam
+        projectDescription: this.description
       });
       this.outputValue.emit({ data: 'response' });
-    // let taskDeleteApi = await this.api.taskCreateApi(
-    //   {
-    //     taskTitle: this.title,
-    //     taskDescription: this.description,
-    //     taskStatus: this.status == '' ? 'Created' : this.status,
-    //     taskCreatedBy: currentUser.data[0]._id
-    //     // organisationRef : organisationTeamMapping.currentOrganisation,
-    //     // teamRef : organisationTeamMapping.currentTeam
-    //   }
-    // ).pipe(
-    //   map((response: any) => {
-    //     console.log("The response of the api is this : ", response);
-    //     // this.noData = response.data.length === 0 ? true : false;
-    //     // this.taskList = response?.data
-    //     this.outputValue.emit({data: "response"});
-    //     return response; // Forward the response to the next operator
-    //   }),
-    //   catchError((error) => {
-    //     // Handle error response here
-    //     console.error('API Error:', error);
-    //     alert(error.error.message || error.statusText)
-    //     this.outputValue.emit({data: "response"});
-    //     throw error; // Re-throw the error to propagate it
-    //     // Alternatively, you can return a default value or another Observable here
-    //     // return of(defaultValue); // Return a default value
-    //     // return throwError('Error occurred'); // Return another Observable
-    //   })).subscribe({
-    //     next: (data) => {
-    //       console.log('API Response:', data);
-    //       // Handle the response data here
-    //     },
-    //     error: (error) => {
-    //       console.error('API Error:', error);
-    //       // Handle any errors here
-    //     }
-    //   });
-    //   console.log("The response of api hit attempt is this : ",taskDeleteApi)
     } else if (this.inputValue?._id) {
-      console.log("The inputValue is this : ", this.inputValue)
       this.title = this.taskTitle.nativeElement.value;
       this.description = this.taskDescription.nativeElement.value;
-      console.log("The this.title is this : ", this.title, " and the this.description is this : ", this.description);
-      console.log("The taskTitle is this : ", this.title)
-      // let taskDeleteApi = await this.api.taskUpdateApi(
-      //   {
-      //     id : this.inputValue._id,
-      //     taskTitle: this.title,
-      //     taskDescription: this.description,
-      //     taskStatus: this.status || this.inputValue.taskStatus,
-      //     taskUpdatedBy: currentUser.data[0]._id
-      //     // organisationRef : organisationTeamMapping.currentOrganisation,
-      //     // teamRef : organisationTeamMapping.currentTeam
-      //   }
-      // )
       await this.testing.projectPatchApi({
         id : this.inputValue._id,
         projectName: this.title,
-        projectDescription: this.description,
-        // organisationRef : organisationTeamMapping.currentOrganisation,
-        // teamRef : organisationTeamMapping.currentTeam
+        projectDescription: this.description
       });
         this.outputValue.emit({data: "response"});
-        // console.log("The response of api hit attempt is this : ",taskDeleteApi)
-    }
-    // let userTasks = JSON.parse(<any>localStorage.getItem('userTasks'));
-    // let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
-    // console.log("The organisationTeamMapping is this : ", organisationTeamMapping.currentOrganisation, " and ",organisationTeamMapping.currentTeam)
-    // if (organisationTeamMapping === null || organisationTeamMapping.currentTeam === undefined || organisationTeamMapping.currentOrganisation === undefined ) {
-    //   alert("Kindly select organisation/account type and team.");
-    //   return;
-    // }
-    // let loggedInUserData = JSON.parse(
-    //   <any>localStorage.getItem('loggedInUser')
-    // );
-    // if (this.isEdit === true) {
-    //   if (this.inputValue !== false) {
-    //     this.editView = true;
-    //     // console.log('Into the if : ');
-    //     let filteredData = userTasks.forEach((data: any, index: number) => {
-    //       if (data.taskNo === this.inputValue.taskNo) {
-    //         userTasks[index] = {
-    //           taskNo: this.inputValue.taskNo,
-    //           title: this.title,
-    //           description: this.description,
-    //           status: this.status == '' ? 'Created' : this.status,
-    //           assignedBy: loggedInUserData.userName,
-    //           organisationRef : organisationTeamMapping.currentOrganisation,
-    //           currentTeamRef : organisationTeamMapping.currentTeam
-    //         };
-    //         localStorage.setItem('userTasks', JSON.stringify(userTasks));
-    //         this.outputValue.emit({
-    //           taskNo: this.taskNo,
-    //           title: this.title,
-    //           description: this.description,
-    //           status: this.status == '' ? 'Created' : this.status,
-    //           assignedBy: loggedInUserData.userName,
-    //           organisationRef : organisationTeamMapping.currentOrganisation,
-    //           currentTeamRef : organisationTeamMapping.currentTeam
-    //         });
-    //       }
-    //     });
-    //     this.inputValue = null;
-    //     this.title = '';
-    //     this.description = '';
-    //     this.taskTitle.nativeElement.value = '';
-    //     this.taskDescription.nativeElement.value = '';
-    //     this.myForm.resetForm();
-    //     // this.taskNo = "";
-    //     return;
-    //   }
-    // }
-    // this.taskNo = Math.floor(Math.random() * 9000) + 1000;
-    // userTasks.push({
-    //   taskNo: this.taskNo,
-    //   title: this.title,
-    //   description: this.description,
-    //   status: 'Created',
-    //   assignedBy: loggedInUserData.userName,
-    //   organisationRef : organisationTeamMapping.currentOrganisation,
-    //   currentTeamRef : organisationTeamMapping.currentTeam
-    // });
-    // localStorage.setItem('userTasks', JSON.stringify(userTasks));
+    };
     this.outputValue.emit({
       taskNo: this.taskNo
     });
-    // this.description = '';
-    // this.title = '';
-    // this.taskNo = 0;
-    // this.taskTitle.nativeElement.value = '';
-    // this.taskDescription.nativeElement.value = '';
   }
 
   onSubmit() {
@@ -317,16 +176,8 @@ export class AddProjectModelComponent {
   }
 
   onModalClose() {
-    // Handle the modal close event here
-    // console.log('Modal closed');
-    // Add your logic here
     this.editView = false;
-    // console.log(
-    //   'Into the onModelClose() and the inputValue is this : ',
-    //   this.inputValue
-    // );
     if (this.isEdit === false) {
-      // this.inputValue = null;
       this.title = '';
       this.description = '';
       this.taskTitle.nativeElement.value = '';

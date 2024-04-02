@@ -18,14 +18,12 @@
                   <label for="recipient-name" class="col-form-label">Task Status :</label>
                   <div class="dropdown">
                       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{(status == "" ? "Status" : status)}}
+                        {{(status === "" ? "Active" : status)}}
                       </button>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <p class="dropdown-item" (click)="updateStatus($event)" >Created</p>
-                        <p class="dropdown-item" (click)="updateStatus($event)" >Assigned</p>
-                        <p class="dropdown-item" (click)="updateStatus($event)" >In progress</p>
-                        <p class="dropdown-item" (click)="updateStatus($event)" >Pending</p>
-                        <p class="dropdown-item" (click)="updateStatus($event)" >Completed</p>
+                        <p class="dropdown-item" (click)="updateStatus($event)" >Active</p>
+                        <p class="dropdown-item" (click)="updateStatus($event)" >Hold</p>
+                        <p class="dropdown-item" (click)="updateStatus($event)" >De-Active</p>
                       </div>
                   </div>
                 </div>

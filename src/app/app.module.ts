@@ -39,6 +39,7 @@ import { AddProjectModelComponent } from './model/add-project-model/add-project-
 import { UpdateProjectModelComponent } from './model/update-project-model/update-project-model.component';
 import { ProjectComponent } from './project/project.component';
 import { ApiCall } from './dependancy/apiService.service';
+import { ViewTaskModelComponent } from './model/view-task-model/view-task-model.component';
 
 const routeConfig: Routes = [
   {
@@ -135,7 +136,8 @@ const routeConfig: Routes = [
     EditTaskModelComponent,
     AddProjectModelComponent,
     UpdateProjectModelComponent,
-    ProjectComponent
+    ProjectComponent,
+    ViewTaskModelComponent
   ],
   imports: [
     BrowserModule,

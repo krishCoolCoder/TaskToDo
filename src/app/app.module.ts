@@ -46,6 +46,7 @@ import { ViewTodoModelComponent } from './model/view-todo-model/view-todo-model.
 import { ViewOrganisationModelComponent } from './model/view-organisation-model/view-organisation-model.component';
 import { ViewTeamModelComponent } from './model/view-team-model/view-team-model.component';
 import { ViewProjectModelComponent } from './model/view-project-model/view-project-model.component';
+import { ViewUserModelComponent } from './model/view-user-model/view-user-model.component';
 
 const routeConfig: Routes = [
   {
@@ -149,7 +150,8 @@ const routeConfig: Routes = [
     ViewTodoModelComponent,
     ViewOrganisationModelComponent,
     ViewTeamModelComponent,
-    ViewProjectModelComponent
+    ViewProjectModelComponent,
+    ViewUserModelComponent
   ],
   imports: [
     BrowserModule,

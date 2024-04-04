@@ -1,1 +1,39 @@
-<p>view-user-model works!</p>
+  <!-- Modal -->
+  <div class="modal fade" id="viewUserModel" tabindex="-1" role="dialog" aria-labelledby="viewUserModel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">User Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="userId mb-4">
+                <p class="font-weight-bold mb-1">User ID : </p>
+                <p>{{inputValue.userId}}</p>
+              </div>
+            <div class="userName mb-4">
+          <p class="font-weight-bold mb-1">User Name : </p>
+          <p>{{inputValue.userName}}</p>
+        </div>
+        <div class="firstName mb-4">
+          <p class="font-weight-bold mb-1">First name : </p>
+          <p>{{inputValue.firstName}}</p>
+        </div>
+        <div class="lastName mb-4">
+          <p class="font-weight-bold mb-1">Last name : </p>
+          <p>{{inputValue.lastName}}</p>
+        </div>
+        <div class="email mb-4">
+          <p class="font-weight-bold mb-1">Email : </p>
+          <p>{{inputValue.email}}</p>
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+        </div>
+      </div>
+    </div>
+  </div>

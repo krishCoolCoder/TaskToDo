@@ -40,6 +40,12 @@ import { UpdateProjectModelComponent } from './model/update-project-model/update
 import { ProjectComponent } from './project/project.component';
 import { ApiCall } from './dependancy/apiService.service';
 import { ViewTaskModelComponent } from './model/view-task-model/view-task-model.component';
+import { ViewRequestModelComponent } from './model/view-request-model/view-request-model.component';
+import { ViewQueryModelComponent } from './model/view-query-model/view-query-model.component';
+import { ViewTodoModelComponent } from './model/view-todo-model/view-todo-model.component';
+import { ViewOrganisationModelComponent } from './model/view-organisation-model/view-organisation-model.component';
+import { ViewTeamModelComponent } from './model/view-team-model/view-team-model.component';
+import { ViewProjectModelComponent } from './model/view-project-model/view-project-model.component';
 
 const routeConfig: Routes = [
   {
@@ -137,7 +143,13 @@ const routeConfig: Routes = [
     AddProjectModelComponent,
     UpdateProjectModelComponent,
     ProjectComponent,
-    ViewTaskModelComponent
+    ViewTaskModelComponent,
+    ViewRequestModelComponent,
+    ViewQueryModelComponent,
+    ViewTodoModelComponent,
+    ViewOrganisationModelComponent,
+    ViewTeamModelComponent,
+    ViewProjectModelComponent
   ],
   imports: [
     BrowserModule,

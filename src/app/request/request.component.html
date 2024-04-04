@@ -1,6 +1,7 @@
 <app-header (outputData)="getDataFromHeader($event)"></app-header>
 <app-sidebar-menu></app-sidebar-menu>
 <app-add-request-model (outputValue)="getInputValue($event)" [inputValue]="requestData" [isEdit]="isEdit"></app-add-request-model>
+<app-view-request-model [inputValue]="requestData"></app-view-request-model>
 <div class="taskContainer d-flex flex-column">
     <div class="topButtons">
         <div class="d-flex bd-highlight mb-3">
@@ -92,10 +93,10 @@
       <!-- list view -->
       <div class="listView" *ngIf="listView">
         <div class="request mr-3 ml-3 d-flex bd-highlight mb-2" *ngFor="let data of requestList; index as i">
-            <div class="requestNumber p-2 bd-highlight mr-4 ml-4">
-                {{data.requestNumber}}
+            <div class="requestNumber p-2 bd-highlight mr-4 ml-4" data-toggle="modal" data-target="#viewRequestModel" (click)="editRequest(data, true)">
+                {{data.requestCode}}
             </div>
-            <div class="requestTitle p-2 flex-grow-1 bd-highlight">
+            <div class="requestTitle p-2 flex-grow-1 bd-highlight" data-toggle="modal" data-target="#viewRequestModel" (click)="editRequest(data, true)">
                 {{data.requestTitle}}
             </div>
             <div class="requestStatus p-2 bd-highlight mr-4">
@@ -141,10 +142,10 @@
                 <div class="pt-2 bd-highlight ml-5">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                 </div>
-                <div class="pt-2 bd-highlight ml-2">
-                    <p>{{data.requestNumber}}</p>
+                <div class="pt-2 bd-highlight ml-2" data-toggle="modal" data-target="#viewRequestModel" (click)="editRequest(data, true)">
+                    <p>{{data.requestCode}}</p>
                 </div>
-                <div class="p-2 flex-grow-1 bd-highlight">{{data.requestTitle}}</div>
+                <div class="p-2 flex-grow-1 bd-highlight" data-toggle="modal" data-target="#viewRequestModel" (click)="editRequest(data, true)">{{data.requestTitle}}</div>
                 <div class="requestStatus p-2 bd-highlight mr-4">
                   <p class="text-truncate mr-3">{{data.requestDescription}}</p>
                 </div>
@@ -205,11 +206,11 @@
           </div>
         </div>
             <div class="taskDetails d-flex flex-column pt-2 pl-3 pr-2">
-              <div class="taskNumber">
-                  <p class="font-weight-bold">{{data.requestNumber}}</p>
+              <div class="taskNumber" data-toggle="modal" data-target="#viewRequestModel" (click)="editRequest(data, true)">
+                  <p class="font-weight-bold">{{data.requestCode}}</p>
               </div>
                 <div class="taskTitleDescription">
-                  <p class="mb-0 font-weight-bold">{{data.requestTitle}}</p>
+                  <p class="mb-0 font-weight-bold" data-toggle="modal" data-target="#viewRequestModel" (click)="editRequest(data, true)">{{data.requestTitle}}</p>
                     <p class="text-truncate mr-3">{{data.requestDescription}}</p>
                   <p class="text-truncate mr-3">{{data.requestType}}</p>
                 </div>

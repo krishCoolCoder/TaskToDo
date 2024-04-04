@@ -249,31 +249,11 @@ constructor ( private api: ApiService ) {}
           // Handle any errors here
         }
       });
-
-      
-
-    // let todoList = JSON.parse(<any>localStorage.getItem('todoList'));
-    // todoList.splice(index,1);
-    // this.todoList = todoList;
-    // localStorage.setItem('todoList',JSON.stringify(todoList));
-    // this.noData = this.todoList.length === 0 ? true : false;
-
-    // let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
-    // console.log("The queryList before filter is this : ", this.todoList);
-    // this.todoList = this.todoList.filter((data:any)=>{
-    //   return ((data.organisationRef == organisationTeamMapping.currentOrganisation) && (data.currentTeamRef == organisationTeamMapping.currentTeam))
-    // })
   }
   editTask(data: any, flag: boolean) {
     console.log("The data in the parent component is this : ", data);
     this.todoData = data;
     this.isEdit = flag;
-
-    let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
-    console.log("The queryList before filter is this : ", this.todoList);
-    this.todoList = this.todoList.filter((data:any)=>{
-      return ((data.organisationRef == organisationTeamMapping.currentOrganisation) && (data.currentTeamRef == organisationTeamMapping.currentTeam))
-    })
   }
   getDataFromHeader($event : any) {
     console.log("Into the headerData and the headerData is this : ");
@@ -282,9 +262,6 @@ constructor ( private api: ApiService ) {}
     console.log("The todoList before filter is this : ", this.todoList);
     this.todoList = this.todoList.filter((data:any)=>{
       return ((data.organisationRef == organisationTeamMapping.currentOrganisation) && (data.currentTeamRef == organisationTeamMapping.currentTeam))
-    })
-    console.log("The todoList after filter is this : ", this.todoList)
-    // organisationRef : organisationTeamMapping.currentOrganisation,
-    //             currentTeamRef : organisationTeamMapping.currentTeam
+    });
   }
 }

@@ -1,6 +1,7 @@
 <app-header (outputData)="getDataFromHeader($event)"></app-header>
 <app-sidebar-menu></app-sidebar-menu>
 <app-add-todo-model (outputValue)="getInputValue($event)" [inputValue]="todoData" [isEdit]="isEdit"></app-add-todo-model>
+<app-view-todo-model [inputValue]="todoData"></app-view-todo-model>
 <div class="test">
   <div class="topContainer">
     <form>
@@ -44,7 +45,7 @@
                 <div class="pt-2 bd-highlight ml-5">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                 </div>
-                <div class="pt-2 flex-grow-1 bd-highlight ml-2">
+                <div class="pt-2 flex-grow-1 bd-highlight ml-2" data-toggle="modal" data-target="#viewTodoModel" (click)="editTask(data, true)">
                     <p>{{data.todoData}}</p>
                 </div>
                 <div class="p-2 bd-highlight">
@@ -81,7 +82,7 @@
     class="taskList mr-3 ml-3 mt-1 d-flex bd-highlight mb-2" 
     *ngFor="let data of todoList; index as i"
     >
-        <div class="requestNumber p-2 flex-grow-1 bd-highlight mr-4 ml-4">
+        <div class="requestNumber p-2 flex-grow-1 bd-highlight mr-4 ml-4" data-toggle="modal" data-target="#viewTodoModel" (click)="editTask(data, true)">
             {{data.todoData}}
         </div>
         <div class="requestStatus mr-1 p-2 dropdown">
@@ -137,7 +138,7 @@
             <div class="taskNumber">
                 <p class="font-weight-bold"></p>
             </div>
-              <div class="taskTitleDescription mb-3">
+              <div class="taskTitleDescription mb-3" data-toggle="modal" data-target="#viewTodoModel" (click)="editTask(data, true)">
                 <p class="mb-0 font-weight-bold">{{data.todoData}}</p>
               </div>
           </div>

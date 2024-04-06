@@ -25,8 +25,8 @@ export class AddTeamModelComponent {
   teamId : any = 0;
   teamTitle: string = "";
   teamDescription : string = "";
-  teamStatus ?: string | undefined | null = '';
-  organisationRef ?: string = "";
+  teamStatus ?: string | undefined | null = 'In-Active';
+  organisationRef ?: string | null = null;
 
   constructor ( private api: ApiService ) {}
 
@@ -52,7 +52,7 @@ export class AddTeamModelComponent {
           teamName: this.teamTitle,
           teamDescription: this.teamDescription,
           teamStatus: this.teamStatus,
-          teamOrganisationRef: this.teamStatus
+          teamOrganisationRef: this.organisationRef
       }
       ).pipe(
         map((response: any) => {
@@ -92,7 +92,7 @@ export class AddTeamModelComponent {
             teamName: this.teamTitle,
             teamDescription: this.teamDescription,
             teamStatus: this.teamStatus,
-            teamOrganisationRef: this.teamStatus
+            teamOrganisationRef: this.organisationRef
         }
         ).pipe(
           map((response: any) => {

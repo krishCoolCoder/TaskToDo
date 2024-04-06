@@ -30,7 +30,7 @@ export class AddQueryModelComponent implements OnInit, OnChanges{
   queryNumber : any = 0;
   queryTitle: string = "";
   queryDescription : string = "";
-  queryStatus ?: string | undefined | null = '';
+  queryStatus ?: string | undefined | null = 'Created';
   queryType ?: string | undefined | null = '';
 
   constructor ( private api: ApiService ) {}

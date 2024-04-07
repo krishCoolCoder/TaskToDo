@@ -110,14 +110,7 @@ ngOnInit () {
     });
 
   let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
-  // console.log("The organisationTeamMapping data on ngOnInit is this : ", organisationTeamMapping)
-  // this.taskList = JSON.parse(<any>localStorage.getItem('userTasks'));
-  // console.log("The taskList on ngOnInit is tihs : ", this.taskList)
   this.noData = this.taskList.length === 0 ? true : false;
-  // this.taskList = JSON.parse(<any>localStorage.getItem('userTasks'));
-  // this.taskList = this.taskList.filter((data:any)=>{
-  //   return ((data.organisationRef == organisationTeamMapping.currentOrganisation) && (data.currentTeamRef == organisationTeamMapping.currentTeam))
-  // });
 }
 async getInputValue ($event: any) {
   let taskListApi = await this.api.taskListApi().pipe(
@@ -129,13 +122,8 @@ async getInputValue ($event: any) {
       return response; // Forward the response to the next operator
     }),
     catchError((error) => {
-      // Handle error response here
-      // console.error('API Error:', error);
       alert(error.error.message || error.statusText)
       throw error; // Re-throw the error to propagate it
-      // Alternatively, you can return a default value or another Observable here
-      // return of(defaultValue); // Return a default value
-      // return throwError('Error occurred'); // Return another Observable
     })
   ).subscribe({
       next: (data) => {
@@ -149,33 +137,17 @@ async getInputValue ($event: any) {
         // Handle any errors here
       }
     });
-  // let userTasks = JSON.parse(<any>localStorage.getItem('userTasks'));
-  // console.log("The userTasks are : ", userTasks);
-  // this.taskList = userTasks;
-  // console.log("And the array value is this : ", this.taskList)
-  // this.noData = this.taskList.length === 0 ? true : false
-  // let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
-  // this.taskList = JSON.parse(<any>localStorage.getItem('userTasks'));
-  // this.taskList = this.taskList.filter((data:any)=>{
-  //   return ((data.organisationRef == organisationTeamMapping.currentOrganisation) && (data.currentTeamRef == organisationTeamMapping.currentTeam))
-  // });
 } 
 async deleteTask(index: any) {
   let taskDeleteApi =await this.api.taskDeleteApi(index).pipe(
     map((response: any) => {
-      // console.log("The response of the api is this : ", response);
       this.noData = response.data.length === 0 ? true : false;
       this.taskList = response?.data
       return response; // Forward the response to the next operator
     }),
     catchError((error) => {
-      // Handle error response here
-      // console.error('API Error:', error);
       alert(error.error.message || error.statusText)
       throw error; // Re-throw the error to propagate it
-      // Alternatively, you can return a default value or another Observable here
-      // return of(defaultValue); // Return a default value
-      // return throwError('Error occurred'); // Return another Observable
     })
   ).subscribe({
       next: (data) => {
@@ -191,20 +163,13 @@ async deleteTask(index: any) {
     });
     let taskListApi = await this.api.taskListApi().pipe(
       map((response: any) => {
-        // console.log("The response of the api is this : ", response);
         this.noData = response.data.length === 0 ? true : false;
         this.taskList = response?.data;
-        // console.log("after the deletion")
         return response; // Forward the response to the next operator
       }),
       catchError((error) => {
-        // Handle error response here
-        // console.error('API Error:', error);
         alert(error.error.message || error.statusText)
         throw error; // Re-throw the error to propagate it
-        // Alternatively, you can return a default value or another Observable here
-        // return of(defaultValue); // Return a default value
-        // return throwError('Error occurred'); // Return another Observable
       })
     ).subscribe({
         next: (data) => {
@@ -218,42 +183,30 @@ async deleteTask(index: any) {
           // Handle any errors here
         }
       });
-  // let tasks = JSON.parse(<any>localStorage.getItem('userTasks'));
-  // tasks.splice(index,1);
-  // this.taskList = tasks;
-  // localStorage.setItem('userTasks',JSON.stringify(tasks))
-  // this.noData = this.taskList.length === 0 ? true : false;
-  // this.taskList = JSON.parse(<any>localStorage.getItem('userTasks'));
-  // let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
-  // this.taskList = this.taskList.filter((data:any)=>{
-  //   return ((data.organisationRef == organisationTeamMapping.currentOrganisation) && (data.currentTeamRef == organisationTeamMapping.currentTeam))
-  // })
 }
 editTask(data: any, flag: boolean){
   console.log("The data in the parent component is this : ", data, " and the flag is this : ", flag);
   let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
   if (organisationTeamMapping === null || organisationTeamMapping.currentTeam === undefined || organisationTeamMapping.currentOrganisation === undefined ) {
     alert("Kindly select organisation/account type and team.");
-    console.log("kkkkkkkkkkkkk")
     return;
   }
   this.taskData = data; 
   this.isEdit = flag;
 }
 getDataFromHeader($event : any) {
-  // console.log("Into the headerData and the headerData is this : ");
-  let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
-  this.taskList = JSON.parse(<any>localStorage.getItem('userTasks'));
-  // console.log("The taskList before filter is this : ", this.taskList)
-  this.taskList = this.taskList.filter((data:any)=>{
-    return ((data.organisationRef == organisationTeamMapping.currentOrganisation) && (data.currentTeamRef == organisationTeamMapping.currentTeam))
-  })
-  // console.log("The taskList after filter is this : ", this.taskList)
-  // organisationRef : organisationTeamMapping.currentOrganisation,
-  //             currentTeamRef : organisationTeamMapping.currentTeam
+  console.log("Got the data from header : ",$event);
+  // let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
+  // this.taskList = JSON.parse(<any>localStorage.getItem('userTasks'));
+  // this.taskList = this.taskList.filter((data:any)=>{
+  //   return ((data.organisationRef == organisationTeamMapping.currentOrganisation) && (data.currentTeamRef == organisationTeamMapping.currentTeam))
+  // })
 }
 getProgressValue(event: any) {
   // console.log("The event value is this : ", event.target.value)
   this.progress = event.target.value;
+}
+test(event: any) {
+  console.log("Into the thing")
 }
 }

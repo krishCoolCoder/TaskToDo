@@ -16,11 +16,7 @@ export class HeaderComponent implements OnInit ,OnChanges {
     }
 
   @Output()
-  outputData : any = new EventEmitter<string>();
-
-  // @Output()
-  // outputValue: any = new EventEmitter<string>();
-
+  outputValue: any = new EventEmitter<string>();
 
     login : boolean = false;
     loggedInUserData : any = JSON.parse(<any>localStorage.getItem('loggedInUser'));
@@ -29,39 +25,21 @@ export class HeaderComponent implements OnInit ,OnChanges {
     accountType : any = "All organisation";
     team : any = "All tasks";
     project : any = "All Project"; // Display the project as My Project only when he has no task assinged from an organisations.
-    // isPersonalAccount : boolean = true;
-
     test: boolean = false;
+
   changeTest():void {
     this.test = !this.test;
   }
 
     updateOriganisation(event : any) {
-      console.log('The value is this : ', event.target as HTMLParagraphElement);
     let data = event.target as HTMLParagraphElement;
       console.log("The data.textContent is this : " ,data.textContent);
       this.accountType = data.textContent;
       this.team = "My tasks";
-      let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
-      organisationTeamMapping = {
-        currentOrganisation : data.textContent,
-        currentTeam : "My tasks"
-      }
-      organisationTeamMapping["currentTeam"] = this.team;
-      localStorage.setItem('currentOrganisationTeamRef', JSON.stringify(organisationTeamMapping));
-      this.teamListData = JSON.parse(<any>localStorage.getItem('teamList'));
-      console.log("The teamlist before filter is this : ", this.teamListData)
-      this.teamListData = this.teamListData.filter((data : any)=> {
-        return data.organisationRef == organisationTeamMapping.currentOrganisation
-      })
-      console.log("The teamlist after filter is this : ", this.teamListData)
-      if (this.accountType !== "Personal account"){
-        // this.isPersonalAccount = false;
-      }
-      this.outputData.emit({
-        currentOrganisation : data.textContent || "Personal account",
-        currentTeam : organisationTeamMapping?.currentTeam || "My task"
-      })
+      this.outputValue.emit({
+        organisation : this.accountType,
+      });
+      console.log("The event is emitted : ", this.outputValue)
     }
     updateTeam(event : any) {
       console.log('The value is this : ', event.target as HTMLParagraphElement);
@@ -77,7 +55,7 @@ export class HeaderComponent implements OnInit ,OnChanges {
       // console.log('The team data is this : ', organisationTeamMapping)
       organisationTeamMapping["currentTeam"] = this.team;
       localStorage.setItem('currentOrganisationTeamRef', JSON.stringify(organisationTeamMapping));
-      this.outputData.emit({
+      this.outputValue.emit({
         currentOrganisation : data.textContent || "Personal account",
         currentTeam : organisationTeamMapping?.currentTeam || "My task"
       })
@@ -93,13 +71,14 @@ export class HeaderComponent implements OnInit ,OnChanges {
       this.teamListData = this.teamListData.filter((data : any)=> {
         return data.organisationRef == organisationTeamMapping.currentOrganisation
       })
-      this.outputData.emit({
+      this.outputValue.emit({
         currentOrganisation : "Personal account",
         currentTeam : organisationTeamMapping?.currentTeam || "My task"
       })
     }
     ngOnInit() {
       this.test = false;
+      this.outputValue.emit("what")
       let userListApi = this.api.organisationListApi().pipe(
         map((response: any) => {
           console.log("queries.component.ts says that response is this : ", response);
@@ -177,7 +156,7 @@ export class HeaderComponent implements OnInit ,OnChanges {
       //   console.log("Into the else : ")
       // }
       // console.log("login data in ngOnInit : ", this.login)
-      // this.outputData.emit({
+      // this.outputValue.emit({
       //   currentOrganisation : "Personal account",
       //   currentTeam : organisationTeamMapping?.currentTeam || "My task"
       // })

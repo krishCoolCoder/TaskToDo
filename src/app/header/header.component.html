@@ -1,7 +1,4 @@
-<div *ngIf="test">
-    <p *ngIf="test">fkdlkjfdlkjfldkjfldkjfldkjflsk{{test}}</p>
 <app-add-organisation-model (inputValue)="getInputValue($event)"></app-add-organisation-model>
-</div>
 <app-add-team-model (inputValue)="getInputValue($event)"></app-add-team-model>
 <div class="header">
     <div class="title">
@@ -46,9 +43,6 @@
                 <a href="/contactUs">Contact us</a>
                 <a href="/aboutUs">About us</a>
         </div>
-        <!-- <div class="companies headerRoutes"> -->
-            <!-- <p>Select company</p> -->
-        <!-- </div> -->
         <div class="accountAndTeamContainer headerRoutes" *ngIf="login">
             <div class="dropdown mr-3">
                 <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" >{{project}}

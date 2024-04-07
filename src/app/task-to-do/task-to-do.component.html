@@ -1,4 +1,4 @@
-<app-header (outputData)="getDataFromHeader($event)"></app-header>
+<app-header (outputValue)="getDataFromHeader($event)"></app-header>
 <app-sidebar-menu></app-sidebar-menu>
 <app-view-task-model [inputValue]="taskData"></app-view-task-model>
 <app-add-task-model (outputValue)="getInputValue($event)" [inputValue]="taskData" [isEdit]="isEdit"></app-add-task-model>

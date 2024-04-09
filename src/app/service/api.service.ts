@@ -14,14 +14,40 @@ export class ApiService {
   loginApi(payload: any) {
     return this.api.post(`${this.apiUrl}/login`,payload);
   }
-  taskListApi() {
+  taskListApi(payload : any = null) {
     let currentUser = JSON.parse(<any>localStorage.getItem('currentUser'));
-    console.log("The current user is this : ", currentUser);
+    console.log('The current user is this : ', currentUser);
     const headers = new HttpHeaders({
-      'Authentication': `${currentUser.token}` // Set your header value here
+      Authentication: `${currentUser.token}`, // Set your header value here
     });
     const options = { headers: headers };
-    return this.api.get(`${this.apiUrl}/task/taskList`, options)
+    let url = `${this.apiUrl}/task/taskList`;
+    // Check if organizationId is provided
+    console.log('The payload is this : ', payload);
+    if (payload != null) {
+      if (payload?.organisationId) {
+        console.log('into the if on url');
+        url += `?organisationId=${payload?.organisationId}`;
+      }
+
+      // Check if teamId is provided
+      if (payload?.teamId) {
+        // Check if URL already contains parameters
+        url += url.includes('?')
+          ? `&teamId=${payload?.teamId}`
+          : `?teamId=${payload?.teamId}`;
+      }
+
+      // Check if projectId is provided
+      if (payload?.projectId) {
+        // Check if URL already contains parameters
+        url += url.includes('?')
+          ? `&projectId=${payload?.projectId}`
+          : `?projectId=${payload?.projectId}`;
+      }
+      console.log('the url is this : ', url);
+    }
+    return this.api.get(url, options);
   }
   taskDeleteApi(taskId : string) {
     let currentUser = JSON.parse(<any>localStorage.getItem('currentUser'));

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
 import { ApiService } from '../service/api.service';
 import { catchError, map } from 'rxjs/operators';
+import { FilterService } from '../service/filter.service';
 
 @Component({
   selector: 'app-task-to-do',
@@ -15,7 +16,9 @@ tableView : boolean = false;
 listView : boolean = false;
 cardView : boolean = true;
 
-constructor ( private api: ApiService ) {}
+constructor ( 
+  private api: ApiService,
+  private filter : FilterService ) {}
 
 showTableView () {
   this.tableView = true ;
@@ -35,7 +38,10 @@ showCardView () {
 
 async ngOnChanges(changes: SimpleChanges): Promise<any> {
   console.log("Into the ngOnChanges :")
-  let taskListApi = await this.api.taskListApi().pipe(
+  console.log("this.filter.isHeaderFilterEmpty() on ngOnChanges : ", this.filter.isHeaderFilterEmpty());
+  let taskListApi = await this.api.taskListApi(
+    !this.filter.isHeaderFilterEmpty() ? this.filter.getAllHeaderFilter() : null
+  ).pipe(
     map((response: any) => {
       // console.log("The response of the api is this : ", response);
       this.noData = response.data.length === 0 ? true : false;
@@ -80,7 +86,10 @@ isEdit : boolean = false;
 loader: boolean = false;
 progress ?: number;
 ngOnInit () {
-  let taskListApi = this.api.taskListApi().pipe(
+  console.log("this.filter.isHeaderFilterEmpty() on ngOninit : ", this.filter.isHeaderFilterEmpty());
+  let taskListApi = this.api.taskListApi(
+    !this.filter.isHeaderFilterEmpty() ? this.filter.getAllHeaderFilter() : null
+  ).pipe(
     map((response: any) => {
       // console.log("The response of the api is this : ", response);
       this.noData = response.data.length === 0 ? true : false;
@@ -113,7 +122,9 @@ ngOnInit () {
   this.noData = this.taskList.length === 0 ? true : false;
 }
 async getInputValue ($event: any) {
-  let taskListApi = await this.api.taskListApi().pipe(
+  let taskListApi = await this.api.taskListApi(
+    !this.filter.isHeaderFilterEmpty() ? this.filter.getAllHeaderFilter() : null
+  ).pipe(
     map((response: any) => {
       // console.log("The response of the api is this : ", response);
       this.noData = response.data.length === 0 ? true : false;
@@ -161,7 +172,9 @@ async deleteTask(index: any) {
         // Handle any errors here
       }
     });
-    let taskListApi = await this.api.taskListApi().pipe(
+    let taskListApi = await this.api.taskListApi(
+      !this.filter.isHeaderFilterEmpty() ? this.filter.getAllHeaderFilter() : null
+    ).pipe(
       map((response: any) => {
         this.noData = response.data.length === 0 ? true : false;
         this.taskList = response?.data;
@@ -194,8 +207,33 @@ editTask(data: any, flag: boolean){
   this.taskData = data; 
   this.isEdit = flag;
 }
-getDataFromHeader($event : any) {
-  console.log("Got the data from header : ",$event);
+async getDataFromHeader($event : any) {
+  console.log("Got the data from header : ",$event, " and the organisation filter from DI is this : ", this.filter.getAllHeaderFilter());
+  console.log("this.filter.isHeaderFilterEmpty() on getDataFromHeader : ", this.filter.isHeaderFilterEmpty());
+  let taskListApi = await this.api.taskListApi(
+    !this.filter.isHeaderFilterEmpty() ? this.filter.getAllHeaderFilter() : null
+  ).pipe(
+    map((response: any) => {
+      this.noData = response.data.length === 0 ? true : false;
+      this.taskList = response?.data;
+      return response; // Forward the response to the next operator
+    }),
+    catchError((error) => {
+      alert(error.error.message || error.statusText)
+      throw error; // Re-throw the error to propagate it
+    })
+  ).subscribe({
+      next: (data) => {
+        console.log('API Response:', data);
+        this.loader = false;
+        // Handle the response data here
+      },
+      error: (error) => {
+        console.error('API Error:', error);
+        this.loader = false;
+        // Handle any errors here
+      }
+    });
   // let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
   // this.taskList = JSON.parse(<any>localStorage.getItem('userTasks'));
   // this.taskList = this.taskList.filter((data:any)=>{

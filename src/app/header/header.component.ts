@@ -2,6 +2,8 @@ import { Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges } fro
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../service/api.service';
 import { catchError, map } from 'rxjs/operators';
+import { FilterService } from '../service/filter.service';
+import { ApiCall } from '../dependancy/apiService.service';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +14,9 @@ export class HeaderComponent implements OnInit ,OnChanges {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private api: ApiService ) {
+    private api: ApiService ,
+    private filter: FilterService,
+    private testing: ApiCall) {
     }
 
   @Output()
@@ -22,6 +26,7 @@ export class HeaderComponent implements OnInit ,OnChanges {
     loggedInUserData : any = JSON.parse(<any>localStorage.getItem('loggedInUser'));
     organisationListData : any = JSON.parse(<any>localStorage.getItem('organisationList'));
     teamListData : any = JSON.parse(<any>localStorage.getItem('teamList'));
+    projectListData : any ;
     accountType : any = "All organisation";
     team : any = "All tasks";
     project : any = "All Project"; // Display the project as My Project only when he has no task assinged from an organisations.
@@ -31,11 +36,13 @@ export class HeaderComponent implements OnInit ,OnChanges {
     this.test = !this.test;
   }
 
-    updateOriganisation(event : any) {
-    let data = event.target as HTMLParagraphElement;
-      console.log("The data.textContent is this : " ,data.textContent);
-      this.accountType = data.textContent;
-      this.team = "My tasks";
+    updateOriganisation(data : any) {
+      console.log("The data.textContent is this : " ,data);
+      this.filter.setOrganisationId(data?._id || "")
+      console.log("The filter organisationid from DI is this : ",this.filter.getOrganisationId());
+      this.accountType = data?.organisationName || "All organisation";
+      this.team = "All tasks";
+      this.project = "All project"
       this.outputValue.emit({
         organisation : this.accountType,
       });
@@ -60,6 +67,16 @@ export class HeaderComponent implements OnInit ,OnChanges {
         currentTeam : organisationTeamMapping?.currentTeam || "My task"
       })
     }
+    updateProject(data : any) {
+      console.log("The data.textContent is this : " ,data);
+      this.filter.setProjectId(data?._id || "")
+      console.log("The filter organisationid from DI is this : ",this.filter.getProjectId());
+      this.project = data?.projectName || "All project";
+      this.outputValue.emit({
+        project : this.project,
+      });
+      console.log("The event is emitted : ", this.outputValue)
+    }
 
     ngOnChanges(changes: SimpleChanges): void {
       console.log("The changes has been made in header.")
@@ -76,10 +93,10 @@ export class HeaderComponent implements OnInit ,OnChanges {
         currentTeam : organisationTeamMapping?.currentTeam || "My task"
       })
     }
-    ngOnInit() {
+    async ngOnInit() {
       this.test = false;
-      this.outputValue.emit("what")
-      let userListApi = this.api.organisationListApi().pipe(
+      this.outputValue.emit("what");
+      let userListApi = await this.api.organisationListApi().pipe(
         map((response: any) => {
           console.log("queries.component.ts says that response is this : ", response);
           this.organisationListData = response?.data;
@@ -107,7 +124,7 @@ export class HeaderComponent implements OnInit ,OnChanges {
             // Handle any errors here
           }
         });
-        let teamListApi = this.api.teamListApi("65edfc5757d78be6ce6be6b2").pipe(
+        let teamListApi = await this.api.teamListApi("65edfc5757d78be6ce6be6b2").pipe(
           map((response: any) => {
             this.teamListData = response?.data;
             return response; // Forward the response to the next operator
@@ -130,20 +147,9 @@ export class HeaderComponent implements OnInit ,OnChanges {
               // Handle any errors here
             }
           });
-      // this.loggedInUserData = JSON.parse(<any>localStorage.getItem('loggedInUser'));
-      // this.organisationListData = JSON.parse(<any>localStorage.getItem('organisationList'));
-      // let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
-      // // console.log("The orgnanisation data in ngOnInit is this : ", organisationTeamMapping)
-      // this.team = organisationTeamMapping?.currentTeam || "My tasks";
-      // this.accountType = organisationTeamMapping?.currentOrganisation || "Personal account";
-      // this.teamListData = JSON.parse(<any>localStorage.getItem('teamList'));
-      // console.log("The teamlist before filter is this : ", this.teamListData)
-      // this.teamListData = this.teamListData.filter((data : any)=> {
-      //   return data.organisationRef == organisationTeamMapping.currentOrganisation
-      // })
-      // // console.log("The team list is this : ", this.teamListData)
-      // // console.log("the value of this.loggedInUserData is this : ", this.loggedInUserData);
-      // // console.log("The team is this : ", this.team)
+
+      this.projectListData = await this.testing.projectListApi()
+      console.log("this.projectListData is this : ", this.projectListData)
       let currentUser = JSON.parse(<any>localStorage.getItem('currentUser'));
       console.log("The currentUser is this : ", currentUser)
       if (currentUser.data[0]?._id) {

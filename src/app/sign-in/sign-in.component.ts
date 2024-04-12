@@ -31,9 +31,9 @@ export class SignInComponent {
   async validate() {
     this.loader = true;
     let loginApiRes = this.api.loginApi({ userMail: this.emailId, userPassword: this.password }).pipe(
-      map((response) => {
+      map((response : any) => {
         // Handle success response here
-        console.log('API Response:', response);
+        console.log('Login API Response:', response);
         localStorage.setItem('userList',"[]");
       localStorage.setItem('userTasks',"[]");
       localStorage.setItem('requestList',"[]");
@@ -45,22 +45,22 @@ export class SignInComponent {
       localStorage.setItem('todoList', "[]");
       localStorage.setItem('currentOrganisationTeamRef', "null");
       
-      let userData = JSON.parse(<any>localStorage.getItem('userList'));
-      userData.push(
-        {
-          userName : "Saikrishna P",
-          userEmail : "saikrishnatechno@gmail.com",
-          userRole : "Admin",
-          totalTaskCount : 0,
-          completedTaskCount : 0,
-          pendingTaskCount : 0,
-          taskToDoCount : 0,
-          performance : 50,
-          review : "Lets see"
-        }
-        )
-        let loggedInUseData = userData.filter((data: { userEmail: string; }) => data.userEmail == this.emailId);
-        localStorage.setItem('loggedInUser', JSON.stringify(loggedInUseData[0]));
+      // let userData = JSON.parse(<any>localStorage.getItem('userList'));
+      // userData.push(
+      //   {
+      //     userName : "Saikrishna P",
+      //     userEmail : "saikrishnatechno@gmail.com",
+      //     userRole : "Admin",
+      //     totalTaskCount : 0,
+      //     completedTaskCount : 0,
+      //     pendingTaskCount : 0,
+      //     taskToDoCount : 0,
+      //     performance : 50,
+      //     review : "Lets see"
+      //   }
+      //   )
+        // let loggedInUseData = userData.filter((data: { userEmail: string; }) => data.userEmail == this.emailId);
+        localStorage.setItem('loggedInUser', JSON.stringify(response?.data[0]));
         localStorage.setItem('currentUser', JSON.stringify(response));
         let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
       organisationTeamMapping = {
@@ -68,14 +68,11 @@ export class SignInComponent {
         currentTeam : "My task"
       }
       localStorage.setItem('currentOrganisationTeamRef', JSON.stringify(organisationTeamMapping));
-        
-        console.log("The result data is this : ",userData.filter((data: { userEmail: string; }) => data.userEmail == this.emailId));
 
-        if (loggedInUseData.length === 0) {
+        if (response.data.length === 0) {
           this.router.navigate(['/'], { relativeTo: this.route });
           alert("The user is not recognised");
         } else {
-          localStorage.setItem('userList',JSON.stringify(userData))
           this.router.navigate(['/taskList'], { relativeTo: this.route });
         }
         return response; // Forward the response to the next operator

@@ -1,4 +1,4 @@
-<app-header (outputData)="getDataFromHeader($event)"></app-header>
+<app-header (outputValue)="getDataFromHeader($event)"></app-header>
 <app-sidebar-menu></app-sidebar-menu>
 <app-add-request-model (outputValue)="getInputValue($event)" [inputValue]="requestData" [isEdit]="isEdit"></app-add-request-model>
 <app-view-request-model [inputValue]="requestData"></app-view-request-model>
@@ -51,39 +51,7 @@
                   </svg>                  
               </div>
             </div>
-            <div class="pl-3 pt-2 bd-highlight flex-grow-1">Request List </div>
-          <div class="ml-auto p-2 bd-highlight d-flex">
-            <div class="totalTaskReferenceColor m-1">
-
-            </div>
-            <div class="totalTaskReferenceTitle ml-2">
-              <p>Total Tasks</p>
-            </div>
-          </div>
-          <div class="p-2 bd-highlight d-flex">
-            <div class="completedTaskColor m-1">
-
-            </div>
-            <div class="completedTaskRefernceTitle ml-2">
-              <p>Completed Tasks</p>
-            </div>
-          </div>
-          <div class="p-2 bd-highlight d-flex">
-            <div class="taskInProgressColor m-1">
-
-            </div>
-            <div class="taskInProgressReferenceTitle ml-2">
-              <P>Task In Progress</P>
-            </div>
-          </div>
-          <div class="p-2 bd-highlight d-flex mr-3">
-            <div class="taskToDoColor m-1">
-
-            </div>
-            <div class="taskToDoReferenceTitle ml-2">
-              <p>Task To Do</p>
-            </div>
-          </div>
+            <div class="pl-3 pt-2 bd-highlight flex-grow-1 mb-3">Request List </div>
         </div>
     </div>
     <div class="requestList">
@@ -143,15 +111,15 @@
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                 </div>
                 <div class="pt-2 bd-highlight ml-2" data-toggle="modal" data-target="#viewRequestModel" (click)="editRequest(data, true)">
-                    <p>{{data.requestCode}}</p>
+                    <p>{{data?.requestCode}}</p>
                 </div>
-                <div class="p-2 flex-grow-1 bd-highlight" data-toggle="modal" data-target="#viewRequestModel" (click)="editRequest(data, true)">{{data.requestTitle}}</div>
+                <div class="p-2 flex-grow-1 bd-highlight" data-toggle="modal" data-target="#viewRequestModel" (click)="editRequest(data, true)">{{data?.requestTitle}}</div>
                 <div class="requestStatus p-2 bd-highlight mr-4">
-                  <p class="text-truncate mr-3">{{data.requestDescription}}</p>
+                  <p class="text-truncate mr-3">{{data?.requestDescription}}</p>
                 </div>
-                <div class="p-2 bd-highlight mr-5 text-start ml-1">{{data.requestType}}</div>
-                <div class="p-2 bd-highlight mr-5 text-start ml-1">{{data.requestStatus}}</div>
-                <div class="p-2 bd-highlight mr-5">Raised by {{data.requestCreatedBy}}</div>
+                <div class="p-2 bd-highlight mr-5 text-start ml-1">{{data?.requestType}}</div>
+                <div class="p-2 bd-highlight mr-5 text-start ml-1">{{data?.requestStatus}}</div>
+                <div class="p-2 bd-highlight mr-5">Raised by {{data?.requestCreatedBy}}</div>
                 <div class="p-2 bd-highlight">
                   <div class="options mb-3 mr-3 dropdown">
                     <svg 
@@ -207,16 +175,16 @@
         </div>
             <div class="taskDetails d-flex flex-column pt-2 pl-3 pr-2">
               <div class="taskNumber" data-toggle="modal" data-target="#viewRequestModel" (click)="editRequest(data, true)">
-                  <p class="font-weight-bold">{{data.requestCode}}</p>
+                  <p class="font-weight-bold">{{data?.requestCode}}</p>
               </div>
                 <div class="taskTitleDescription">
-                  <p class="mb-0 font-weight-bold" data-toggle="modal" data-target="#viewRequestModel" (click)="editRequest(data, true)">{{data.requestTitle}}</p>
-                    <p class="text-truncate mr-3">{{data.requestDescription}}</p>
-                  <p class="text-truncate mr-3">{{data.requestType}}</p>
+                  <p class="mb-0 font-weight-bold" data-toggle="modal" data-target="#viewRequestModel" (click)="editRequest(data, true)">{{data?.requestTitle}}</p>
+                    <p class="text-truncate mr-3">{{data?.requestDescription}}</p>
+                  <p class="text-truncate mr-3">{{data?.requestType}}</p>
                 </div>
                 <div class="taskStatus">
-                  <p class="mb-0">Status : {{data.requestStatus}}</p>
-                  <p>Raised by : {{data.requestCreatedBy}}</p>
+                  <p class="mb-0">Status : {{data?.requestStatus}}</p>
+                  <p>Raised by : {{data?.requestCreatedBy}}</p>
                 </div>
             </div>
         </div>

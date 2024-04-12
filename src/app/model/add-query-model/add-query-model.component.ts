@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, 
 import { NgForm } from '@angular/forms';
 import { ApiService } from 'src/app/service/api.service';
 import { catchError, map } from 'rxjs/operators';
+import { ApiCall } from 'src/app/dependancy/apiService.service';
 
 @Component({
   selector: 'app-add-query-model',
@@ -32,12 +33,16 @@ export class AddQueryModelComponent implements OnInit, OnChanges{
   queryDescription : string = "";
   queryStatus ?: string | undefined | null = 'Created';
   queryType ?: string | undefined | null = '';
+  taskQueryRef ?: any;
+  taskTitle ?: string;
+  taskList ?: any;
 
-  constructor ( private api: ApiService ) {}
+  constructor ( private api: ApiService , private testApi: ApiCall) {}
 
-  ngOnInit() : void {
+  async ngOnInit() : Promise<any> {
     console.log("Into the ngOnInit : ")
     if (this.isEdit === true) {
+      this.taskList = await this.testApi.taskListApi();
       if (this.inputValue) {
         console.log('Into the ngOnInit and into the if ');
         this.editView = true;
@@ -47,6 +52,7 @@ export class AddQueryModelComponent implements OnInit, OnChanges{
         this.queryStatus = this.inputValue.queryStatus;
       }
     } else if (this.isEdit === false) {
+      this.taskList = await this.testApi.taskListApi();
       this.editView = false;
       this.queryNumber = '';
       // this.queryTitle = '';
@@ -61,6 +67,7 @@ export class AddQueryModelComponent implements OnInit, OnChanges{
   ngOnChanges(changes: SimpleChanges): void {
     try {
       console.log("Intot he ngOnChanges : ")
+
       if (this.isEdit === true) {
         if (this.inputValue) {
           console.log("Into the ngOnChanges and into the if : ")
@@ -98,6 +105,11 @@ export class AddQueryModelComponent implements OnInit, OnChanges{
     this.queryStatus = data.textContent;
     console.log("The vlue isss : ", this.queryStatus, " and the data is this : ", data)
   }
+  updateTaskRef(data: any): any {
+    this.taskQueryRef = data._id;
+    this.taskTitle = `${data.taskNo} : ${data.taskTitle}`
+    console.log("The vlue isss : ", this.queryStatus, " and the data is this : ", data)
+  }
 
   async giveInputValue() : Promise<any> {
     console.log("Into the giveInputValue() : and the value of this.inputValue : ", this.inputValue)
@@ -108,7 +120,7 @@ export class AddQueryModelComponent implements OnInit, OnChanges{
         queryDescription: this.queryDescription,
         queryStatus: this.queryStatus,
         queryType: "testing",
-        taskQueryRef: "65ed7966a9f7ed318eb7a244"
+        taskQueryRef: this.taskQueryRef
     }
     ).pipe(
       map((response: any) => {

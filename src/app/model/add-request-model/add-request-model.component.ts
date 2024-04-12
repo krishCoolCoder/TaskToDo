@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, 
 import { NgForm } from '@angular/forms';
 import { ApiService } from 'src/app/service/api.service';
 import { catchError, map } from 'rxjs/operators';
+import { FilterService } from 'src/app/service/filter.service';
 
 @Component({
   selector: 'app-add-request-model',
@@ -31,7 +32,7 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
   requestType : string | undefined | null = '';
   requestStatus ?: string | undefined | null = '';
 
-  constructor ( private api: ApiService ) {}
+  constructor ( private api: ApiService, private filter : FilterService ) {}
 
   ngOnInit() : void {
     console.log("The value of inputValue in ngOnInit() child component is this : ",this.inputValue, " and the isEdit is this : ", this.isEdit)
@@ -70,15 +71,15 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
         }
       } else if (this.isEdit === false) {
         console.log('Into the else if on false on ngOnChanges');
-      this.requestTitleField.nativeElement.value = "";
-      this.requestDescriptionField.nativeElement.value = "";
-      this.requestNumber = '';
-      this.requestTitle = '';
-      this.requestDescription = '';
-      this.requestType = "Access Control";
-      this.requestStatus = "Request Raised";
-      this.editView = false;
-    
+        
+        this.requestTitleField.nativeElement.value = "";
+        this.requestDescriptionField.nativeElement.value = "";
+        this.requestNumber = '';
+        this.requestTitle = '';
+        this.requestDescription = '';
+        this.requestType = "Access Control";
+        this.requestStatus = "Request Raised";
+        this.editView = false;
     }
     } catch (error) {
       console.log("The error is in ngOnChange() in model : ", error)
@@ -106,6 +107,15 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
   }
 
   async giveInputValue() : Promise<any> {
+    console.log("All query data from request model is this : ", this.filter.getAllHeaderFilter(),  " and the payload is this : ", {
+      requestTitle: this.requestTitle,
+      requestDescription: this.requestDescription,
+      requestStatus: this.requestStatus,
+      requestType: this.requestType,
+      requestProjectRef : this.filter.getProjectId(),
+      requestTeamRef : this.filter.getTeamId(),
+      requestOrganisationRef : this.filter.getOrganisationId(),
+  })
 
     if (!this.inputValue?._id){
       let requestListApi = await this.api.requestCreateApi(
@@ -113,7 +123,10 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
           requestTitle: this.requestTitle,
           requestDescription: this.requestDescription,
           requestStatus: this.requestStatus,
-          requestType: this.requestType
+          requestType: this.requestType,
+          requestProjectRef : this.filter.getProjectId(),
+          requestTeamRef : this.filter.getTeamId(),
+          requestOrganisationRef : this.filter.getOrganisationId(),
       }
       ).pipe(
         map((response: any) => {
@@ -153,7 +166,10 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
             requestTitle: this.requestTitle,
             requestDescription: this.requestDescription,
             requestStatus: this.requestStatus,
-            requestType: this.requestType
+            requestType: this.requestType,
+            requestProjectRef : this.filter.getProjectId(),
+            requestTeamRef : this.filter.getTeamId(),
+            requestOrganisationRef : this.filter.getOrganisationId(),
         }
         ).pipe(
           map((response: any) => {
@@ -185,84 +201,7 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
               // Handle any errors here
             }
           });
-          // this.outputValue.emit({data:"response"});
       }
-
-  //   this.requestNumber = Math.floor(Math.random() * 9000) + 1000;
-  //   let requestList = JSON.parse(<any>localStorage.getItem('requestList'));
-  //   let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
-  //   console.log("The organisationTeamMapping is this : ", organisationTeamMapping.currentOrganisation, " and ",organisationTeamMapping.currentTeam)
-  //   if (organisationTeamMapping === null || organisationTeamMapping.currentTeam === undefined || organisationTeamMapping.currentOrganisation === undefined ) {
-  //     alert("Kindly select organisation/account type and team.");
-  //     return;
-  //   }
-  //   let loggedInUserData = JSON.parse(<any>localStorage.getItem('loggedInUser'))
-  //   if (this.isEdit === true) {
-  //   if (this.inputValue) {
-  //     this.editView = false;
-  //     let requestNumber = this.inputValue.requestNumber;
-  //     let requestType = this.inputValue.requestType;
-  //     let filteredData = requestList.forEach((data: any, index: number)=> {
-  //       if (data.requestNumber === requestNumber) {
-  //         requestList[index] = {
-  //           requestNumber : requestNumber,
-  //           requestTitle: this.requestTitle,
-  //           requestDescription : this.requestDescription,
-  //           requestType : this.inputValue.requestStatus == '' ? "Access Control" : this.inputValue.requestStatus ,
-  //           requestStatus : requestType == '' ? "Request Raised" : requestType ,
-  //           requestCreatedBy : loggedInUserData.userName,
-  //           organisationRef : organisationTeamMapping.currentOrganisation,
-  //           currentTeamRef : organisationTeamMapping.currentTeam
-  //         };
-  //         localStorage.setItem('requestList',JSON.stringify(requestList));
-  //         this.outputValue.emit({
-  //           requestNumber : this.inputValue.requestNumber,
-  //           requestTitle: this.inputValue.requestTitle,
-  //           requestDescription : this.inputValue.requestDescription,
-  //           requestType : this.inputValue.requestStatus == '' ? "Access Control" : this.inputValue.requestStatus ,
-  //           requestStatus : requestType == '' ? "Request Raised" : requestType ,
-  //           requestCreatedBy : loggedInUserData.userName,
-  //           organisationRef : organisationTeamMapping.currentOrganisation,
-  //           currentTeamRef : organisationTeamMapping.currentTeam
-  //         });
-  //       } 
-  //     });
-  //     this.inputValue = null;
-  //     this.requestTitle = "";
-  //     this.requestDescription = ""; 
-  //     this.requestTitleField.nativeElement.value = "";
-  //     this.requestDescriptionField.nativeElement.value = "";
-  //     this.myForm.resetForm();
-  //     return;
-  //   }
-  // }
-  //   console.log("After the if for editing")
-  //   requestList.push(
-  //     {
-  //       requestNumber : this.requestNumber,
-  //       requestTitle: this.requestTitle,
-  //       requestDescription : this.requestDescription,
-  //       requestStatus : this.requestStatus == '' ? "Request Raised" : this.requestStatus ,
-  //       requestType : this.requestType == '' ? "Access Control" : this.requestType ,
-  //       requestCreatedBy : loggedInUserData.userName,
-  //       organisationRef : organisationTeamMapping.currentOrganisation,
-  //       currentTeamRef : organisationTeamMapping.currentTeam
-  //     }
-  //   )
-  //   localStorage.setItem('requestList',JSON.stringify(requestList));
-  //   this.outputValue.emit({
-  //     requestNumber : this.requestNumber,
-  //     requestTitle: this.requestTitle,
-  //     requestDescription : this.requestDescription,
-  //     requestStatus : this.requestStatus == '' ? "Request Raised" : this.requestStatus,
-  //     organisationRef : organisationTeamMapping.currentOrganisation,
-  //     currentTeamRef : organisationTeamMapping.currentTeam
-  //   });
-    // this.requestDescription="";
-    // this.requestTitle="";
-    // this.requestNumber=0;
-    // this.requestTitleField.nativeElement.value = "";
-    // this.requestDescriptionField.nativeElement.value = "";
   }
   
   onSubmit() {

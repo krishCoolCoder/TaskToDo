@@ -15,6 +15,7 @@ import {
 import { NgForm } from '@angular/forms';
 import { ApiService } from 'src/app/service/api.service';
 import { catchError, map } from 'rxjs/operators';
+import { FilterService } from 'src/app/service/filter.service';
 
 @Component({
   selector: 'app-edit-task-model',
@@ -47,7 +48,7 @@ export class EditTaskModelComponent {
 
   editView: boolean = false;
 
-  constructor ( private api: ApiService ) {}
+  constructor ( private api: ApiService, private filter : FilterService ) {}
 
   ngOnInit(): void {
         this.taskNo = this.inputValue.taskNo;
@@ -91,6 +92,9 @@ export class EditTaskModelComponent {
           taskTitle: this.title,
           taskDescription: this.description,
           taskStatus: this.status || this.inputValue.taskStatus,
+          projectRef : this.filter.getProjectId(),
+          teamRef : this.filter.getTeamId(),
+          organisationRef : this.filter.getOrganisationId(),
           taskUpdatedBy: currentUser.data[0]._id
         }
       ).pipe(

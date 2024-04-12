@@ -113,7 +113,7 @@
                     <div class="pt-2 bd-highlight ml-2" data-toggle="modal" data-target="#viewTaskModel" (click)="editTask(data, true)">
                         <p>{{data.taskNo}}</p>
                     </div>
-                    <div class="p-2 flex-grow-1 bd-highlight" data-toggle="modal" data-target="#viewTaskModel" (click)="editTask(data, true)">
+                    <div class="p-2 flex-grow-1 bd-highlight text-truncate mr-3" data-toggle="modal" data-target="#viewTaskModel" (click)="editTask(data, true)">
                       {{data.taskTitle}}</div>
                     <div class="p-2 bd-highlight mr-5 text-start ml-1">{{data.taskStatus}}</div>
                     <div class="p-2 bd-highlight mr-5">Assigned by {{data.taskCreatedBy}}</div>
@@ -242,13 +242,14 @@
                     <p class="font-weight-bold" data-toggle="modal" data-target="#viewTaskModel" (click)="editTask(data, true)">{{data.taskNo}}</p>
                 </div>
                   <div class="taskTitleDescription">
-                    <p class="mb-0 font-weight-bold" data-toggle="modal" data-target="#viewTaskModel" (click)="editTask(data, true)">{{data.taskTitle}}</p>
+                    <p class="mb-0 font-weight-bold text-truncate mr-5" data-toggle="modal" data-target="#viewTaskModel" (click)="editTask(data, true)">{{data.taskTitle}}</p>
                     <p class="text-truncate mr-3">{{data.taskDescription}}</p>
                   </div>
                   <form>
                   </form>
                   <div class="taskStatus">
                     <p class="mb-0">Status : {{data.taskStatus}}</p>
+                    <p class="mb-0">Queries : {{data.queries?.length}}</p>
                     <p>Assigned by : {{data.taskCreatedBy}}</p>
                   </div>
               </div>

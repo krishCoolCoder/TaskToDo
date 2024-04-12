@@ -6,9 +6,9 @@ import { Injectable } from '@angular/core';
 export class FilterService {
 
   constructor() { }
-  organisationId : string = "";
-  teamId : string = "";
-  projectId : string = "";
+  organisationId : string | null= null;
+  teamId : string | null = null;
+  projectId : string | null = null;
   setOrganisationId (organisationId : string) {
     this.organisationId = organisationId;
   }

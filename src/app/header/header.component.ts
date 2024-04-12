@@ -44,7 +44,7 @@ export class HeaderComponent implements OnInit ,OnChanges {
       this.team = "All tasks";
       this.project = "All project"
       this.outputValue.emit({
-        organisation : this.accountType,
+        organisation : "this.accountType",
       });
       console.log("The event is emitted : ", this.outputValue)
     }

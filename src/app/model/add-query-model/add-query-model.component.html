@@ -29,6 +29,15 @@
                       <p class="dropdown-item" (click)="updateStatus($event)" >Confirmation</p>
                     </div>
                   </div>
+                <label for="recipient-name" class="col-form-label">Select task :</label>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      {{taskTitle || 'Select task'}}
+                    </button>
+                    <div class="dropdown-menu listLimit" aria-labelledby="dropdownMenuButton" >
+                      <p class="dropdown-item" (click)="updateTaskRef(data)" *ngFor="let data of taskList">{{data?.taskNo}} : {{data?.taskTitle}}</p>
+                    </div>
+                  </div>
                 <div class="form-group">
                   <label for="message-text" class="col-form-label">Query Description :</label>
                   <textarea 

@@ -157,14 +157,38 @@ export class ApiService {
     const options = { headers: headers };
     return this.api.delete(`${this.apiUrl}/request/deleteRequest?requestId=${requestId}`,options)
   }
-  todoListApi() {
+  todoListApi(payload : any = null) {
+    let url = `${this.apiUrl}/todo/todoList`;
+            if (payload != null) {
+              if (payload?.organisationId) {
+                console.log('into the if on url');
+                url += `?organisationId=${payload?.organisationId}`;
+              }
+        
+              // Check if teamId is provided
+              if (payload?.teamId) {
+                // Check if URL already contains parameters
+                url += url.includes('?')
+                  ? `&teamId=${payload?.teamId}`
+                  : `?teamId=${payload?.teamId}`;
+              }
+        
+              // Check if projectId is provided
+              if (payload?.projectId) {
+                // Check if URL already contains parameters
+                url += url.includes('?')
+                  ? `&projectId=${payload?.projectId}`
+                  : `?projectId=${payload?.projectId}`;
+              }
+              console.log('the url is this : ', url);
+            }
     let currentUser = JSON.parse(<any>localStorage.getItem('currentUser'));
     console.log("The current user is this : ", currentUser);
     const headers = new HttpHeaders({
       'Authentication': `${currentUser.token}` // Set your header value here
     });
     const options = { headers: headers };
-    return this.api.get(`${this.apiUrl}/todo/todoList`,options)
+    return this.api.get(url,options)
   }
   todoCreateApi(payload : any) {
     let currentUser = JSON.parse(<any>localStorage.getItem('currentUser'));

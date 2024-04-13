@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, 
 import { NgForm } from '@angular/forms';
 import { ApiService } from 'src/app/service/api.service';
 import { catchError, map } from 'rxjs/operators';
+import { FilterService } from 'src/app/service/filter.service';
 
 @Component({
   selector: 'app-add-todo-model',
@@ -24,7 +25,7 @@ export class AddTodoModelComponent implements OnInit, OnChanges{
 
   todoData: any;
 
-  constructor ( private api: ApiService ) {}
+  constructor ( private api: ApiService, private filter : FilterService ) {}
 
   ngOnInit(): void {
     try {
@@ -66,7 +67,10 @@ export class AddTodoModelComponent implements OnInit, OnChanges{
       console.log("I am optimus prime")
       let todoListApi = await this.api.todoCreateApi(
         {
-          todoData: this.todoData
+          todoData: this.todoData,
+          todoProjectRef : this.filter.getProjectId(),
+          todoTeamRef : this.filter.getTeamId(),
+          todoOrganisationRef : this.filter.getOrganisationId(),
         }
       ).pipe(
         map((response: any) => {
@@ -104,7 +108,10 @@ export class AddTodoModelComponent implements OnInit, OnChanges{
         let todoListApi = await this.api.todoUpdateApi(
           {
             id : this.inputValue._id,
-            todoData: this.todoData
+            todoData: this.todoData,
+            todoProjectRef : this.filter.getProjectId(),
+            todoTeamRef : this.filter.getTeamId(),
+            todoOrganisationRef : this.filter.getOrganisationId(),
         }
         ).pipe(
           map((response: any) => {
@@ -138,65 +145,6 @@ export class AddTodoModelComponent implements OnInit, OnChanges{
           });
           // this.outputValue.emit({data:"response"});
       }
-
-  //   let todoList = JSON.parse(<any>localStorage.getItem('todoList'));
-  //   let loggedInUserData = JSON.parse(<any>localStorage.getItem('loggedInUser'));
-  //   let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
-  //   console.log("The organisationTeamMapping is this : ", organisationTeamMapping.currentOrganisation, " and ",organisationTeamMapping.currentTeam)
-  //   if (organisationTeamMapping === null || organisationTeamMapping.currentTeam === undefined || organisationTeamMapping.currentOrganisation === undefined ) {
-  //     alert("Kindly select organisation/account type and team.");
-  //     return;
-  //   }
-  //   if (this.isEdit === true) {
-  //   if (this.inputValue) {
-  //     let filteredData = todoList.forEach((data: any, index: number)=>{
-  //       if (data.todoData == this.inputValue) {
-  //         todoList[index] = {
-  //           todoData : this.todoData,
-  //           organisationRef : organisationTeamMapping.currentOrganisation,
-  //           currentTeamRef : organisationTeamMapping.currentTeam
-  //         }
-  //         localStorage.setItem('todoList',JSON.stringify(todoList));
-  //       }
-  //     });
-  //     this.outputValue.emit(
-  //       {
-  //         todoData : this.todoData,
-  //         organisationRef : organisationTeamMapping.currentOrganisation,
-  //         currentTeamRef : organisationTeamMapping.currentTeam
-  //       }
-  //     )
-  //     this.todoData = "";
-  //     this.todoTitle.nativeElement.value = "";
-  //     this.inputValue = null;
-  //     return;
-  //   }
-  // }
-  //   todoList.push(
-  //     {
-  //       todoData : this.todoData,
-  //       organisationRef : organisationTeamMapping.currentOrganisation,
-  //       currentTeamRef : organisationTeamMapping.currentTeam
-  //     }
-  //   )
-  //   localStorage.setItem('todoList',JSON.stringify(todoList));
-  //   this.outputValue.emit(
-  //     {
-  //       todoData : this.todoData,
-  //       organisationRef : organisationTeamMapping.currentOrganisation,
-  //       currentTeamRef : organisationTeamMapping.currentTeam
-  //     }
-  //     )
-  //     this.todoData = "";
-  //     this.todoTitle.nativeElement.value = '';
-  //     this.myForm.resetForm();
-      
-      // todoList = JSON.parse(<any>localStorage.getItem('todoList'));
-      // let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
-      // todoList = todoList.filter((data:any)=>{
-      //   return ((data.organisationRef == organisationTeamMapping.currentOrganisation) && (data.currentTeamRef == organisationTeamMapping.currentTeam))
-      // })
-      // localStorage.setItem('todoList',JSON.stringify(todoList));
   }
   onSubmit() {
     this.todoData = "";

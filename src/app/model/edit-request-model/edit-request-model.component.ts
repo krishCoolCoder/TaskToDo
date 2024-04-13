@@ -5,11 +5,11 @@ import { catchError, map } from 'rxjs/operators';
 import { FilterService } from 'src/app/service/filter.service';
 
 @Component({
-  selector: 'app-add-request-model',
-  templateUrl: './add-request-model.component.html',
-  styleUrls: ['./add-request-model.component.css']
+  selector: 'app-edit-request-model',
+  templateUrl: './edit-request-model.component.html',
+  styleUrls: ['./edit-request-model.component.css']
 })
-export class AddRequestModelComponent implements OnInit, OnChanges {
+export class EditRequestModelComponent implements OnInit, OnChanges {
   @ViewChild('myForm')
   myForm!: NgForm;
   @ViewChild('requestTitleField')
@@ -36,36 +36,42 @@ export class AddRequestModelComponent implements OnInit, OnChanges {
 
   ngOnInit() : void {
     console.log("The value of inputValue in ngOnInit() child component is this : ",this.inputValue, " and the isEdit is this : ", this.isEdit)
+    this.requestNumber = this.inputValue.requestNumber;
+    this.requestTitle = this.inputValue.requestTitle;
+    this.requestDescription = this.inputValue.requestDescription;
+    this.requestType = this.inputValue.requestType;
+    this.requestStatus = this.inputValue.requestStatus;
+    this.editView = true;
     if (this.isEdit === true) {
     if (this.inputValue) {
   }
 } else if (this.isEdit === false) {
-  console.log('Into the else if on false on ngOnInit');
-}
-this.requestNumber = '';
-this.requestTitle = '';
-this.requestDescription = '';
-this.requestType = "Access Control";
-this.requestStatus = "Request Raised";
-}
+  // console.log('Into the else if on false on ngOnInit');
+  // this.requestNumber = '';
+  // this.requestTitle = '';
+  // this.requestDescription = '';
+  // this.requestType = "Access Control";
+  // this.requestStatus = "Request Raised";
+  }
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     try {
+      this.requestNumber = this.inputValue.requestNumber;
+      this.requestTitle = this.inputValue.requestTitle;
+      this.requestTitleField.nativeElement.value = this.inputValue.requestTitle || "";
+      this.requestDescriptionField.nativeElement.value = this.inputValue.requestDescription || "";
+      this.requestDescription = this.inputValue.requestDescription;
+      this.requestType = this.inputValue.requestType;
+      this.requestStatus = this.inputValue.requestStatus;
+      this.editView = true;
       if (this.isEdit === true) {
         if (this.inputValue) {
+          console.log('Into the if on true on ngOnChanges');
         }
       } else if (this.isEdit === false) {
         console.log('Into the else if on false on ngOnChanges');
-        
-      }
-      this.requestTitleField.nativeElement.value = "";
-      this.requestDescriptionField.nativeElement.value = "";
-      this.requestNumber = '';
-      this.requestTitle = '';
-      this.requestDescription = '';
-      this.requestType = "Access Control";
-      this.requestStatus = "Request Raised";
-      this.editView = false;
+    }
     } catch (error) {
       console.log("The error is in ngOnChange() in model : ", error)
     }
@@ -102,49 +108,6 @@ this.requestStatus = "Request Raised";
       requestOrganisationRef : this.filter.getOrganisationId(),
   })
 
-    if (!this.inputValue?._id){
-      let requestListApi = await this.api.requestCreateApi(
-        {
-          requestTitle: this.requestTitle,
-          requestDescription: this.requestDescription,
-          requestStatus: this.requestStatus,
-          requestType: this.requestType,
-          requestProjectRef : this.filter.getProjectId(),
-          requestTeamRef : this.filter.getTeamId(),
-          requestOrganisationRef : this.filter.getOrganisationId(),
-      }
-      ).pipe(
-        map((response: any) => {
-          console.log("add-query-model.component.ts says that response is this : ", response);
-          // this.noData = response.data.length === 0 ? true : false;
-          // this.taskList = response?.data
-          this.outputValue.emit({data:"response"});
-          return response; // Forward the response to the next operator
-        }),
-        catchError((error) => {
-          // Handle error response here
-          console.error('API Error:', error);
-          alert(error.error.message || error.statusText)
-          this.outputValue.emit({data:"response"});
-          throw error; // Re-throw the error to propagate it
-          // Alternatively, you can return a default value or another Observable here
-          // return of(defaultValue); // Return a default value
-          // return throwError('Error occurred'); // Return another Observable
-        })
-      ).subscribe({
-          next: (data) => {
-            console.log('API Response:', data);
-            // this.loader = false;
-            // Handle the response data here
-          },
-          error: (error) => {
-            console.error('API Error:', error);
-            // this.loader = false;
-            // Handle any errors here
-          }
-        });
-        // this.outputValue.emit({data:"response"});
-      } else {
         let queryListApi = await this.api.requestUpdateApi(
           {
             id : this.inputValue._id,
@@ -186,7 +149,6 @@ this.requestStatus = "Request Raised";
               // Handle any errors here
             }
           });
-      }
   }
   
   onSubmit() {

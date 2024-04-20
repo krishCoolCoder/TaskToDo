@@ -71,6 +71,10 @@ const routeConfig: Routes = [
     component: SignInComponent,
   },
   {
+    path: "signUp",
+    component: UnderDevelopmentComponent,
+  },
+  {
     path: "tasks",
     component: TaskComponentComponent,
   },

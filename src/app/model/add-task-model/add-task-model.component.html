@@ -33,6 +33,16 @@
                   <label for="message-text" class="col-form-label">Task Description :</label>
                   <textarea class="form-control" id="message-text" (input)="formDescription($event)" #taskDescription></textarea>
                 </div>
+                <div class="dropdown">
+                  <label for="message-text" class="col-form-label">Assign task to : </label>
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <!-- {{taskTitle || 'Select task'}} -->
+                    user name
+                  </button>
+                  <div class="dropdown-menu listLimit" aria-labelledby="dropdownMenuButton" >
+                    <p class="dropdown-item" (click)="updateUserRef(data)" *ngFor="let data of userList">{{data?.firstName}} {{data?.lastName}}</p>
+                  </div>
+                </div>
               </form>
         </div>
         <div class="modal-footer">

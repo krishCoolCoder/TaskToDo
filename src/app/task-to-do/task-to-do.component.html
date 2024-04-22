@@ -249,8 +249,8 @@
                   </form>
                   <div class="taskStatus">
                     <p class="mb-0">Status : {{data.taskStatus}}</p>
-                    <p class="mb-0">Queries : {{data.queries?.length}}</p>
-                    <p>Assigned by : {{data.taskCreatedBy}}</p>
+                    <p class="mb-0" *ngIf="data.queries?.length !== 0">Queries : {{data.queries?.length}}</p>
+                    <p>Created by : {{data.taskCreatedBy}}</p>
                   </div>
               </div>
           </div>

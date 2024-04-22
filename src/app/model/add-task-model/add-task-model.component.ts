@@ -16,6 +16,7 @@ import { NgForm } from '@angular/forms';
 import { ApiService } from 'src/app/service/api.service';
 import { catchError, map } from 'rxjs/operators';
 import { FilterService } from 'src/app/service/filter.service';
+import { ApiCall } from 'src/app/dependancy/apiService.service';
 @Component({
   selector: 'app-add-task-model',
   templateUrl: './add-task-model.component.html',
@@ -44,19 +45,27 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
   title: string = '';
   description: string = '';
   status?: string | undefined | null = '';
+  userList ?: any = "";
+  userRefId?: any;
+  userFullName ?: any;
 
   editView: boolean = false;
 
-  constructor ( private api: ApiService, private filter : FilterService ) {}
+  constructor ( 
+    private api: ApiService, 
+    private filter : FilterService,
+    private testApi : ApiCall
+   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<any> {
     if (this.isEdit) {
-        this.taskNo = this.inputValue.taskNo;
-        this.title = this.inputValue.taskTitle;
-        this.description = this.inputValue?.taskDescription;
-        this.status = this.inputValue.taskStatus;
-        this.editView = true;
+      this.taskNo = this.inputValue.taskNo;
+      this.title = this.inputValue.taskTitle;
+      this.description = this.inputValue?.taskDescription;
+      this.status = this.inputValue.taskStatus;
+      this.editView = true;
     } else {
+      this.userList = await this.testApi.userListApi(!this.filter.isHeaderFilterEmpty() ? this.filter.getAllHeaderFilter() : null);
       this.taskNo = '';
       this.title = '';
       this.description = '';
@@ -64,15 +73,16 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
       this.editView = false;
     }
   }
-
-  ngOnChanges(changes: SimpleChanges): void {
+  
+  async ngOnChanges(changes: SimpleChanges): Promise<any> {
     try {
       if (this.isEdit) {
-          this.editView = true;
-          this.status = this.inputValue?.taskStatus;
-          this.taskTitle.nativeElement.value = this.inputValue?.taskTitle || '';
-          this.taskDescription.nativeElement.value = this.inputValue.taskDescription || '';
+        this.editView = true;
+        this.status = this.inputValue?.taskStatus;
+        this.taskTitle.nativeElement.value = this.inputValue?.taskTitle || '';
+        this.taskDescription.nativeElement.value = this.inputValue.taskDescription || '';
       } else {
+        this.userList = await this.testApi.userListApi(!this.filter.isHeaderFilterEmpty() ? this.filter.getAllHeaderFilter() : null);
         this.taskNo = '';
         this.title = '';
         this.description = '';
@@ -96,8 +106,20 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
   }
 
    async giveInputValue(): Promise<any> {
-    let currentUser = JSON.parse(<any>localStorage.getItem('currentUser'));
-    if (!this.inputValue?._id) {
+     let currentUser = JSON.parse(<any>localStorage.getItem('currentUser'));
+     console.log("Into the giveInputValue and the userRefId is this ; ", this.userRefId, " and the payload is this : ", {
+       taskTitle: this.title,
+       taskDescription: this.description,
+       taskStatus: this.status == '' ? 'Created' : this.status,
+       projectRef : this.filter.getProjectId(),
+       teamRef : this.filter.getTeamId(),
+       organisationRef : this.filter.getOrganisationId(),
+       taskCreatedBy: currentUser.data[0]._id,
+       taskAssignedTo : this.userRefId
+       // organisationRef : organisationTeamMapping.currentOrganisation,
+       // teamRef : organisationTeamMapping.currentTeam
+     })
+     if (!this.inputValue?._id) {
     let taskDeleteApi = await this.api.taskCreateApi(
       {
         taskTitle: this.title,
@@ -106,7 +128,8 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
         projectRef : this.filter.getProjectId(),
         teamRef : this.filter.getTeamId(),
         organisationRef : this.filter.getOrganisationId(),
-        taskCreatedBy: currentUser.data[0]._id
+        taskCreatedBy: currentUser.data[0]._id,
+        taskAssignedTo : this.userRefId
         // organisationRef : organisationTeamMapping.currentOrganisation,
         // teamRef : organisationTeamMapping.currentTeam
       }
@@ -143,7 +166,8 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
           projectRef : this.filter.getProjectId(),
           teamRef : this.filter.getTeamId(),
           organisationRef : this.filter.getOrganisationId(),
-          taskUpdatedBy: currentUser.data[0]._id
+          taskUpdatedBy: currentUser.data[0]._id,
+          taskAssignedTo : this.userRefId
           // organisationRef : organisationTeamMapping.currentOrganisation,
           // teamRef : organisationTeamMapping.currentTeam
         }
@@ -173,6 +197,12 @@ export class AddTaskModelComponent implements OnInit, OnChanges {
     this.outputValue.emit({
       taskNo: this.taskNo
     });
+  }
+
+  updateUserRef(data: any): any {
+    this.userRefId = data._id;
+    this.userFullName = `${data.firstName} ${data.lastName}`
+    console.log("The vlue isss : ", this.userRefId, " and the data is this : ", data)
   }
 
   onSubmit() {

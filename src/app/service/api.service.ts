@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class ApiService {
 
-  apiUrl = 'https://backend.tasktodo.app';
+  apiUrl = 'http://localhost:3000';
 
   constructor(private api : HttpClient) { }
 
@@ -59,6 +59,7 @@ export class ApiService {
     return this.api.delete(`${this.apiUrl}/task/deleteTask?taskId=${taskId}`, options)
   }
   taskCreateApi(payload : any) {
+    console.log("The payload is this : ", payload)
     let currentUser = JSON.parse(<any>localStorage.getItem('currentUser'));
     console.log("The current user is this : ", currentUser);
     const headers = new HttpHeaders({

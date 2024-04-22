@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ApiService } from 'src/app/service/api.service';
 import { catchError, map } from 'rxjs/operators';
 import { ApiCall } from 'src/app/dependancy/apiService.service';
+import { FilterService } from 'src/app/service/filter.service';
 
 @Component({
   selector: 'app-add-query-model',
@@ -37,12 +38,16 @@ export class AddQueryModelComponent implements OnInit, OnChanges{
   taskTitle ?: string;
   taskList ?: any;
 
-  constructor ( private api: ApiService , private testApi: ApiCall) {}
+  constructor ( 
+    private api: ApiService ,
+     private testApi: ApiCall,
+    private filter : FilterService
+  ) {}
 
   async ngOnInit() : Promise<any> {
     console.log("Into the ngOnInit : ")
     if (this.isEdit === true) {
-      this.taskList = await this.testApi.taskListApi();
+      this.taskList = await this.testApi.taskListApi(!this.filter.isHeaderFilterEmpty() ? this.filter.getAllHeaderFilter() : null);
       if (this.inputValue) {
         console.log('Into the ngOnInit and into the if ');
         this.editView = true;

@@ -34,3 +34,12 @@ button:focus {
     /* background-color: red; */
     /* z-index: -1; */
 }
+
+#testing > div > div.modal-body > form > div.dropdown.show > div {
+    height: 200px;
+    overflow-y: scroll;
+}
+
+#testing > div > div.modal-body > form > div.dropdown.show > div::-webkit-scrollbar {
+    display: none;
+}

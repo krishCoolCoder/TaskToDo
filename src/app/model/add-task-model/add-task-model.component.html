@@ -35,12 +35,12 @@
                 </div>
                 <div class="dropdown">
                   <label for="message-text" class="col-form-label">Assign task to : </label>
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <button class="btn btn-secondary btn-sm dropdown-toggle ml-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <!-- {{taskTitle || 'Select task'}} -->
-                    user name
+                    User name
                   </button>
                   <div class="dropdown-menu listLimit" aria-labelledby="dropdownMenuButton" >
-                    <p class="dropdown-item" (click)="updateUserRef(data)" *ngFor="let data of userList">{{data?.firstName}} {{data?.lastName}}</p>
+                    <p class="dropdown-item" (click)="updateUserRef(data)" *ngFor="let data of userList">{{data?.firstName + " " + data?.lastName}}</p>
                   </div>
                 </div>
               </form>

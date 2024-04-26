@@ -17,6 +17,8 @@ tableView : boolean = false;
 listView : boolean = false;
 cardView : boolean = true;
 
+userList ?: any = "";
+
 constructor ( 
   private api: ApiService,
   private filter : FilterService,
@@ -47,9 +49,11 @@ noData : boolean = false;
 isEdit : boolean = false;
 loader: boolean = false;
 progress ?: number;
-ngOnInit () {
-  this.taskList = this.testApi.taskListApi(!this.filter.isHeaderFilterEmpty() ? this.filter.getAllHeaderFilter() : null);
+async ngOnInit () {
+  this.taskList = await this.testApi.taskListApi(!this.filter.isHeaderFilterEmpty() ? this.filter.getAllHeaderFilter() : null);
   this.noData = this.taskList.length === 0 ? true : false;
+
+  this.userList = await this.testApi.userListApi(!this.filter.isHeaderFilterEmpty() ? this.filter.getAllHeaderFilter() : null);
 
   let organisationTeamMapping = JSON.parse(<any>localStorage.getItem('currentOrganisationTeamRef'));
   this.noData = this.taskList.length === 0 ? true : false;

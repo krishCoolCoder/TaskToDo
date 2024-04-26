@@ -116,7 +116,7 @@
                     <div class="p-2 flex-grow-1 bd-highlight text-truncate mr-3" data-toggle="modal" data-target="#viewTaskModel" (click)="editTask(data, true)">
                       {{data.taskTitle}}</div>
                     <div class="p-2 bd-highlight mr-5 text-start ml-1">{{data.taskStatus}}</div>
-                    <div class="p-2 bd-highlight mr-5">Assigned by {{data.taskCreatedBy}}</div>
+                    <div class="p-2 bd-highlight mr-5">Created by : {{data.taskCreatedBy?.firstName + data.taskCreatedBy?.lastName}}</div>
                     <div class="p-2 bd-highlight">
                       <div class="options mb-3 dropdown">
                         <svg 
@@ -168,7 +168,7 @@
                 {{data.taskStatus}}
             </div>
             <div class="requestStatus p-2 bd-highlight mr-4">
-                Assigned by : {{data.taskCreatedBy}}
+              Created by : {{data.taskCreatedBy?.firstName + data.taskCreatedBy?.lastName}}
             </div>
 
             <div class="mr-1 p-2 dropdown">
@@ -249,8 +249,19 @@
                   </form>
                   <div class="taskStatus">
                     <p class="mb-0">Status : {{data.taskStatus}}</p>
+                    <p class="mb-0" *ngIf="data?.taskAssignedTo?._id; else elseTaskAssign">Assigned to : {{data?.taskAssignedTo?.firstName + " " + data?.taskAssignedTo?.lastName}}</p>
+                    <ng-template #elseTaskAssign> 
+                      <div class="d-flex">
+                      <p class="mt-2 mb-2">Assign to : </p> 
+                      <select class="form-select form-select-sm ml-3 mt-2 mb-2" aria-label=".form-select-sm example">
+                        <option selected>Select user</option>
+                        <option value="1" *ngFor="let userData of userList">{{userData?.firstName + " " + userData?.lastName}}</option>
+                      </select>
+                    </div>
+
+                    </ng-template>
                     <p class="mb-0" *ngIf="data.queries?.length !== 0">Queries : {{data.queries?.length}}</p>
-                    <p>Created by : {{data.taskCreatedBy}}</p>
+                    <p *ngIf="data?.taskCreatedBy?._id">Created by : {{data.taskCreatedBy?.firstName + " " + data.taskCreatedBy?.lastName}}</p>
                   </div>
               </div>
           </div>

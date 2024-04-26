@@ -16,6 +16,7 @@ import { NgForm } from '@angular/forms';
 import { ApiService } from 'src/app/service/api.service';
 import { catchError, map } from 'rxjs/operators';
 import { FilterService } from 'src/app/service/filter.service';
+import { ApiCall } from 'src/app/dependancy/apiService.service';
 
 @Component({
   selector: 'app-edit-task-model',
@@ -48,23 +49,35 @@ export class EditTaskModelComponent {
 
   editView: boolean = false;
 
-  constructor ( private api: ApiService, private filter : FilterService ) {}
+  userList ?: any = "";
+  userRefId?: any;
+  userFullName ?: any;
 
-  ngOnInit(): void {
+  constructor ( 
+    private api: ApiService, 
+    private filter : FilterService,
+    private testApi : ApiCall ) {}
+
+  async ngOnInit(): Promise<any> {
         this.taskNo = this.inputValue.taskNo;
         this.title = this.inputValue.taskTitle;
         this.description = this.inputValue?.taskDescription;
         this.status = this.inputValue.taskStatus;
         this.editView = true;
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    try {
+        this.userRefId = this.inputValue?.taskAssignedTo?._id;
+        console.log("Into the ngOnInit for edit task")
+      }
+      
+      async ngOnChanges(changes: SimpleChanges): Promise<any> {
+        try {
+          console.log("Into the ngOnChanges for edit task")
           this.editView = true;
           this.status = this.inputValue?.taskStatus;
           this.taskTitle.nativeElement.value = this.inputValue?.taskTitle || '';
           this.taskDescription.nativeElement.value = this.inputValue.taskDescription || '';
-    } catch (error: any) {
+          this.userRefId = this.inputValue?.taskAssignedTo?._id;
+          this.userList = await this.testApi.userListApi(!this.filter.isHeaderFilterEmpty() ? this.filter.getAllHeaderFilter() : null);
+        } catch (error: any) {
       console.log('The error is this : ', error);
     }
   }
@@ -95,7 +108,8 @@ export class EditTaskModelComponent {
           projectRef : this.filter.getProjectId(),
           teamRef : this.filter.getTeamId(),
           organisationRef : this.filter.getOrganisationId(),
-          taskUpdatedBy: currentUser.data[0]._id
+          taskUpdatedBy: currentUser.data[0]._id,
+          taskAssignedTo : this.userRefId
         }
       ).pipe(
         map((response: any) => {
@@ -128,6 +142,12 @@ export class EditTaskModelComponent {
     this.taskTitle.nativeElement.value = '';
     this.taskDescription.nativeElement.value = '';
     this.myForm.resetForm();
+  }
+
+  updateUserRef(data: any): any {
+    this.userRefId = data._id;
+    this.userFullName = `${data.firstName} ${data.lastName}`
+    console.log("The vlue isss : ", this.userRefId, " and the data is this : ", data)
   }
 
   onModalClose() {

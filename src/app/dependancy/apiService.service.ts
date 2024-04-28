@@ -10,7 +10,7 @@ import { catchError, map } from 'rxjs/operators';
 @Injectable()
 export class ApiCall {
     constructor(private api : HttpClient) { };
-    apiUrl = 'https:backend.tasktodo.app';
+    apiUrl = 'https://backend.tasktodo.app';
     taskListApi(payload : any = null){
         return new Promise((res,rej)=>{
             let currentUser = JSON.parse(<any>localStorage.getItem('currentUser'));

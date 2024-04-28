@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class ApiService {
 
-  apiUrl = 'https:backend.tasktodo.app';
+  apiUrl = 'https://backend.tasktodo.app';
 
   constructor(private api : HttpClient) { }
 

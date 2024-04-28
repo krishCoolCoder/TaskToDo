@@ -10,7 +10,7 @@ import { catchError, map } from 'rxjs/operators';
 @Injectable()
 export class ApiCall {
     constructor(private api : HttpClient) { };
-    apiUrl = 'http://localhost:3000';
+    apiUrl = 'https:backend.tasktodo.app';
     taskListApi(payload : any = null){
         return new Promise((res,rej)=>{
             let currentUser = JSON.parse(<any>localStorage.getItem('currentUser'));
@@ -168,6 +168,45 @@ export class ApiCall {
             });
             const options = { headers: headers };
             return this.api.patch(`${this.apiUrl}/task/updateTask`,payload, options).pipe(
+                map((response: any) => {
+                  console.log("The response of the api is this : ", response);
+                //   this.outputValue.emit({data: response});
+                res(response?.data)
+                  // this.noData = response.data.length === 0 ? true : false;
+                  // this.taskList = response?.data
+                  return response; // Forward the response to the next operator
+                }),
+                catchError((error) => {
+                  // Handle error response here
+                  console.error('API Error:', error);
+                  alert(error.error.message || error.statusText)
+                    // this.outputValue.emit({data: "response"});
+                  rej(error)
+                  throw error; // Re-throw the error to propagate it
+                  // Alternatively, you can return a default value or another Observable here
+                  // return of(defaultValue); // Return a default value
+                  // return throwError('Error occurred'); // Return another Observable
+                })).subscribe({
+                  next: (data) => {
+                    console.log('API Response:', data);
+                    // Handle the response data here
+                  },
+                  error: (error) => {
+                    console.error('API Error:', error);
+                    // Handle any errors here
+                  }
+                });
+        })
+    }
+    taskAssignPatchApi(payload : any) {
+        return new Promise ( (res, rej)=>{
+            let currentUser = JSON.parse(<any>localStorage.getItem('currentUser'));
+            console.log("The current user is this : ", currentUser);
+            const headers = new HttpHeaders({
+            'Authentication': `${currentUser.token}` // Set your header value here
+            });
+            const options = { headers: headers };
+            return this.api.patch(`${this.apiUrl}/task/assignTask`,payload, options).pipe(
                 map((response: any) => {
                   console.log("The response of the api is this : ", response);
                 //   this.outputValue.emit({data: response});

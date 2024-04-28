@@ -216,8 +216,18 @@ button {
 }
 select {
     border-radius: 5px;
+    -webkit-appearance: none;
+    /* height: 20px; */
 }
 
-/* body > app-root > app-task-to-do > div > div.list.d-flex.flex-column > div > div:nth-child(1) > div.taskDetails.d-flex.flex-column.pt-2.pl-3.pr-2 > div.taskStatus > div > select {
-    border-radius: 30px;
-} */
+.selectUserText {
+    font-size: 5px;
+}
+
+select.noAppearance {
+    -webkit-appearance: none;
+  }
+
+  .mt-2, .my-2 {
+    margin-top: 0rem!important;
+}

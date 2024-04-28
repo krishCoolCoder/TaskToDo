@@ -116,6 +116,20 @@
                     <div class="p-2 flex-grow-1 bd-highlight text-truncate mr-3" data-toggle="modal" data-target="#viewTaskModel" (click)="editTask(data, true)">
                       {{data.taskTitle}}</div>
                     <div class="p-2 bd-highlight mr-5 text-start ml-1">{{data.taskStatus}}</div>
+                    <div class="p-2 bd-highlight mr-5 text-start ml-1">
+                    <p class="mb-0" *ngIf="data?.taskAssignedTo?._id; else elseTaskAssign">Assigned to : {{data?.taskAssignedTo?.firstName + " " + data?.taskAssignedTo?.lastName}}</p>
+              <ng-template #elseTaskAssign> 
+                <div class="d-flex">
+                  <p class="">Assign to : </p> 
+                  <select class="form-select form-select-sm ml-3 mt-2 mb-4 pl-3" aria-label=".form-select-sm example"
+                  (change)="assignTask(data._id,$event)">
+                  <option selected disabled><p class="selectUserText">Select user</p></option>
+                  <option value="1" *ngFor="let userData of userList" [value]="userData._id"><p>{{userData?.firstName + " " + userData?.lastName}}</p></option>
+                </select>
+              </div>
+              
+            </ng-template>
+          </div>
                     <div class="p-2 bd-highlight mr-5">Created by : {{data.taskCreatedBy?.firstName + data.taskCreatedBy?.lastName}}</div>
                     <div class="p-2 bd-highlight">
                       <div class="options mb-3 dropdown">
@@ -165,8 +179,22 @@
                 {{data.taskTitle}}
             </div>
             <div class="requestStatus p-2 bd-highlight mr-4">
-                {{data.taskStatus}}
+              {{data.taskStatus}}
             </div>
+            <div class="requestStatus p-2 bd-highlight mr-4">
+              <p class="mb-0" *ngIf="data?.taskAssignedTo?._id; else elseTaskAssign">Assigned to : {{data?.taskAssignedTo?.firstName + " " + data?.taskAssignedTo?.lastName}}</p>
+              <ng-template #elseTaskAssign> 
+                <div class="d-flex">
+                  <p class="mt-2 mb-2">Assign to : </p> 
+                  <select class="form-select form-select-sm ml-3 mt-2 mb-2 pl-3" aria-label=".form-select-sm example"
+                  (change)="assignTask(data._id,$event)">
+                  <option selected disabled><p class="selectUserText">Select user</p></option>
+                  <option value="1" *ngFor="let userData of userList" [value]="userData._id"><p>{{userData?.firstName + " " + userData?.lastName}}</p></option>
+                </select>
+              </div>
+              
+            </ng-template>
+          </div>
             <div class="requestStatus p-2 bd-highlight mr-4">
               Created by : {{data.taskCreatedBy?.firstName + data.taskCreatedBy?.lastName}}
             </div>
@@ -253,9 +281,10 @@
                     <ng-template #elseTaskAssign> 
                       <div class="d-flex">
                       <p class="mt-2 mb-2">Assign to : </p> 
-                      <select class="form-select form-select-sm ml-3 mt-2 mb-2" aria-label=".form-select-sm example">
-                        <option selected>Select user</option>
-                        <option value="1" *ngFor="let userData of userList">{{userData?.firstName + " " + userData?.lastName}}</option>
+                      <select class="form-select form-select-sm ml-3 mt-2 mb-2 pl-3" aria-label=".form-select-sm example"
+                      (change)="assignTask(data._id,$event)">
+                        <option selected disabled><p class="selectUserText">Select user</p></option>
+                        <option value="1" *ngFor="let userData of userList" [value]="userData._id"><p>{{userData?.firstName + " " + userData?.lastName}}</p></option>
                       </select>
                     </div>
 

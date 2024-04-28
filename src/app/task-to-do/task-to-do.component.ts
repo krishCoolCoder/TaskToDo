@@ -103,6 +103,15 @@ async getDataFromHeader($event : any) {
 getProgressValue(event: any) {
   this.progress = event.target.value;
 }
-test(event: any) {
+async assignTask ( data : any, userData : any ) {
+  console.log("The data is this : ", data, " and the userData is this : ",userData.target.value)
+  await this.testApi.taskAssignPatchApi(
+    {
+      id : data,
+      assignTo : userData.target.value
+    }
+  )
+  this.taskList = await this.testApi.taskListApi(!this.filter.isHeaderFilterEmpty() ? this.filter.getAllHeaderFilter() : null);
+  this.noData = await this.taskList.length === 0 ? true : false;
 }
 }
